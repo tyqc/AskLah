@@ -6,35 +6,28 @@
     android:paddingTop="56dp"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/kaiyong"
-        android:contentDescription="@string/logo_here"
-        android:layout_gravity="center_horizontal" />
-
-    <EditText
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/create_username"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="16dp"
-        android:hint="@string/nus_id"
-        android:layout_gravity="center_horizontal" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:hint="@string/password"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginBottom="16dp"
+        android:hint="@string/username"
+        android:layout_gravity="center_horizontal"/>
 
     <Button
-        android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/login"/>
+        android:text="@string/create"/>
 
 
 </LinearLayout>
