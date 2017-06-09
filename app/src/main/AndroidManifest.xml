@@ -18,7 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateUsernameActivity"></activity>
+        <activity android:name=".CreateUsernameActivity" />
+        <activity
+            android:name=".AchievementsActivity"
+            android:label="@string/achievement"
+            android:parentActivityName=".HomeActivity" />
+        <activity android:name=".HomeActivity" />
     </application>
 
 </manifest>
