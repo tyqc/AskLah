@@ -14,6 +14,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Button that links to achievements
         Button achievementButton = (Button) findViewById(R.id.achievement_button);
         // Set a clickListener on that view
         achievementButton.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +25,20 @@ public class HomeActivity extends AppCompatActivity {
 
                 // Start the new activity
                 startActivity(achievementIntent);
+            }
+        });
+
+        // Button that links to settings
+        Button settingsButton = (Button) findViewById(R.id.settings_button);
+        // Set a clickListener on that view
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new intent to open the {@link AchievementsActivity}
+                Intent settingsIntent = new Intent(HomeActivity.this, SettingsActivity.class);
+
+                // Start the new activity
+                startActivity(settingsIntent);
             }
         });
     }

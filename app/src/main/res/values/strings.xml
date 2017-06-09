@@ -8,4 +8,6 @@
     <string name="create_username">Create your username!</string>
     <string name="logo_here">Logo here</string>
     <string name="achievement">Achievement</string>
+    <string name="push_notif">Push Notifications</string>
+    <string name="settings">Settings</string>
 </resources>
