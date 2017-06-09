@@ -41,5 +41,19 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(settingsIntent);
             }
         });
+
+        // Button that links to announcements
+        Button announcementsButton = (Button) findViewById(R.id.announcements_button);
+        // Set a clickListener on that view
+        announcementsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new intent to open the {@link AchievementsActivity}
+                Intent announcementsIntent = new Intent(HomeActivity.this, AnnouncementsActivity.class);
+
+                // Start the new activity
+                startActivity(announcementsIntent);
+            }
+        });
     }
 }

@@ -5,6 +5,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+
+import static android.R.id.toggle;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -16,6 +20,11 @@ public class SettingsActivity extends AppCompatActivity {
         // Add back button onto action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        final Switch notifSwitch = (Switch) findViewById(R.id.notif_switch);
+
+        // Notifications switched on by default
+        notifSwitch.setChecked(true);
     }
 
     @Override

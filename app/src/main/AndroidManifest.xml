@@ -28,6 +28,10 @@
             android:name=".SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".AnnouncementsActivity"
+            android:label="@string/announcements"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>
