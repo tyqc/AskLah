@@ -1,14 +1,24 @@
 <resources>
+
+    <!-- Login Strings -->
     <string name="app_name">AskLah</string>
     <string name="nus_id">NUS ID</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="logo_here">Logo here</string>
+
+    <!-- Create Username Strings -->
     <string name="username">Username</string>
     <string name="create">Create</string>
     <string name="create_username">Create your username!</string>
-    <string name="logo_here">Logo here</string>
+
+    <!-- Achievements Strings -->
     <string name="achievement">Achievements</string>
+
+    <!-- Settings Strings -->
     <string name="push_notif">Push Notifications</string>
     <string name="settings">Settings</string>
+
+    <!-- Announcements Strings -->
     <string name="announcements">Announcements</string>
 </resources>
