@@ -37,7 +37,9 @@ public class AchievementAdapter extends ArrayAdapter<Achievement> {
         ImageView achievementAttained = (ImageView) convertView.findViewById(R.id.checkmark);
 
         // Set this image on the Achievement ImageView
-        achievementAttained.setImageResource(R.drawable.ic_done_black_24dp);
+        if (achievement.getAchieved()) {
+            achievementAttained.setImageResource(R.drawable.ic_done_black_24dp);
+        }
 
         // Return the completed view to render on the screen
         return convertView;
