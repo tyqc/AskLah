@@ -1,15 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:contentDescription="Your profile pic"
+        android:src="@drawable/kaiyong" />
+
     <TextView
-        android:id="@+id/textView_movie"
+        android:id="@+id/username_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Profile Fragment"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_margin="8dp"
+        tools:text="@string/username" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/num_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10" />
+
+        <ImageView
+            android:id="@+id/question_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/num_questions"
+            android:contentDescription="Question Icon"
+            android:src="@drawable/ic_help_black_16dp" />
+
+        <TextView
+            android:id="@+id/num_replies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@id/question_icon"
+            android:text="5" />
+
+        <ImageView
+            android:id="@+id/reply_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/num_replies"
+            android:contentDescription="Reply Icon"
+            android:src="@drawable/ic_reply_black_16dp" />
+
+        <TextView
+            android:id="@+id/num_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_toEndOf="@id/reply_icon"
+            android:text="16" />
+
+        <ImageView
+            android:id="@+id/message_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/num_notifications"
+            android:contentDescription="Message Icon"
+            android:src="@drawable/ic_message_black_16dp" />
+
+        <TextView
+            android:id="@+id/num_pts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_toEndOf="@id/message_icon"
+            android:text="160" />
+
+        <TextView
+            android:id="@+id/pts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/num_pts"
+            android:text="pts"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/num_subscribed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@id/pts"
+            android:text="16" />
+
+        <ImageView
+            android:id="@+id/star_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/num_subscribed"
+            android:contentDescription="Star Icon"
+            android:src="@drawable/ic_star_black_16dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/change_username" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/your_achievements" />
 
 </LinearLayout>

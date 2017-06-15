@@ -24,4 +24,8 @@
 
     <!-- List Item Announcement Strings -->
     <string name="attain_achievement"><xliff:g example="chaomugger" id="username">%s</xliff:g> just unlocked the achievement: <xliff:g example="Question Ninja" id="achievement_name">%s</xliff:g>!</string>
+
+    <!-- fragment_profile Strings -->
+    <string name="change_username">Change username</string>
+    <string name="your_achievements">Your achievements</string>
 </resources>
