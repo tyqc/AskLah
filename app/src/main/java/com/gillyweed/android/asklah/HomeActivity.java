@@ -1,59 +1,72 @@
 package com.gillyweed.android.asklah;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Button that links to achievements
-        Button achievementButton = (Button) findViewById(R.id.achievement_button);
-        // Set a clickListener on that view
-        achievementButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create a new intent to open the {@link AchievementsActivity}
-                Intent achievementIntent = new Intent(HomeActivity.this, AchievementsActivity.class);
+        toolbar = (Toolbar) findViewById(R.id.mytoolbar);
+        setSupportActionBar(toolbar);
 
-                // Start the new activity
-                startActivity(achievementIntent);
-            }
-        });
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setViewPager(viewPager);
 
-        // Button that links to settings
-        Button settingsButton = (Button) findViewById(R.id.settings_button);
-        // Set a clickListener on that view
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create a new intent to open the {@link AchievementsActivity}
-                Intent settingsIntent = new Intent(HomeActivity.this, SettingsActivity.class);
+        tabLayout = (TabLayout) findViewById(R.id.mytabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
 
-                // Start the new activity
-                startActivity(settingsIntent);
-            }
-        });
+    private void setViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new HomeFragment(), "Home");
+        adapter.addFragment(new NotifFragment(), "Notifications");
+        adapter.addFragment(new ProfileFragment(), "Profile");
+        viewPager.setAdapter(adapter);
+    }
 
-        // Button that links to announcements
-        Button announcementsButton = (Button) findViewById(R.id.announcements_button);
-        // Set a clickListener on that view
-        announcementsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create a new intent to open the {@link AchievementsActivity}
-                Intent announcementsIntent = new Intent(HomeActivity.this, AnnouncementsActivity.class);
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-                // Start the new activity
-                startActivity(announcementsIntent);
-            }
-        });
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }
