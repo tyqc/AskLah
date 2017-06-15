@@ -21,8 +21,7 @@
         <activity android:name=".CreateUsernameActivity" />
         <activity
             android:name=".AchievementsActivity"
-            android:label="@string/achievement"
-            android:parentActivityName=".HomeActivity" />
+            android:label="@string/achievement" />
         <activity
             android:name=".HomeActivity"
             android:theme="@style/MyAppTheme" />
