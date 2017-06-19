@@ -28,4 +28,7 @@
     <!-- fragment_profile Strings -->
     <string name="change_username">Change username</string>
     <string name="your_achievements">Your achievements</string>
+
+    <!-- Modules List Strings -->
+    <string name="modules_list">Modules List</string>
 </resources>

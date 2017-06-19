@@ -33,7 +33,9 @@
             android:name=".AnnouncementsActivity"
             android:label="@string/announcements"
             android:parentActivityName=".HomeActivity" />
-        <activity android:name=".ModulesListActivity"></activity>
+        <activity
+            android:name=".ModulesListActivity"
+            android:label="@string/modules_list" />
     </application>
 
 </manifest>
