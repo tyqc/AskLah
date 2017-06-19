@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModulesListActivity extends AppCompatActivity {
 
@@ -19,7 +20,6 @@ public class ModulesListActivity extends AppCompatActivity {
 
         // List of filter options
         ArrayList<String> filterOptionsList = new ArrayList<>();
-        filterOptionsList.add("Alphabetical");
         filterOptionsList.add("Module Code");
         filterOptionsList.add("Level");
 
@@ -42,5 +42,9 @@ public class ModulesListActivity extends AppCompatActivity {
 
         // Apply the adapter to the list view
         modulesListView.setAdapter(modulesAdapter);
+
+
+        // Attach the adapter to list view
+        ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
     }
 }
