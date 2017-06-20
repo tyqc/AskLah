@@ -2,9 +2,12 @@ package com.gillyweed.android.asklah;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -70,5 +73,31 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
                 startActivity(qnThreadActivityIntent);
             }
         });
+
+        // Add back button onto action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    // Add a search button in action bar
+    // Action bar layout is same as ModulesListActivity
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflates the menu. Adds items to action bar if present
+        getMenuInflater().inflate(R.menu.menu_modules_list, menu);
+        return true;
+    }
+
+    // Link back button with Home Fragment
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
