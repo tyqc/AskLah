@@ -31,4 +31,7 @@
 
     <!-- Modules List Strings -->
     <string name="modules_list">Modules List</string>
+
+    <!-- Recycle Item thread Strings -->
+    <string name="comment_op">Posted by <xliff:g example="chaomugger" id="username">%s</xliff:g> on <xliff:g example="26/3/13" id="date">%s</xliff:g> <xliff:g example="1250h" id="time">%s</xliff:g></string>
 </resources>

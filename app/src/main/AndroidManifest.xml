@@ -36,7 +36,8 @@
         <activity
             android:name=".ModulesListActivity"
             android:label="@string/modules_list" />
-        <activity android:name=".SubscribedQuestionsActivity"></activity>
+        <activity android:name=".SubscribedQuestionsActivity" />
+        <activity android:name=".QuestionThreadActivity"></activity>
     </application>
 
 </manifest>
