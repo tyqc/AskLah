@@ -1,8 +1,12 @@
 package com.gillyweed.android.asklah;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -57,5 +61,14 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
         // Attach the adapter to a listview
         ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
         subscribedQnsListView.setAdapter(subscribedQnAdapter);
+
+        subscribedQnsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Create a new intent to open Modules List Activity
+                Intent qnThreadActivityIntent = new Intent(SubscribedQuestionsActivity.this, QuestionThreadActivity.class);
+                startActivity(qnThreadActivityIntent);
+            }
+        });
     }
 }

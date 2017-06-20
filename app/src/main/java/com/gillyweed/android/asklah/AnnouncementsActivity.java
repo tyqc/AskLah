@@ -23,6 +23,7 @@ public class AnnouncementsActivity extends AppCompatActivity {
         // Construct the data source
         ArrayList<Announcement> announcementArrayList = new ArrayList<Announcement>();
         announcementArrayList.add(new Announcement("megaNerd", "3 seconds ago", "Rapid Tapper"));
+        announcementArrayList.add(new Announcement("holmes", "5 minutes ago", "Question Ninja"));
 
         // Create the adapter to convert the arraylist to views
         AnnouncementAdapter announcementAdapter = new AnnouncementAdapter(this, announcementArrayList);
