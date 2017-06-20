@@ -39,7 +39,9 @@
         <activity
             android:name=".SubscribedQuestionsActivity"
             android:label="@string/subscribed_questions" />
-        <activity android:name=".QuestionThreadActivity" />
+        <activity
+            android:name=".QuestionThreadActivity"
+            android:parentActivityName=".SubscribedQuestionsActivity" />
     </application>
 
 </manifest>
