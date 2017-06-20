@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
         modulesOrMajorsList.add("CS2100");
         modulesOrMajorsList.add("CS1231");
         modulesOrMajorsList.add("MA1101R");
+        modulesOrMajorsList.add("Subscribed Questions");
 
         GridView homeGridView = (GridView) rootView.findViewById(R.id.home_grid_view);
 
