@@ -1,7 +1,11 @@
 package com.gillyweed.android.asklah;
 
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -46,5 +50,28 @@ public class ModulesListActivity extends AppCompatActivity {
 
         // Attach the adapter to list view
         ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
+
+        // Add back button onto action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflates the menu. Adds items to action bar if present
+        getMenuInflater().inflate(R.menu.menu_modules_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handles action of action bar items
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
