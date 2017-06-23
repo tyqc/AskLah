@@ -26,10 +26,12 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        // Inflate layout of home fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         ArrayList<String> modulesOrMajorsList = new ArrayList<String>();
 
+        // Sample of some module codes
         modulesOrMajorsList.add("CS1020");
         modulesOrMajorsList.add("CS1010");
         modulesOrMajorsList.add("CS2010");
@@ -40,10 +42,13 @@ public class HomeFragment extends Fragment {
 
         GridView homeGridView = (GridView) rootView.findViewById(R.id.home_grid_view);
 
+        // Creating a new adapter to store the data
         ArrayAdapter<String> modulesOrMajorsAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, modulesOrMajorsList);
 
+        // Attach adapter to grid view
         homeGridView.setAdapter(modulesOrMajorsAdapter);
 
+        // Clicking on any of the grid items leads to the same activity. :<
         homeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
