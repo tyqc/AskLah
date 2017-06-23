@@ -37,4 +37,7 @@
 
     <!-- Subscribed Questions Strings -->
     <string name="subscribed_questions">Subscribed Questions</string>
+
+    <!-- Reply Text Activity Strings -->
+    <string name="done">Done</string>
 </resources>

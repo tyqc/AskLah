@@ -42,6 +42,10 @@
         <activity
             android:name=".QuestionThreadActivity"
             android:parentActivityName=".SubscribedQuestionsActivity" />
+        <activity
+            android:name=".ReplyTextActivity"
+            android:label="Reply"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>

@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Create a new intent to open Modules List Activity
-                Intent modulesListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
+                Intent modulesListIntent = new Intent(getActivity(), ModulesListActivity.class);
                 startActivity(modulesListIntent);
             }
         });
