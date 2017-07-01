@@ -19,7 +19,7 @@ public class AchievementAdapter extends ArrayAdapter<Achievement> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // Get the data item for this position
+        // Get the model item for this position
         Achievement achievement = getItem(position);
 
         // Check if an existing view is being reused, else inflate the view

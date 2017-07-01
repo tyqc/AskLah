@@ -22,7 +22,7 @@ public class SubscribedQnAdapter extends ArrayAdapter<SubscribedQuestion> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // Get the data item for this position
+        // Get the model item for this position
         SubscribedQuestion subscribedQuestion = getItem(position);
 
         // Check if an existing view is being reused, otheriwse inflate the view

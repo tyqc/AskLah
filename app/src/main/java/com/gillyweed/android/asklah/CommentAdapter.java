@@ -40,13 +40,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return viewHolder;
     }
 
-    // Involves populating data into the item through holder
+    // Involves populating model into the item through holder
     @Override
     public void onBindViewHolder(CommentAdapter.ViewHolder holder, int position) {
-        // Get the data model based on position
+        // Get the model model based on position
         Comment comment = mCommentsList.get(position);
 
-        // Set item views based on your views and data model
+        // Set item views based on your views and model model
         TextView messageTextView = holder.commentTextView;
         messageTextView.setText(comment.getMessage());
         TextView userTextView = holder.commentOpTextView;
@@ -60,7 +60,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return mCommentsList.size();
     }
 
-    // Provide a direct reference to each of the views within a data item
+    // Provide a direct reference to each of the views within a model item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder {
 

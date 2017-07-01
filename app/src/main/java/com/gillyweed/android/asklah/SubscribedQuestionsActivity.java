@@ -52,11 +52,11 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         filterBySpinner.setAdapter(filterByAdapter);
 
-        // Construct the data source
+        // Construct the model source
         ArrayList<SubscribedQuestion> subscribedQuestionsList = new ArrayList<>();
         ArrayList<String> tagsList = new ArrayList<>();
         tagsList.add("#CS1020");
-        subscribedQuestionsList.add(new SubscribedQuestion("CS1020 help", "I was looking through the PYP and chanced upon this question", tagsList));
+        subscribedQuestionsList.add(new SubscribedQuestion("CS1020 help", "I was looking through the PYP and chanced upon this question...", tagsList));
 
         // Create the adapter to convert the arraylist into views
         SubscribedQnAdapter subscribedQnAdapter = new SubscribedQnAdapter(this, subscribedQuestionsList);

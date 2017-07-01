@@ -20,7 +20,7 @@ public class AnnouncementsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // Construct the data source
+        // Construct the model source
         ArrayList<Announcement> announcementArrayList = new ArrayList<Announcement>();
         announcementArrayList.add(new Announcement("megaNerd", "3 seconds ago", "Rapid Tapper"));
         announcementArrayList.add(new Announcement("holmes", "5 minutes ago", "Question Ninja"));

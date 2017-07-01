@@ -15,6 +15,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
     <EditText
+        android:id="@+id/usernameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

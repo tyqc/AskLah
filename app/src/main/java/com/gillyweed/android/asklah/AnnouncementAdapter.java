@@ -20,7 +20,7 @@ public class AnnouncementAdapter extends ArrayAdapter<Announcement> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
+        // Get the model item for this position
         Announcement announcement = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view

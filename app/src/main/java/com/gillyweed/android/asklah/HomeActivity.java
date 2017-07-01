@@ -2,6 +2,7 @@ package com.gillyweed.android.asklah;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private FloatingActionButton addPostBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,18 @@ public class HomeActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.mytabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        addPostBtn = (FloatingActionButton) findViewById(R.id.add_new_post);
+
+        addPostBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(HomeActivity.this, Add_Post.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -66,6 +81,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "Home");
+//        adapter.addFragment(new HomeFragmentNewUser(), "Home");
         adapter.addFragment(new NotifFragment(), "Notifications");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);

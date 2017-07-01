@@ -3,11 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gillyweed.android.asklah.QuestionThreadActivity">
+    tools:context="com.gillyweed.android.asklah.QuestionThreadActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/question_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="CS1020 help"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+    <TextView
+        android:id="@+id/question_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="I was looking through the PYP and chanced upon this question. Lorem ipsum dolor sit amet, per bonorum voluptatibus an, scripta tamquam vel cu. Modo voluptua in nec, eu dolorem scripserit vix. Sanctus perpetua duo id, at eum volumus theophrastus. Nibh patrioque sea an."
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/question_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Tag: AY2016/2017 Sem 1 CS1020"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/question_owner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Posted by tester123 on 21/6/2017 1130h "
+        android:layout_marginBottom="10dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/thread_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

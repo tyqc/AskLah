@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gillyweed.android.asklah">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_round"
@@ -9,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
@@ -34,6 +39,10 @@
             android:label="@string/announcements"
             android:parentActivityName=".HomeActivity" />
         <activity
+            android:name=".Add_Post"
+            android:label="Add New Post"
+            android:parentActivityName=".HomeActivity" />
+        <activity
             android:name=".ModulesListActivity"
             android:label="@string/modules_list" />
         <activity
@@ -42,6 +51,12 @@
         <activity
             android:name=".QuestionThreadActivity"
             android:parentActivityName=".SubscribedQuestionsActivity" />
+        <activity
+            android:name=".CameraFullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_camera_fullscreen"
+            android:theme="@style/FullscreenTheme" />
+
     </application>
 
 </manifest>

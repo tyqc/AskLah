@@ -3,6 +3,7 @@ package com.gillyweed.android.asklah;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment {
         modulesOrMajorsList.add("CS2100");
         modulesOrMajorsList.add("CS1231");
         modulesOrMajorsList.add("MA1101R");
-        modulesOrMajorsList.add("Subscribed Questions");
+//        modulesOrMajorsList.add("Create new tag");
 
         GridView homeGridView = (GridView) rootView.findViewById(R.id.home_grid_view);
 
@@ -50,6 +51,9 @@ public class HomeFragment extends Fragment {
                 // Create a new intent to open Modules List Activity
                 Intent modulesListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
                 startActivity(modulesListIntent);
+//                DialogFragment newFragment = new AddTagDialog();
+//                newFragment.setTargetFragment(HomeFragment.this, 1001);
+//                newFragment.show(getFragmentManager(), "dialog");
             }
         });
 

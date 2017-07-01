@@ -19,7 +19,7 @@ public class AchievementsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievements);
 
-        // Construct the data source
+        // Construct the model source
         ArrayList<Achievement> achievementArrayList = new ArrayList<Achievement>();
         achievementArrayList.add(new Achievement("Question Ninja", true));
 

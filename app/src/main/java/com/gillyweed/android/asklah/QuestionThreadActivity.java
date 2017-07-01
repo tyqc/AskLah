@@ -26,7 +26,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
         sampleCommentsList.add(new Comment("Bonjour Kaiyong !", getString(R.string.comment_op, "toh", "13/4/13", "1233h")));
         sampleCommentsList.add(new Comment("Salut Toh !", getString(R.string.comment_op, "holmes", "14/3/14", "1233h")));
 
-        // Create a CommentAdapter to pass in sample data
+        // Create a CommentAdapter to pass in sample model
         CommentAdapter commentAdapter = new CommentAdapter(this, sampleCommentsList);
 
         // Attach the adapter to the RecyclerView to populate the items
