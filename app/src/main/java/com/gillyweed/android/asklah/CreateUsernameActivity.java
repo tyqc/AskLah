@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class CreateUsernameActivity extends AppCompatActivity {
 
     public static final String MyPref = "MyPrefs";
+    private static final String TAG = "response";
     SharedPreferences sharedPreferences;
     Button createButton;
     EditText usernameText;

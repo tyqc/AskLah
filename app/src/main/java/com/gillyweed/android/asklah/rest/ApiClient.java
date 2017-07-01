@@ -22,26 +22,6 @@ public class ApiClient {
 
     public static Retrofit getClient()
     {
-//        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-//
-//        httpClient.addInterceptor(new Interceptor() {
-//            @Override
-//            public okhttp3.Response intercept(Chain chain) throws IOException {
-//
-//                Request original = chain.request();
-//
-//                //request customization: add request headers
-//                Request.Builder requestBuilder = original.newBuilder()
-//                        .addHeader("Api_Key", "08006c47-d0b9-4990-adb1-7d76610a4536")
-//                        .addHeader("Content-Type", "application/json");
-//
-//                Request request = requestBuilder.build();
-//
-//                return chain.proceed(request);
-//            }
-//        });
-//
-//        OkHttpClient client = httpClient.build();
 
         Gson gson = new GsonBuilder()
                 .setLenient()

@@ -68,13 +68,9 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-
         ApiClient apiClient = new ApiClient();
 
         Retrofit retrofit = apiClient.getClient();
-
-        //create api interface
-//        final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         final ApiInterface apiService = retrofit.create(ApiInterface.class);
 
@@ -94,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 loginUser.setPassword(password);
 
-                Call<User> call = apiService.login(loginUser);
+                Call<User> call = apiService.login(loginUser, "access_token,subscription_tag");
 
                 call.enqueue(new Callback<User>() {
                     @Override
@@ -143,23 +139,8 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i(TAG, "response code 3: " + t.getMessage());
                     }
                 });
-//                try
-//                {
-//                    JSONObject paramObject = new JSONObject();
-//                    paramObject.put("nus_id", nus_id);
-//                    paramObject.put("password", password);
-//
-//                    Call<User> loginUser = apiService.login(paramObject.toString());
-//                    loginUser.enqueue(this);
-//                }
-//                catch (JSONException e)
-//                {
-//                    e.printStackTrace();
-//                }
-
             }
         });
-
     }
 
     public void checkUsernameExist(Response<User> response)
@@ -183,6 +164,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
+            Log.i(TAG, userData.getAccessToken().getToken());
+
             Toast.makeText(LoginActivity.this, "Welcome " + userData.getUsername(), Toast.LENGTH_LONG).show();
 
             // Create a new intent to open the {@link CreateUsernameActivity}

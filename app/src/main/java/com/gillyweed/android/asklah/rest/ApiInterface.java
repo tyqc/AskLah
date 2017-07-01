@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by Envy 15 on 28/6/2017.
@@ -23,5 +24,10 @@ public interface ApiInterface {
 
 
     @POST("user/login")
-    Call<User> login(@Body User userBody);
+    Call<User> login(
+            @Body User userBody,
+            @Query("include") String includes);
+
+//    @POST("user/update")
+//    Call<User>
 }
