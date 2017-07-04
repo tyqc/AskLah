@@ -8,6 +8,7 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -22,6 +23,13 @@ public class ApiClient {
 
     public static Retrofit getClient()
     {
+        OkHttpClient.Builder client = new OkHttpClient.Builder();
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        client.addInterceptor(loggingInterceptor);
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -31,6 +39,7 @@ public class ApiClient {
         {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .client(client.build())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }

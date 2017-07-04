@@ -113,7 +113,7 @@ public class User implements Parcelable{
         dest.writeString(name);
         dest.writeString(username);
         dest.writeString(role);
-        
-        accessToken.writeToParcel(dest, flags);
+
+//        accessToken.writeToParcel(dest, flags);
     }
 }

@@ -1,9 +1,6 @@
 package com.gillyweed.android.asklah;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,36 +12,17 @@ import android.widget.Toast;
 import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static android.R.attr.apiKey;
-import static android.R.attr.defaultHeight;
-import static android.R.attr.start;
-import static com.gillyweed.android.asklah.R.string.login;
-
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String MyPref = "MyPrefs";
+//    public static final String MyPref = "MyPrefs";
     private final static String API_KEY = "08006c47-d0b9-4990-adb1-7d76610a4536";
     private static final String TAG = "response";
-    SharedPreferences sharedPreferences;
     Button loginButton;
     EditText nus_idText;
     EditText passwordText;
@@ -52,8 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        sharedPreferences = getSharedPreferences(MyPref, Context.MODE_PRIVATE);
 
         setContentView(R.layout.activity_login);
 
@@ -70,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ApiClient apiClient = new ApiClient();
 
-        Retrofit retrofit = apiClient.getClient();
+        final Retrofit retrofit = apiClient.getClient();
 
         final ApiInterface apiService = retrofit.create(ApiInterface.class);
 
@@ -81,8 +57,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 String nus_id = nus_idText.getText().toString();
                 String password = passwordText.getText().toString();
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
 
                 User loginUser = new User();
 
@@ -96,19 +70,26 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
 
+                        int responseCode = response.code();
+
                         if(response.isSuccessful())
                         {
-                            int responseCode = response.code();
+//                            Log.i(TAG, "response code 1: " + response.code());
 
-                            Log.i(TAG, "response code 1: " + response.code());
-
+                            if(responseCode == 200)
+                            {
+                                checkUsernameExist(response);
+//                                Log.i(TAG, "why not work!!!");
+                            }
+                        }
+                        else
+                        {
                             switch (responseCode)
                             {
-                                case 200:
-                                    checkUsernameExist(response);
-                                    Log.i(TAG, "why not work!!!");
-                                    break;
                                 case 400:
+                                    Toast.makeText(LoginActivity.this, "Wrong NUS ID or password", Toast.LENGTH_LONG).show();
+                                    break;
+                                case 401:
                                     Toast.makeText(LoginActivity.this, "Wrong NUS ID or password", Toast.LENGTH_LONG).show();
                                     break;
                                 case 404:
@@ -119,24 +100,20 @@ public class LoginActivity extends AppCompatActivity {
                                     break;
                             }
                         }
-                        if(response.body() == null)
-                        {
-                            Toast.makeText(LoginActivity.this, "Wrong NUS ID or password", Toast.LENGTH_LONG).show();
-                        }
-                        Log.i(TAG, "response code 2: " + response.body());
+
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
                         if(call.isCanceled())
                         {
-                            Log.e(TAG, "request was aborted");
+//                            Log.e(TAG, "request was aborted");
                         }
                         else
                         {
                             Log.e(TAG, t.getMessage());
                         }
-                        Log.i(TAG, "response code 3: " + t.getMessage());
+//                        Log.i(TAG, "response code 3: " + t.getMessage());
                     }
                 });
             }

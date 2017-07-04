@@ -84,6 +84,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Envy 15.TKYong\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\logging-interceptor\3.6.0\81887458b69ddc32722df7e4c35235fd74e6a8ba\logging-interceptor-3.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="81887458b69ddc32722df7e4c35235fd74e6a8ba">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\logging-interceptor-3.6.0_7161b0d14d9feac100a6ea0a9d810ecf368235be\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Envy 15.TKYong\.android\build-cache\ea762b0bbdff60493d9c13d09024c0133954731c\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
