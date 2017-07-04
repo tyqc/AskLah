@@ -1,6 +1,8 @@
 package com.gillyweed.android.asklah;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +39,13 @@ public class ProfileFragment extends Fragment {
     private static final String TAG = "profile";
     SharedPreferences sharedPreferences;
     TextView usernameTextView;
+    EditText newUsernameText;
+    AccessToken currentUserToken;
+    User currentUser;
+    ApiInterface apiService;
+    ApiClient apiClient;
+    Retrofit retrofit;
+
     public ProfileFragment() {
     }
 
@@ -58,15 +68,17 @@ public class ProfileFragment extends Fragment {
 
         profileList.setAdapter(listItemAdapter);
 
-        ApiClient apiClient = new ApiClient();
+        apiClient = new ApiClient();
 
-        Retrofit retrofit = apiClient.getClient();
+        retrofit = apiClient.getClient();
 
-        final ApiInterface apiService = retrofit.create(ApiInterface.class);
+        apiService = retrofit.create(ApiInterface.class);
 
-        final AccessToken currentUserToken = getActivity().getIntent().getParcelableExtra("accessToken");
+        currentUserToken = getActivity().getIntent().getParcelableExtra("accessToken");
 
-        updateUsername();
+        currentUser = getActivity().getIntent().getParcelableExtra("user");
+
+        usernameTextView.setText(currentUser.getUsername());
 
         profileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,9 +86,9 @@ public class ProfileFragment extends Fragment {
                 switch(position)
                 {
                     case 0:
-                        DialogFragment newFragment = new ChangeUsernameDialogFragment();
-                        newFragment.show(getFragmentManager(), "ChangeUsernameDialogFragment");
-                        updateUsername();
+//                        DialogFragment newFragment = new ChangeUsernameDialogFragment();
+//                        newFragment.show(getFragmentManager(), "ChangeUsernameDialogFragment");
+                        showChangeUsernameDialog();
                         break;
                     case 1:
                         //Create a new intent to open the {@link AchievementsAcitivty}
@@ -145,12 +157,102 @@ public class ProfileFragment extends Fragment {
 //        setListAdapter(adapter);
 //    }
 
+    public void showChangeUsernameDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_change_username, null);
+        newUsernameText = (EditText)view.findViewById(R.id.new_usernameText);
+        builder.setView(view)
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        String newUsername = newUsernameText.getText().toString();
+                        if(newUsername != "")
+                        {
+                            updateUsernameAPI(newUsername);
+                            updateUsername(newUsername);
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Please type a new username :)", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
-
-    public void updateUsername()
+    public void updateUsernameAPI(String newUsername)
     {
         User currentUser = getActivity().getIntent().getParcelableExtra("user");
+        currentUser.setUsername(newUsername);
 
-        usernameTextView.setText(currentUser.getUsername());
+        Call<User> call = apiService.update(currentUserToken.getToken(),currentUser);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                int responseCode = response.code();
+
+                if(response.isSuccessful())
+                {
+                    if(responseCode == 200)
+                    {
+                        Toast.makeText(getActivity(), "Username is updated!", Toast.LENGTH_LONG).show();
+
+                        User updatedUser = response.body();
+
+                        getActivity().getIntent().putExtra("user", updatedUser);
+                    }
+
+                }
+                else
+                {
+                    Log.i(TAG, "error code: " + response.errorBody().toString());
+                    Log.i(TAG, "error code: " + response.code());
+                    switch (responseCode)
+                    {
+                        case 400:
+                            Toast.makeText(getActivity(), "Username field cannot be empty :(", Toast.LENGTH_LONG).show();
+                            break;
+                        case 404:
+                            Toast.makeText(getActivity(), "Your data cannot be found in database", Toast.LENGTH_LONG).show();
+                            break;
+                        case 409:
+                            Toast.makeText(getActivity(), "Your new unsername has been taken by others :(", Toast.LENGTH_LONG).show();
+                            break;
+                        default:
+                            Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                if(call.isCanceled())
+                {
+                    Log.e(TAG, "request was aborted");
+                }
+                else
+                {
+                    Log.e(TAG, t.getMessage());
+                }
+                Log.i(TAG, "response code 3: " + t.getMessage());
+            }
+        });
+
+    }
+
+    public void updateUsername(String newUsername)
+    {
+        usernameTextView.setText(newUsername);
     }
 }
