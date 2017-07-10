@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by Envy 15 on 28/6/2017.
  */
@@ -28,8 +30,8 @@ public class User implements Parcelable{
     @SerializedName("access_token")
     private AccessToken accessToken;
 
-    @SerializedName("subscription_tag")
-    private SubscriptionTag subscriptionTag;
+//    @SerializedName("subscription_tag")
+//    private ArrayList<SubscriptionTag> subscriptionTag;
 
     public User()
     {
@@ -97,10 +99,10 @@ public class User implements Parcelable{
         return accessToken;
     }
 
-    public SubscriptionTag getSubscriptionTag()
-    {
-        return subscriptionTag;
-    }
+//    public ArrayList<SubscriptionTag> getSubscriptionTag()
+//    {
+//        return subscriptionTag;
+//    }
 
     @Override
     public int describeContents() {

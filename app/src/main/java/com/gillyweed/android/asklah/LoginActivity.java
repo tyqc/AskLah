@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 loginUser.setPassword(password);
 
-                Call<User> call = apiService.login(loginUser, "access_token,subscription_tag");
+                Call<User> call = apiService.login(loginUser, "access_token");
 
                 call.enqueue(new Callback<User>() {
                     @Override
