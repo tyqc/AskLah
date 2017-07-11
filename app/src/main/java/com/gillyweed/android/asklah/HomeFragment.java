@@ -225,7 +225,7 @@ public class HomeFragment extends Fragment {
                 showEditTagDialog(info.position);
                 break;
             case R.id.deleteBtn:
-                Toast.makeText(getActivity(), "delete " + info.position, Toast.LENGTH_LONG).show();
+                deleteTag(info.position);
                 break;
             case R.id.unsubscribeBtn:
                 Toast.makeText(getActivity(), "unsubscribe " + info.position, Toast.LENGTH_LONG).show();
@@ -234,11 +234,6 @@ public class HomeFragment extends Fragment {
 
         return true;
     }
-//
-//    public void getSubscribedTag(ApiClient apiClient, Retrofit retrofit, ApiInterface apiService, User currentUser, AccessToken currentAccessToken)
-//    {
-//
-//    }
 
     public void getSubscribedTagName()
     {
@@ -488,6 +483,69 @@ public class HomeFragment extends Fragment {
     public void updateModuleNameList(int tagPosition)
     {
         moduleNameList.set(tagPosition, subscribedTagList.get(tagPosition).getTag().getTagName());
+
+        modulesOrMajorsAdapter.notifyDataSetChanged();
+    }
+
+    public void deleteTag(final int tagPosition)
+    {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Delete Tag")
+                .setMessage("Are you sure you want to delete this tag?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Call<ResponseBody> call = apiService.deleteTag(currentUserToken.getToken(), subscribedTagList.get(tagPosition).getTagId());
+
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                int responseCode = response.code();
+
+                                if(response.isSuccessful())
+                                {
+                                    Toast.makeText(getActivity(), "The tag deleted!", Toast.LENGTH_LONG).show();
+
+                                    removeTagFromList(tagPosition);
+                                }
+                                else
+                                {
+                                    switch (responseCode)
+                                    {
+                                        case 400:
+                                            Toast.makeText(getActivity(), "Please provide tag id", Toast.LENGTH_LONG).show();
+                                            break;
+                                        case 404:
+                                            Toast.makeText(getActivity(), "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                            break;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                if(call.isCanceled())
+                                {
+                                    Log.e(TAG, "request was aborted");
+                                }
+                                else
+                                {
+                                    Log.e(TAG, t.getMessage());
+                                }
+                                Log.i(TAG, "response code 3: " + t.getMessage());
+                            }
+                        });
+                    }})
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    public void removeTagFromList(int tagPosition)
+    {
+        moduleNameList.remove(tagPosition);
+
+        subscribedTagList.remove(tagPosition);
 
         modulesOrMajorsAdapter.notifyDataSetChanged();
     }
