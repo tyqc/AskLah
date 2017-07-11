@@ -61,4 +61,9 @@ public interface ApiInterface {
     @POST("tags")
     Call<SubscriptionTag> addNewTag(@Header("Auth_Key") String accessToken, @Body Tag newTag);
 
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @PUT("tags")
+    Call<ResponseBody> editTag(@Header("Auth_Key") String accessToken, @Body Tag editTag, @Query("tag_id") int tagId);
 }

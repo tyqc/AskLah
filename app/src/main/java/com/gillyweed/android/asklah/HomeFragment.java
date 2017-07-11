@@ -1,12 +1,9 @@
 package com.gillyweed.android.asklah;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -18,10 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.gillyweed.android.asklah.data.model.AccessToken;
 import com.gillyweed.android.asklah.data.model.SubscriptionTag;
@@ -31,9 +27,6 @@ import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -62,6 +55,9 @@ public class HomeFragment extends Fragment {
 
     ArrayAdapter<String> modulesOrMajorsAdapter = null;
 
+    EditText tagNameText;
+    EditText tagDescriptionText;
+    ToggleButton statusToggle;
 
     public HomeFragment() {
 
@@ -202,7 +198,17 @@ public class HomeFragment extends Fragment {
     {
         super.onCreateContextMenu(menu, view, menuInfo);
 
-        getActivity().getMenuInflater().inflate(R.menu.module_tag_actions, menu);
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+        if(!subscribedTagList.get(info.position).getTag().getTagOwner().getNusId().equalsIgnoreCase(currentUser.getNusId()))
+        {
+            getActivity().getMenuInflater().inflate(R.menu.module_tag_actions, menu);
+        }
+        else
+        {
+            getActivity().getMenuInflater().inflate(R.menu.module_tag_actions_owner, menu);
+        }
+
     }
 
     @Override
@@ -216,7 +222,7 @@ public class HomeFragment extends Fragment {
                 showTagInfoDialog(info.position);
                 break;
             case R.id.editBtn:
-                Toast.makeText(getActivity(), "edit " + info.position, Toast.LENGTH_LONG).show();
+                showEditTagDialog(info.position);
                 break;
             case R.id.deleteBtn:
                 Toast.makeText(getActivity(), "delete " + info.position, Toast.LENGTH_LONG).show();
@@ -238,7 +244,6 @@ public class HomeFragment extends Fragment {
     {
         for(int i = 0; i < subscribedTagList.size(); i++)
         {
-            Log.i(TAG, subscribedTagList.get(i).getTag().getTagName());
             moduleNameList.add(subscribedTagList.get(i).getTag().getTagName());
         }
     }
@@ -289,9 +294,11 @@ public class HomeFragment extends Fragment {
     public void showAddTagDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_tag, null);
-        final EditText tagNameText = (EditText) view.findViewById(R.id.tag_nameText);
-        final EditText tagDescriptionText = (EditText) view.findViewById(R.id.tag_descriptionText);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_edit_tag, null);
+        tagNameText = (EditText) view.findViewById(R.id.tag_nameText);
+        tagDescriptionText = (EditText) view.findViewById(R.id.tag_descriptionText);
+        statusToggle = (ToggleButton) view.findViewById(R.id.statusToggle);
+        statusToggle.setVisibility(View.INVISIBLE);
 
         builder.setView(view)
                 .setTitle("Add New Tag")
@@ -372,6 +379,115 @@ public class HomeFragment extends Fragment {
         moduleNameList.remove(moduleNameList.size() - 1);
         moduleNameList.add(newTag.getTag().getTagName());
         moduleNameList.add(lastContent);
+
+        modulesOrMajorsAdapter.notifyDataSetChanged();
+    }
+
+    public void showEditTagDialog(final int tagPosition)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_edit_tag, null);
+        tagNameText = (EditText) view.findViewById(R.id.tag_nameText);
+        tagDescriptionText = (EditText) view.findViewById(R.id.tag_descriptionText);
+        statusToggle = (ToggleButton) view.findViewById(R.id.statusToggle);
+
+        final SubscriptionTag getTag = subscribedTagList.get(tagPosition);
+
+        tagNameText.setText(getTag.getTag().getTagName());
+
+        tagDescriptionText.setText(getTag.getTag().getDescription());
+
+        if(getTag.getTag().getTagStatus() == 1)
+        {
+            statusToggle.setChecked(true);
+        }
+        else
+        {
+            statusToggle.setChecked(false);
+        }
+
+        builder.setView(view)
+                .setTitle("Edit New Tag")
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                        getTag.getTag().setTagName(tagNameText.getText().toString());
+
+                        getTag.getTag().setDescription(tagDescriptionText.getText().toString());
+
+                        if(statusToggle.isChecked() == true)
+                        {
+                            getTag.getTag().setTagStatus(1);
+                        }
+                        else
+                        {
+                            getTag.getTag().setTagStatus(0);
+                        }
+
+                        Call<ResponseBody> call = apiService.editTag(currentUserToken.getToken(), getTag.getTag(), getTag.getTagId());
+
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                int responseCode = response.code();
+
+                                if(response.isSuccessful())
+                                {
+                                    Toast.makeText(getActivity(), "Tag info updated!", Toast.LENGTH_LONG).show();
+
+                                    updateModuleNameList(tagPosition);
+                                }
+                                else
+                                {
+                                    switch (responseCode)
+                                    {
+                                        case 400:
+                                            Toast.makeText(getActivity(), "Tag name field cannot be empty :(", Toast.LENGTH_LONG).show();
+                                            break;
+                                        case 404:
+                                            Toast.makeText(getActivity(), "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
+                                            break;
+                                        case 409:
+                                            Toast.makeText(getActivity(), "Tag name must be unique", Toast.LENGTH_LONG).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                            break;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                if(call.isCanceled())
+                                {
+                                    Log.e(TAG, "request was aborted");
+                                }
+                                else
+                                {
+                                    Log.e(TAG, t.getMessage());
+                                }
+                                Log.i(TAG, "response code 3: " + t.getMessage());
+                            }
+                        });
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void updateModuleNameList(int tagPosition)
+    {
+        moduleNameList.set(tagPosition, subscribedTagList.get(tagPosition).getTag().getTagName());
 
         modulesOrMajorsAdapter.notifyDataSetChanged();
     }

@@ -2,7 +2,6 @@ package com.gillyweed.android.asklah;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -21,7 +20,7 @@ public class AddTagDialog extends DialogFragment {
         final LayoutInflater inflater = getActivity().getLayoutInflater();
 
 
-        builder.setView(inflater.inflate(R.layout.dialog_add_tag, null))
+        builder.setView(inflater.inflate(R.layout.dialog_add_edit_tag, null))
                 .setPositiveButton("Save", new DialogInterface.OnClickListener()
                 {
                     @Override
