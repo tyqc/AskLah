@@ -143,7 +143,11 @@ public class HomeFragment extends Fragment {
                                     }
                                     else
                                     {
+
                                         Intent modulesListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
+                                        modulesListIntent.putExtra("tagId", subscribedTagList.get(position).getTagId());
+                                        modulesListIntent.putExtra("user", currentUser);
+                                        modulesListIntent.putExtra("accessToken", currentUserToken);
                                         startActivity(modulesListIntent);
                                     }
 

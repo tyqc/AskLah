@@ -19,6 +19,8 @@ import java.util.List;
 
 public class SubscribedQuestionsActivity extends AppCompatActivity {
 
+    //TODO: GETPOSTLIST API
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,27 +54,29 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         filterBySpinner.setAdapter(filterByAdapter);
 
+        getPostList();
+
         // Construct the model source
-        ArrayList<SubscribedQuestion> subscribedQuestionsList = new ArrayList<>();
-        ArrayList<String> tagsList = new ArrayList<>();
-        tagsList.add("#CS1020");
-        subscribedQuestionsList.add(new SubscribedQuestion("CS1020 help", "I was looking through the PYP and chanced upon this question...", tagsList));
+//        ArrayList<SubscribedQuestion> subscribedQuestionsList = new ArrayList<>();
+//        ArrayList<String> tagsList = new ArrayList<>();
+//        tagsList.add("#CS1020");
+//        subscribedQuestionsList.add(new SubscribedQuestion("CS1020 help", "I was looking through the PYP and chanced upon this question...", tagsList));
 
         // Create the adapter to convert the arraylist into views
-        SubscribedQnAdapter subscribedQnAdapter = new SubscribedQnAdapter(this, subscribedQuestionsList);
+//        SubscribedQnAdapter subscribedQnAdapter = new SubscribedQnAdapter(this, subscribedQuestionsList);
 
         // Attach the adapter to a listview
-        ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
-        subscribedQnsListView.setAdapter(subscribedQnAdapter);
+//        ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
+//        subscribedQnsListView.setAdapter(subscribedQnAdapter);
 
-        subscribedQnsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Create a new intent to open Modules List Activity
-                Intent qnThreadActivityIntent = new Intent(SubscribedQuestionsActivity.this, QuestionThreadActivity.class);
-                startActivity(qnThreadActivityIntent);
-            }
-        });
+//        subscribedQnsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // Create a new intent to open Modules List Activity
+//                Intent qnThreadActivityIntent = new Intent(SubscribedQuestionsActivity.this, QuestionThreadActivity.class);
+//                startActivity(qnThreadActivityIntent);
+//            }
+//        });
 
         // Add back button onto action bar
         ActionBar actionBar = getSupportActionBar();
@@ -99,5 +103,10 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getPostList()
+    {
+
     }
 }
