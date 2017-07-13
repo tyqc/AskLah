@@ -1,16 +1,12 @@
 package com.gillyweed.android.asklah.rest;
 
+import com.gillyweed.android.asklah.data.model.AddPost;
 import com.gillyweed.android.asklah.data.model.SubscriptionTag;
 import com.gillyweed.android.asklah.data.model.SubscriptionTags;
 import com.gillyweed.android.asklah.data.model.Tag;
+import com.gillyweed.android.asklah.data.model.PostTagArray;
+import com.gillyweed.android.asklah.data.model.TagArray;
 import com.gillyweed.android.asklah.data.model.User;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonPrimitive;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -36,6 +32,12 @@ public interface ApiInterface {
     Call<User> login(
             @Body User userBody,
             @Query("include") String includes);
+
+//    @Headers({
+//            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+//            "Content-Type: application/json"})
+//    @GET("user")
+//    Call<User> getProfile(@Header("Auth_Key") String accessToken, @Query("include") String includes);
 
     @Headers({
             "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
@@ -72,4 +74,16 @@ public interface ApiInterface {
             "Content-Type: application/json"})
     @DELETE("tags")
     Call<ResponseBody> deleteTag(@Header("Auth_Key") String accessToken, @Query("tag_id") int tagId);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @GET("tags")
+    Call<TagArray> getTags(@Header("Auth_Key") String accessToken);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @POST("post")
+    Call<ResponseBody> addNewPost(@Header("Auth_Key") String accessToken, @Query("nus_id") String nusId, @Body AddPost newPost);
 }

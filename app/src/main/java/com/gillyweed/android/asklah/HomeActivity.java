@@ -7,16 +7,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.gillyweed.android.asklah.data.model.AccessToken;
+import com.gillyweed.android.asklah.data.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,8 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private FloatingActionButton addPostBtn;
+    private User currentUser;
+    private AccessToken currentToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +43,25 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.mytabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        addPostBtn = (FloatingActionButton) findViewById(R.id.add_new_post);
 
-        addPostBtn.setOnClickListener(new View.OnClickListener()
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if(requestCode == 1)
         {
-            @Override
-            public void onClick(View view)
+            if(resultCode == RESULT_OK)
             {
-                Intent intent = new Intent(HomeActivity.this, Add_Post.class);
-                startActivity(intent);
+                Log.i("addpost", "back button clicked");
+
+                currentUser = intent.getParcelableExtra("user");
+
+                currentToken = intent.getParcelableExtra("accessToken");
             }
-        });
+        }
     }
 
     @Override
@@ -80,7 +89,26 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HomeFragment(), "Home");
+
+//        if(currentUser == null && currentToken == null)
+//        {
+//            Log.i("before add post", "object is null!!!");
+            adapter.addFragment(new HomeFragment(), "Home");
+//        }
+//        else
+//        {
+//            Log.i("after add post", "object is " + getIntent().getParcelableExtra("user"));
+//
+//            HomeFragment homeFragment = new HomeFragment();
+//
+//            Bundle bundle = new Bundle();
+//
+//            bundle.putParcelable("user", getIntent().getParcelableExtra("user"));
+//            bundle.putParcelable("accessToken", getIntent().getParcelableExtra("accessToken"));
+//            homeFragment.setArguments(bundle);
+//            adapter.addFragment(homeFragment, "Home");
+//        }
+
 //        adapter.addFragment(new HomeFragmentNewUser(), "Home");
         adapter.addFragment(new NotifFragment(), "Notifications");
         adapter.addFragment(new ProfileFragment(), "Profile");

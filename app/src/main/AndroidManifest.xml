@@ -29,7 +29,8 @@
             android:label="@string/achievement" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/MyAppTheme" />
+            android:theme="@style/MyAppTheme"
+            />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings"
@@ -39,9 +40,13 @@
             android:label="@string/announcements"
             android:parentActivityName=".HomeActivity" />
         <activity
-            android:name=".Add_Post"
+            android:name=".AddPostActivity"
             android:label="Add New Post"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
         <activity
             android:name=".ModulesListActivity"
             android:label="@string/modules_list" />

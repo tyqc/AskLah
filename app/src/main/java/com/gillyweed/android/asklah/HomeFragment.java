@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -35,6 +36,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static android.app.Activity.RESULT_OK;
+
 public class HomeFragment extends Fragment {
 
     private ArrayList<String> moduleNameList = new ArrayList<String>();
@@ -55,9 +58,12 @@ public class HomeFragment extends Fragment {
 
     ArrayAdapter<String> modulesOrMajorsAdapter = null;
 
+    public static final String MyPref = "MyPrefs";
+
     EditText tagNameText;
     EditText tagDescriptionText;
     ToggleButton statusToggle;
+    private FloatingActionButton addPostBtn;
 
     public HomeFragment() {
 
@@ -92,6 +98,16 @@ public class HomeFragment extends Fragment {
 
         if(subscribedTagList == null || moduleNameList == null)
         {
+            if(currentUserToken == null && currentUser == null)
+            {
+                Log.i(TAG, "everything is null!!!");
+            }
+
+            if(currentUserToken == null)
+            {
+                Log.i(TAG, "access token is still null!!!");
+            }
+
             Call<SubscriptionTags> call = apiService.getAllSubscribedTag(currentUserToken.getToken(), currentUser.getNusId());
 
             call.enqueue(new Callback<SubscriptionTags>() {
@@ -189,8 +205,46 @@ public class HomeFragment extends Fragment {
             });
         }
 
+        addPostBtn = (FloatingActionButton) rootView.findViewById(R.id.add_new_post);
+
+        addPostBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent addPostIntent = new Intent(getActivity(), AddPostActivity.class);
+
+                addPostIntent.putExtra("user", getActivity().getIntent().getParcelableExtra("user"));
+
+                addPostIntent.putExtra("accessToken", getActivity().getIntent().getParcelableExtra("accessToken"));
+
+                startActivityForResult(addPostIntent, 1);
+
+//                startActivity(addPostIntent);
+            }
+        });
+
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+        Log.i("addpost", "back button clicked 1");
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if(requestCode == 1)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                Log.i("addpost", "back button clicked 2");
+
+                currentUser = intent.getParcelableExtra("user");
+
+                currentUserToken = intent.getParcelableExtra("accessToken");
+            }
+        }
     }
 
     @Override
@@ -200,7 +254,7 @@ public class HomeFragment extends Fragment {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
-        if(!subscribedTagList.get(info.position).getTag().getTagOwner().getNusId().equalsIgnoreCase(currentUser.getNusId()))
+        if(!subscribedTagList.get(info.position).getTag().getTagPostOwner().getNusId().equalsIgnoreCase(currentUser.getNusId()))
         {
             getActivity().getMenuInflater().inflate(R.menu.module_tag_actions, menu);
         }
@@ -259,11 +313,11 @@ public class HomeFragment extends Fragment {
 
         if(currentUser.getRole() != "student")
         {
-            tagOwnerText.setText("Created By: " + currentTag.getTagOwner().getName());
+            tagOwnerText.setText("Created By: " + currentTag.getTagPostOwner().getName());
         }
         else
         {
-            tagOwnerText.setText("Created By: " + currentTag.getTagOwner().getUsername());
+            tagOwnerText.setText("Created By: " + currentTag.getTagPostOwner().getUsername());
         }
 
         lastUpdateText.setText("Last Updated: " + currentTag.getLastUpdate());
@@ -549,4 +603,5 @@ public class HomeFragment extends Fragment {
 
         modulesOrMajorsAdapter.notifyDataSetChanged();
     }
+
 }

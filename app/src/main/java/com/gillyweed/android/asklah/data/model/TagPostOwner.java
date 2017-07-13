@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Envy 15 on 7/7/2017.
  */
 
-public class TagOwner implements Parcelable {
+public class TagPostOwner implements Parcelable {
 
     @SerializedName("nus_id")
     private String nusId;
@@ -20,21 +20,21 @@ public class TagOwner implements Parcelable {
     @SerializedName("name")
     private String name;
 
-    protected TagOwner(Parcel in) {
+    protected TagPostOwner(Parcel in) {
         nusId = in.readString();
         username = in.readString();
         name = in.readString();
     }
 
-    public static final Creator<TagOwner> CREATOR = new Creator<TagOwner>() {
+    public static final Creator<TagPostOwner> CREATOR = new Creator<TagPostOwner>() {
         @Override
-        public TagOwner createFromParcel(Parcel in) {
-            return new TagOwner(in);
+        public TagPostOwner createFromParcel(Parcel in) {
+            return new TagPostOwner(in);
         }
 
         @Override
-        public TagOwner[] newArray(int size) {
-            return new TagOwner[size];
+        public TagPostOwner[] newArray(int size) {
+            return new TagPostOwner[size];
         }
     };
 

@@ -1,6 +1,8 @@
 package com.gillyweed.android.asklah;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +22,7 @@ import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
-//    public static final String MyPref = "MyPrefs";
+    public static final String MyPref = "MyPrefs";
     private final static String API_KEY = "08006c47-d0b9-4990-adb1-7d76610a4536";
     private static final String TAG = "response";
     Button loginButton;
@@ -124,6 +126,11 @@ public class LoginActivity extends AppCompatActivity {
     {
 
         User userData = response.body();
+
+        SharedPreferences sharedPref = getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("access_token", userData.getAccessToken().getToken());
+        editor.commit();
 
         if(userData.getUsername() == null || userData.getUsername() == "" || userData.getUsername().isEmpty())
         {

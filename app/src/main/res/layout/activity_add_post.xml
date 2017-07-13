@@ -6,25 +6,23 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/newPostTitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Question Title" />
 
     <EditText
+        android:id="@+id/tagsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="+ add question tag"/>
+        android:hint="+ add question tag"
+        android:focusableInTouchMode="false"/>
 
     <EditText
+        android:id="@+id/newPostDescriptText"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:hint="Question description"
         android:inputType="textLongMessage"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:layout_gravity="center"/>
 </LinearLayout>

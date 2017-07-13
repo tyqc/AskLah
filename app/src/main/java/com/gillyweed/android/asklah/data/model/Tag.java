@@ -27,7 +27,7 @@ public class Tag implements Parcelable {
     private int tagStatus;
 
     @SerializedName("created_by")
-    private TagOwner tagOwner;
+    private TagPostOwner tagPostOwner;
 
     public Tag()
     {
@@ -94,9 +94,9 @@ public class Tag implements Parcelable {
         this.tagStatus = tagStatus;
     }
 
-    public TagOwner getTagOwner()
+    public TagPostOwner getTagPostOwner()
     {
-        return tagOwner;
+        return tagPostOwner;
     }
 
     @Override
