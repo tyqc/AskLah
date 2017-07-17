@@ -3,25 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="horizontal"
+    android:padding="20dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/question_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/question_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
 
     <TextView
-        android:id="@+id/question_title"
+        android:id="@+id/post_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="AY21/22 Q1" />
-
-    <TextView
-        android:id="@+id/question_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="How to do?" />
-
-    <TextView
-        android:id="@+id/question_tags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="#CS1020 #TST" />
+        android:textAlignment="textEnd"/>
 
 </LinearLayout>

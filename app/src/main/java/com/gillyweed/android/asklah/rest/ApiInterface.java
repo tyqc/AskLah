@@ -1,11 +1,13 @@
 package com.gillyweed.android.asklah.rest;
 
 import com.gillyweed.android.asklah.data.model.AddPost;
+import com.gillyweed.android.asklah.data.model.GetPost;
 import com.gillyweed.android.asklah.data.model.SubscriptionTag;
 import com.gillyweed.android.asklah.data.model.SubscriptionTags;
 import com.gillyweed.android.asklah.data.model.Tag;
 import com.gillyweed.android.asklah.data.model.PostTagArray;
 import com.gillyweed.android.asklah.data.model.TagArray;
+import com.gillyweed.android.asklah.data.model.TagPostList;
 import com.gillyweed.android.asklah.data.model.User;
 
 import okhttp3.ResponseBody;
@@ -86,4 +88,16 @@ public interface ApiInterface {
             "Content-Type: application/json"})
     @POST("post")
     Call<ResponseBody> addNewPost(@Header("Auth_Key") String accessToken, @Query("nus_id") String nusId, @Body AddPost newPost);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @GET("tags/post")
+    Call<TagPostList> getPostList(@Header("Auth_Key") String accessToken, @Query("tag_id") int tagId);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @GET("post")
+    Call<GetPost> getPostThread(@Header("Auth_Key") String accessToken, @Query("post_id") int tagId);
 }

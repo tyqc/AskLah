@@ -1,6 +1,6 @@
 package com.gillyweed.android.asklah;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,18 +13,61 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.gillyweed.android.asklah.data.model.AccessToken;
+import com.gillyweed.android.asklah.data.model.PostList;
+import com.gillyweed.android.asklah.data.model.PostOverview;
+import com.gillyweed.android.asklah.data.model.TagPostList;
+import com.gillyweed.android.asklah.data.model.User;
+import com.gillyweed.android.asklah.rest.ApiClient;
+import com.gillyweed.android.asklah.rest.ApiInterface;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SubscribedQuestionsActivity extends AppCompatActivity {
 
-    //TODO: GETPOSTLIST API
+    private String TAG = "question list";
+
+    User currentUser = null;
+
+    AccessToken currentUserToken = null;
+
+    ApiClient apiClient = null;
+
+    Retrofit retrofit = null;
+
+    ApiInterface apiService = null;
+
+    int tagId;
+
+    public static final String MyPref = "MyPrefs";
+
+    ArrayList<PostList> postLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribed_questions);
+
+        currentUser = getIntent().getParcelableExtra("user");
+
+        currentUserToken = getIntent().getParcelableExtra("accessToken");
+
+        tagId = getSharedPreferences(MyPref, Context.MODE_PRIVATE).getInt("tagId", -1);
+
+        apiClient = new ApiClient();
+
+        retrofit = apiClient.getClient();
+
+        apiService = retrofit.create(ApiInterface.class);
+
+//        getPostOverview();
 
         Spinner sortBySpinner = (Spinner) findViewById(R.id.sort_by_spinner);
 
@@ -54,29 +97,67 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         filterBySpinner.setAdapter(filterByAdapter);
 
-        getPostList();
+        Call<TagPostList> call = apiService.getPostList(currentUserToken.getToken(), tagId);
 
-        // Construct the model source
-//        ArrayList<SubscribedQuestion> subscribedQuestionsList = new ArrayList<>();
-//        ArrayList<String> tagsList = new ArrayList<>();
-//        tagsList.add("#CS1020");
-//        subscribedQuestionsList.add(new SubscribedQuestion("CS1020 help", "I was looking through the PYP and chanced upon this question...", tagsList));
+        call.enqueue(new Callback<TagPostList>() {
+            @Override
+            public void onResponse(Call<TagPostList> call, Response<TagPostList> response) {
+                int responseCode = response.code();
 
-        // Create the adapter to convert the arraylist into views
-//        SubscribedQnAdapter subscribedQnAdapter = new SubscribedQnAdapter(this, subscribedQuestionsList);
+                if(response.isSuccessful())
+                {
 
-        // Attach the adapter to a listview
-//        ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
-//        subscribedQnsListView.setAdapter(subscribedQnAdapter);
+                    postLists = response.body().getPostList();
 
-//        subscribedQnsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                // Create a new intent to open Modules List Activity
-//                Intent qnThreadActivityIntent = new Intent(SubscribedQuestionsActivity.this, QuestionThreadActivity.class);
-//                startActivity(qnThreadActivityIntent);
-//            }
-//        });
+                    // Create the adapter to convert the arraylist into views
+                    SubscribedQnAdapter subscribedQnAdapter = new SubscribedQnAdapter(SubscribedQuestionsActivity.this, postLists);
+
+                    // Attach the adapter to a listview
+                    ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
+
+                    subscribedQnsListView.setAdapter(subscribedQnAdapter);
+
+                    subscribedQnsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            // Create a new intent to open Modules List Activity
+                            Intent qnThreadActivityIntent = new Intent(SubscribedQuestionsActivity.this, QuestionThreadActivity.class);
+                            qnThreadActivityIntent.putExtra("user", currentUser);
+                            qnThreadActivityIntent.putExtra("accessToken", currentUserToken);
+                            qnThreadActivityIntent.putExtra("postId", postLists.get(position).getPost().getPostId());
+                            startActivity(qnThreadActivityIntent);
+                        }
+                    });
+                }
+                else
+                {
+                    switch (responseCode)
+                    {
+                        case 400:
+                            Toast.makeText(SubscribedQuestionsActivity.this, "Please provide tag id", Toast.LENGTH_LONG).show();
+                            break;
+                        case 404:
+                            Toast.makeText(SubscribedQuestionsActivity.this, "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
+                            break;
+                        default:
+                            Toast.makeText(SubscribedQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TagPostList> call, Throwable t) {
+                if(call.isCanceled())
+                {
+                    Log.e(TAG, "request was aborted");
+                }
+                else
+                {
+                    Log.e(TAG, t.getMessage());
+                }
+            }
+        });
 
         // Add back button onto action bar
         ActionBar actionBar = getSupportActionBar();
@@ -103,10 +184,5 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void getPostList()
-    {
-
     }
 }

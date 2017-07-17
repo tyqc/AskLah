@@ -52,7 +52,11 @@
             android:label="@string/modules_list" />
         <activity
             android:name=".SubscribedQuestionsActivity"
-            android:label="@string/subscribed_questions" />
+            android:label="@string/subscribed_questions" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
         <activity
             android:name=".QuestionThreadActivity"
             android:parentActivityName=".SubscribedQuestionsActivity" />

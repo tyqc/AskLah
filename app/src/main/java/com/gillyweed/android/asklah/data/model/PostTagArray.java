@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class PostTagArray {
 
-    @SerializedName("tags")
+    @SerializedName("tag")
     private ArrayList<PostTags> tags;
 
     public ArrayList<PostTags> getTags()

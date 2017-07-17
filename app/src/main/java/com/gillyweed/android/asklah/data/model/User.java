@@ -44,7 +44,7 @@ public class User implements Parcelable{
         username = in.readString();
         password = in.readString();
         role = in.readString();
-        accessToken = in.readParcelable(AccessToken.class.getClassLoader());
+//        accessToken = in.readParcelable(AccessToken.class.getClassLoader());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

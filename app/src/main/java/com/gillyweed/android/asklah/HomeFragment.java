@@ -1,8 +1,10 @@
 package com.gillyweed.android.asklah;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -96,17 +98,8 @@ public class HomeFragment extends Fragment {
 
         subscribedTagList = getActivity().getIntent().getParcelableArrayListExtra("subscribedTagList");
 
-        if(subscribedTagList == null || moduleNameList == null)
-        {
-            if(currentUserToken == null && currentUser == null)
-            {
-                Log.i(TAG, "everything is null!!!");
-            }
-
-            if(currentUserToken == null)
-            {
-                Log.i(TAG, "access token is still null!!!");
-            }
+//        if(subscribedTagList == null || moduleNameList == null)
+//        {
 
             Call<SubscriptionTags> call = apiService.getAllSubscribedTag(currentUserToken.getToken(), currentUser.getNusId());
 
@@ -143,11 +136,16 @@ public class HomeFragment extends Fragment {
                                     }
                                     else
                                     {
+                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putInt("tagId", subscribedTagList.get(position).getTagId());
+                                        editor.commit();
 
                                         Intent modulesListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
-                                        modulesListIntent.putExtra("tagId", subscribedTagList.get(position).getTagId());
+
                                         modulesListIntent.putExtra("user", currentUser);
                                         modulesListIntent.putExtra("accessToken", currentUserToken);
+
                                         startActivity(modulesListIntent);
                                     }
 
@@ -184,30 +182,37 @@ public class HomeFragment extends Fragment {
                     }
                 }
             });
-        }
-        else
-        {
-            modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, moduleNameList);
-            homeGridView.setAdapter(modulesOrMajorsAdapter);
-
-
-            homeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // Create a new intent to open Modules List Activity
-                    if(position == moduleNameList.size() - 1)
-                    {
-                        showAddTagDialog();
-                    }
-                    else
-                    {
-                        Intent modulesListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
-                        startActivity(modulesListIntent);
-                    }
-
-                }
-            });
-        }
+//        }
+//        else
+//        {
+//            modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, moduleNameList);
+//            homeGridView.setAdapter(modulesOrMajorsAdapter);
+//
+//
+//            homeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    // Create a new intent to open Modules List Activity
+//                    if(position == moduleNameList.size() - 1)
+//                    {
+//                        showAddTagDialog();
+//                    }
+//                    else
+//                    {
+//                        Intent modulesListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
+//                        modulesListIntent.putExtra("accessToken", getActivity().getIntent().getParcelableExtra("accessToken"));
+//                        modulesListIntent.putExtra("user", getActivity().getIntent().getParcelableExtra("user"));
+//
+//
+//
+//                        modulesListIntent.putExtra("tagId", subscribedTagList.get(position).getTagId());
+//
+//                        startActivity(modulesListIntent);
+//                    }
+//
+//                }
+//            });
+//        }
 
         addPostBtn = (FloatingActionButton) rootView.findViewById(R.id.add_new_post);
 

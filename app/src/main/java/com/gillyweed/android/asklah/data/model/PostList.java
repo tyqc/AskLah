@@ -5,48 +5,15 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 /**
- * Created by Envy 15 on 13/7/2017.
+ * Created by Envy 15 on 16/7/2017.
  */
 
 public class PostList {
+    @SerializedName("posts")
+    PostOverview post;
 
-    @SerializedName("post_id")
-    private int postId;
-
-    @SerializedName("title")
-    private String title;
-
-    @SerializedName("description")
-    private String description;
-
-    @SerializedName("date_updated")
-    private DateObj dateUpdated;
-
-    @SerializedName("tags")
-    private PostTagArray tags;
-
-    public int getPostId()
+    public PostOverview getPost()
     {
-        return postId;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public DateObj getDateUpdated()
-    {
-        return dateUpdated;
-    }
-
-    public PostTagArray getTags()
-    {
-        return tags;
+        return post;
     }
 }

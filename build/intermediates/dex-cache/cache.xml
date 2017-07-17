@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="39b0ec870582b8a2885df84ab310f870a4b34e21">
+        sha1="855006b82b5455f35848afe04f8a3bb5b47baf07">
         <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_0f98d8f16cd30335bbacb754c45cbc09ff33b46a\classes.dex" />
     </item>
     <item
@@ -72,6 +72,15 @@
         revision="25.0.3"
         sha1="9e09011e9767bb76b5e27c9b8223476b93b14631">
         <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-gson-2.3.0_cebc0c35b3b10c8ad14130202371743d670495ea\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Envy 15.TKYong\.gradle\caches\modules-2\files-2.1\joda-time\joda-time\2.9.9\f7b520c458572890807d143670c9b24f4de90897\joda-time-2.9.9.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f7b520c458572890807d143670c9b24f4de90897">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\joda-time-2.9.9_22d9dfb5522ee886f91fa35e3b42ceface73f7f7\classes.dex" />
     </item>
     <item
         is-multidex="true"
