@@ -29,12 +29,16 @@ public class Tag implements Parcelable {
     @SerializedName("created_by")
     private TagPostOwner tagPostOwner;
 
+    @SerializedName("tag_id")
+    private int tagId;
+
     public Tag()
     {
 
     }
 
     protected Tag(Parcel in) {
+        tagId = in.readInt();
         tagName = in.readString();
         description = in.readString();
         lastUpdate = in.readString();
@@ -106,10 +110,16 @@ public class Tag implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(tagId);
         dest.writeString(tagName);
         dest.writeString(description);
         dest.writeString(lastUpdate);
         dest.writeInt(subscribeNo);
         dest.writeInt(tagStatus);
+    }
+
+    public int getTagId()
+    {
+        return tagId;
     }
 }

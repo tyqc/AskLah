@@ -16,7 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="+ add question tag"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:cursorVisible="false"
+        android:focusable="false"/>
 
     <EditText
         android:id="@+id/newPostDescriptText"

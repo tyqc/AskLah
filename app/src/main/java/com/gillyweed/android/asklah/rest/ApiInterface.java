@@ -99,5 +99,11 @@ public interface ApiInterface {
             "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
             "Content-Type: application/json"})
     @GET("post")
-    Call<GetPost> getPostThread(@Header("Auth_Key") String accessToken, @Query("post_id") int tagId);
+    Call<GetPost> getPostThread(@Header("Auth_Key") String accessToken, @Query("post_id") int postId);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @DELETE("post")
+    Call<ResponseBody> deletePost(@Header("Auth_Key") String accessToken, @Query("post_id") int postId, @Query("nus_id") String nusId);
 }

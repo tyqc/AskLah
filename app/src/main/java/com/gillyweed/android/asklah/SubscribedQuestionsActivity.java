@@ -125,7 +125,9 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
                             qnThreadActivityIntent.putExtra("user", currentUser);
                             qnThreadActivityIntent.putExtra("accessToken", currentUserToken);
                             qnThreadActivityIntent.putExtra("postId", postLists.get(position).getPost().getPostId());
-                            startActivity(qnThreadActivityIntent);
+                            qnThreadActivityIntent.putExtra("postOwnerNusId",  postLists.get(position).getPost().getNusId());
+//                            startActivity(qnThreadActivityIntent);
+                            startActivityForResult(qnThreadActivityIntent, 1000);
                         }
                     });
                 }
@@ -163,6 +165,18 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1000)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 
     // Add a search button in action bar

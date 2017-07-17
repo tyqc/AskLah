@@ -123,7 +123,7 @@ public class AddPostActivity extends AppCompatActivity {
 
                                     tagSelected += ", ";
 
-                                    selectedTags.add(i + 1);
+                                    selectedTags.add(tagArray.get(i).getTagId());
 
                                 }
                             }

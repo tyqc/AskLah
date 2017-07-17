@@ -22,6 +22,9 @@ public class PostOverview {
     @SerializedName("date_updated")
     private DateObj dateUpdated;
 
+    @SerializedName("nus_id")
+    private String nusId;
+
     @SerializedName("tags")
     private PostTagArray tags;
 
@@ -48,5 +51,10 @@ public class PostOverview {
     public PostTagArray getTags()
     {
         return tags;
+    }
+
+    public String getNusId()
+    {
+        return nusId;
     }
 }
