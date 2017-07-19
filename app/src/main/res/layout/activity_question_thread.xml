@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gillyweed.android.asklah.QuestionThreadActivity"
-    android:orientation="vertical"
-    android:padding="8dp">
+    tools:context="com.gillyweed.android.asklah.QuestionThreadActivity">
 
-    <TextView
-        android:id="@+id/question_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="CS1020 help"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginBottom="5dp"/>
-    <TextView
-        android:id="@+id/question_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="I was looking through the PYP and chanced upon this question. Lorem ipsum dolor sit amet, per bonorum voluptatibus an, scripta tamquam vel cu. Modo voluptua in nec, eu dolorem scripserit vix. Sanctus perpetua duo id, at eum volumus theophrastus. Nibh patrioque sea an."
-        android:layout_marginBottom="5dp"
-        android:textSize="15sp"/>
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:id="@+id/post_segment"
+        android:layout_margin="8dp">
+        <TextView
+            android:id="@+id/question_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="CS1020 help"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/question_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="I was looking through the PYP and chanced upon this question. Lorem ipsum dolor sit amet, per bonorum voluptatibus an, scripta tamquam vel cu. Modo voluptua in nec, eu dolorem scripserit vix. Sanctus perpetua duo id, at eum volumus theophrastus. Nibh patrioque sea an."
+            android:layout_marginBottom="5dp"
+            android:textSize="15sp"/>
 
-    <TextView
-        android:id="@+id/question_tag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Tag: AY2016/2017 Sem 1 CS1020"
-        android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/question_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Tag: AY2016/2017 Sem 1 CS1020"
+            android:layout_marginBottom="5dp"/>
 
-    <TextView
-        android:id="@+id/question_owner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Posted by tester123 on 21/6/2017 1130h "
-        android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/question_owner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Posted by tester123 on 21/6/2017 1130h "
+            android:layout_marginBottom="10dp"/>
 
-    <TextView
-        android:id="@+id/question_update"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Posted by tester123 on 21/6/2017 1130h "
-        android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/question_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Posted by tester123 on 21/6/2017 1130h "
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+
 
     <!--<android.support.v7.widget.RecyclerView-->
         <!--android:id="@+id/thread_recycler_view"-->
@@ -53,6 +61,51 @@
     <ListView
         android:id="@+id/comment_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/post_segment"/>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="#eeeeee"
+        android:padding="5dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_camera_black"
+            android:maxWidth="24dp"
+            android:maxHeight="24dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/add_photo_comment"/>
+
+        <EditText
+            android:id="@+id/add_comment_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:layout_weight="1"
+            android:inputType="textMultiLine"
+            android:maxLines="6"
+            android:minLines="1"
+            android:background="#ffffff"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_reply_black_16dp"
+            android:layout_gravity="center_vertical"
+            android:minWidth="24dp"
+            android:minHeight="24dp"
+            android:id="@+id/reply_post_btn"/>
+    </LinearLayout>
+
+</RelativeLayout>

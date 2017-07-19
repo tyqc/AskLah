@@ -13,11 +13,18 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gillyweed.android.asklah.data.model.AccessToken;
+import com.gillyweed.android.asklah.data.model.AddComment;
 import com.gillyweed.android.asklah.data.model.Comment;
 import com.gillyweed.android.asklah.data.model.GetPost;
 import com.gillyweed.android.asklah.data.model.PostTags;
@@ -70,6 +77,16 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
     ListView commentListView = null;
 
+    EditText newCommentText;
+
+    ImageView replyBtn;
+
+    String replyToId;
+
+    ArrayList<Comment> sampleCommentsList;
+
+    CommentAdapter commentAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +106,10 @@ public class QuestionThreadActivity extends AppCompatActivity {
 //        commentsRV = (RecyclerView) findViewById(R.id.thread_recycler_view);
 
         commentListView = (ListView) findViewById(R.id.comment_list_view);
+
+        newCommentText = (EditText) findViewById(R.id.add_comment_text);
+
+        replyBtn = (ImageView) findViewById(R.id.reply_post_btn);
 
         currentUser = getIntent().getParcelableExtra("user");
 
@@ -144,10 +165,10 @@ public class QuestionThreadActivity extends AppCompatActivity {
                     editor.commit();
 
                     // Add a sample comment
-                    ArrayList<Comment> sampleCommentsList = questionThread.getCommentArr().getCommentArrayList();
+                    sampleCommentsList = questionThread.getCommentArr().getCommentArrayList();
 
                     // Create a CommentAdapter to pass in sample model
-                    CommentAdapter commentAdapter = new CommentAdapter(QuestionThreadActivity.this, sampleCommentsList);
+                    commentAdapter = new CommentAdapter(QuestionThreadActivity.this, sampleCommentsList);
 
                     // Attach the adapter to the RecyclerView to populate the items
                     commentListView.setAdapter(commentAdapter);
@@ -180,6 +201,64 @@ public class QuestionThreadActivity extends AppCompatActivity {
                 {
                     Log.e(TAG, t.getMessage());
                 }
+            }
+        });
+
+        replyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AddComment newComment = new AddComment();
+
+                newComment.setDescription(newCommentText.getText().toString());
+
+                newComment.setPostId(postId);
+
+                Call<Comment> call = apiService.commentPost(currentUserToken.getToken(), newComment);
+
+                call.enqueue(new Callback<Comment>() {
+                    @Override
+                    public void onResponse(Call<Comment> call, Response<Comment> response) {
+                        int responseCode = response.code();
+
+                        if(response.isSuccessful())
+                        {
+                            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                            inputMethodManager.hideSoftInputFromWindow(newCommentText.getWindowToken(), 0);
+
+                            newCommentText.setText("");
+
+                            sampleCommentsList.add(response.body());
+
+                            commentAdapter.notifyDataSetChanged();
+                        }
+                        else
+                        {
+                            switch (responseCode)
+                            {
+                                case 404:
+                                    Toast.makeText(QuestionThreadActivity.this, "Post cannot be found from the database", Toast.LENGTH_LONG).show();
+                                    break;
+                                default:
+                                    Toast.makeText(QuestionThreadActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Comment> call, Throwable t) {
+                        if(call.isCanceled())
+                        {
+                            Log.e(TAG, "request was aborted");
+                        }
+                        else
+                        {
+                            Log.e(TAG, t.getMessage());
+                        }
+                    }
+                });
             }
         });
 
