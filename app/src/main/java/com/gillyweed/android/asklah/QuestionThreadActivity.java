@@ -1,7 +1,10 @@
 package com.gillyweed.android.asklah;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,10 +13,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gillyweed.android.asklah.data.model.AccessToken;
+import com.gillyweed.android.asklah.data.model.Comment;
 import com.gillyweed.android.asklah.data.model.GetPost;
 import com.gillyweed.android.asklah.data.model.PostTags;
 import com.gillyweed.android.asklah.data.model.User;
@@ -21,6 +26,7 @@ import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -58,6 +64,12 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
     String postOwnerNusId;
 
+    public static final String MyPref = "MyPrefs";
+
+//    RecyclerView commentsRV = null;
+
+    ListView commentListView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +84,11 @@ public class QuestionThreadActivity extends AppCompatActivity {
         postDateText = (TextView) findViewById(R.id.question_owner);
 
         postUpdateDateText = (TextView) findViewById(R.id.question_update);
+
+        // Lookup the recycler view in activity layout
+//        commentsRV = (RecyclerView) findViewById(R.id.thread_recycler_view);
+
+        commentListView = (ListView) findViewById(R.id.comment_list_view);
 
         currentUser = getIntent().getParcelableExtra("user");
 
@@ -120,6 +137,23 @@ public class QuestionThreadActivity extends AppCompatActivity {
                     postDateText.setText(postOwnerText);
 
                     postUpdateDateText.setText("Updated on " + ConvertDateTime.convertTime(questionThread.getDateUpdated().getDate()));
+
+                    SharedPreferences sharedPreferences = getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userRole", currentUser.getRole());
+                    editor.commit();
+
+                    // Add a sample comment
+                    ArrayList<Comment> sampleCommentsList = questionThread.getCommentArr().getCommentArrayList();
+
+                    // Create a CommentAdapter to pass in sample model
+                    CommentAdapter commentAdapter = new CommentAdapter(QuestionThreadActivity.this, sampleCommentsList);
+
+                    // Attach the adapter to the RecyclerView to populate the items
+                    commentListView.setAdapter(commentAdapter);
+
+                    // Set layout manager to position the items
+//                    commentsRV.setLayoutManager(new LinearLayoutManager(this));
                 }
                 else
                 {
@@ -148,23 +182,6 @@ public class QuestionThreadActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Lookup the recycler view in activity layout
-        RecyclerView commentsRV = (RecyclerView) findViewById(R.id.thread_recycler_view);
-
-        // Add a sample comment
-        ArrayList<Comment> sampleCommentsList = new ArrayList<>();
-        sampleCommentsList.add(new Comment("Bonjour Kaiyong !", getString(R.string.comment_op, "toh", "13/4/13", "1233h")));
-        sampleCommentsList.add(new Comment("Salut Toh !", getString(R.string.comment_op, "holmes", "14/3/14", "1233h")));
-
-        // Create a CommentAdapter to pass in sample model
-        CommentAdapter commentAdapter = new CommentAdapter(this, sampleCommentsList);
-
-        // Attach the adapter to the RecyclerView to populate the items
-        commentsRV.setAdapter(commentAdapter);
-
-        // Set layout manager to position the items
-        commentsRV.setLayoutManager(new LinearLayoutManager(this));
 
         // Add back button onto action bar
         ActionBar actionBar = getSupportActionBar();
@@ -253,10 +270,27 @@ public class QuestionThreadActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_edit:
+                Intent editPostIntent = new Intent(QuestionThreadActivity.this, EditPostActivity.class);
+                editPostIntent.putExtra("user", currentUser);
+                editPostIntent.putExtra("accessToken", currentUserToken);
+                editPostIntent.putExtra("post", questionThread);
+                startActivityForResult(editPostIntent, 2000);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 2000)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 
     public void getTagText(GetPost questionThread)

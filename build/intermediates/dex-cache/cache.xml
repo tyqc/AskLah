@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="855006b82b5455f35848afe04f8a3bb5b47baf07">
-        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_0f98d8f16cd30335bbacb754c45cbc09ff33b46a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
@@ -27,33 +18,6 @@
         revision="25.0.3"
         sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
         <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.13.0_40375e38ec7ef59f5ec56525c0d61f0d061d2f92\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Envy 15.TKYong\.android\build-cache\32a7711fb2966c1b752a0a33113612e05280f394\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
-        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4e4411594cf27abcc43b17ebc7b857b08f801783\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Envy 15.TKYong\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.8.0\5a11f020cce2d11eb71ba916700600e18c4547e7\okhttp-3.8.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="5a11f020cce2d11eb71ba916700600e18c4547e7">
-        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.8.0_160ab00f21a568883c1a49639095dcc782c971ac\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Envy 15.TKYong\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.3.0\bcacde6a8ccedcc56c127403d26b76072fe6214d\retrofit-2.3.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="bcacde6a8ccedcc56c127403d26b76072fe6214d">
-        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.3.0_e17680903cecf32de1e743d40b4c334e155228f9\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -84,6 +48,51 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Envy 15.TKYong\.android\build-cache\ea762b0bbdff60493d9c13d09024c0133954731c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f7e7bff6e74f1876929e869653d312e4e7756c21\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d94095d15b4fbfadc0a3138440372ff10762494f">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_0f98d8f16cd30335bbacb754c45cbc09ff33b46a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Envy 15.TKYong\.android\build-cache\32a7711fb2966c1b752a0a33113612e05280f394\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4e4411594cf27abcc43b17ebc7b857b08f801783\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Envy 15.TKYong\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.8.0\5a11f020cce2d11eb71ba916700600e18c4547e7\okhttp-3.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a11f020cce2d11eb71ba916700600e18c4547e7">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.8.0_160ab00f21a568883c1a49639095dcc782c971ac\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Envy 15.TKYong\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.3.0\bcacde6a8ccedcc56c127403d26b76072fe6214d\retrofit-2.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bcacde6a8ccedcc56c127403d26b76072fe6214d">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.3.0_e17680903cecf32de1e743d40b4c334e155228f9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Envy 15.TKYong\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.1\2a8e0aa38a2e21cb39e2f5a7d6704cbdc941da0\gson-2.8.1.jar"
         jumboMode="true"
         optimize="true"
@@ -99,15 +108,6 @@
         revision="25.0.3"
         sha1="81887458b69ddc32722df7e4c35235fd74e6a8ba">
         <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\logging-interceptor-3.6.0_7161b0d14d9feac100a6ea0a9d810ecf368235be\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Envy 15.TKYong\.android\build-cache\ea762b0bbdff60493d9c13d09024c0133954731c\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
-        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f7e7bff6e74f1876929e869653d312e4e7756c21\classes.dex" />
     </item>
 
 </items>

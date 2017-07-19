@@ -61,6 +61,9 @@
             android:name=".QuestionThreadActivity"
             android:parentActivityName=".SubscribedQuestionsActivity" />
         <activity
+            android:name=".EditPostActivity"
+            android:parentActivityName=".QuestionThreadActivity" />
+        <activity
             android:name=".CameraFullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_camera_fullscreen"

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gillyweed.android.asklah.QuestionThreadActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/question_title"
@@ -43,10 +44,15 @@
         tools:text="Posted by tester123 on 21/6/2017 1130h "
         android:layout_marginBottom="10dp"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/thread_recycler_view"
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/thread_recycler_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="15dp"/>-->
+
+    <ListView
+        android:id="@+id/comment_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

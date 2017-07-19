@@ -1,6 +1,7 @@
 package com.gillyweed.android.asklah.rest;
 
 import com.gillyweed.android.asklah.data.model.AddPost;
+import com.gillyweed.android.asklah.data.model.EditPost;
 import com.gillyweed.android.asklah.data.model.GetPost;
 import com.gillyweed.android.asklah.data.model.SubscriptionTag;
 import com.gillyweed.android.asklah.data.model.SubscriptionTags;
@@ -106,4 +107,10 @@ public interface ApiInterface {
             "Content-Type: application/json"})
     @DELETE("post")
     Call<ResponseBody> deletePost(@Header("Auth_Key") String accessToken, @Query("post_id") int postId, @Query("nus_id") String nusId);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @PUT("post")
+    Call<ResponseBody> editPost(@Header("Auth_Key") String accessToken, @Body EditPost editPost);
 }

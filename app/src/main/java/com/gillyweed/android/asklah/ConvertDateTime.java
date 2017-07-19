@@ -25,4 +25,16 @@ public class ConvertDateTime {
 
         return dateTime.toString("dd/MM/yyyy HH:mm aa");
     }
+
+    public static Date convertToDate(String dateTimeString)
+    {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").parse(dateTimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
 }
