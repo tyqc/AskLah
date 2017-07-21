@@ -3,6 +3,7 @@ package com.gillyweed.android.asklah.rest;
 import com.gillyweed.android.asklah.data.model.AddComment;
 import com.gillyweed.android.asklah.data.model.AddPost;
 import com.gillyweed.android.asklah.data.model.Comment;
+import com.gillyweed.android.asklah.data.model.EditComment;
 import com.gillyweed.android.asklah.data.model.EditPost;
 import com.gillyweed.android.asklah.data.model.GetPost;
 import com.gillyweed.android.asklah.data.model.SubscriptionTag;
@@ -121,4 +122,16 @@ public interface ApiInterface {
             "Content-Type: application/json"})
     @POST("reply")
     Call<Comment> commentPost(@Header("Auth_Key") String accessToken, @Body AddComment newComment);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @PUT("reply")
+    Call<Comment> editComment(@Header("Auth_Key") String accessToken, @Body EditComment comment);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @DELETE("reply")
+    Call<ResponseBody> deleteComment(@Header("Auth_Key") String accessToken, @Query("comment_id") int commentId);
 }

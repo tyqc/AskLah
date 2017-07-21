@@ -39,7 +39,7 @@ public class Comment implements Parcelable {
     @SerializedName("commenter")
     private CommentUser commenter;
 
-    @SerializedName("comment_to")
+    @SerializedName("commentTo")
     private CommentUser commentTo;
 
     protected Comment(Parcel in) {

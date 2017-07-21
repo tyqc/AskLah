@@ -31,6 +31,8 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     TextView commentDescriptionTextView = null;
     TextView commentDateTextView = null;
     String currentUserRole = "";
+    String currentNustId = "";
+
 
     public static final String MyPref = "MyPrefs";
 
@@ -63,13 +65,22 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         currentUserRole = getContext().getSharedPreferences(MyPref, Context.MODE_PRIVATE).getString("userRole", "");
 
-        if(currentUserRole.equalsIgnoreCase("student"))
+        currentNustId = getContext().getSharedPreferences(MyPref, Context.MODE_PRIVATE).getString("userNusId", "");
+
+        if(comment.getCommenter().getNusId().equalsIgnoreCase(currentNustId))
         {
-            commenterTextView.setText(comment.getCommenter().getUsername() + " :");
+            commenterTextView.setText("Me :");
         }
         else
         {
-            commenterTextView.setText(comment.getCommenter().getName() + " :");
+            if(currentUserRole.equalsIgnoreCase("student"))
+            {
+                commenterTextView.setText(comment.getCommenter().getUsername() + " :");
+            }
+            else
+            {
+                commenterTextView.setText(comment.getCommenter().getName() + " :");
+            }
         }
 
         commentDescriptionTextView.setText(comment.getDescription());
@@ -78,16 +89,46 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         Date updatedDate = ConvertDateTime.convertToDate(comment.getUpdatedDate().getDate());
 
+        String dateTextString = "";
+
         if(updatedDate.compareTo(addedDate) > 0)
         {
-            commentDateTextView.setText(ConvertDateTime.convertTime(comment.getUpdatedDate().getDate()) + "|Edited");
+            dateTextString = ConvertDateTime.convertTime(comment.getUpdatedDate().getDate()) + " | Edited";
         }
         else
         {
-            commentDateTextView.setText(ConvertDateTime.convertTime(comment.getUpdatedDate().getDate()));
+            dateTextString = ConvertDateTime.convertTime(comment.getUpdatedDate().getDate());
         }
 
+        if(comment.getCommentTo() != null)
+        {
+            if(currentUserRole != "student")
+            {
+                dateTextString += " | @" + comment.getCommentTo().getName();
+            }
+            else
+            {
+                dateTextString += " | @" + comment.getCommentTo().getUsername();
+            }
+        }
+
+        commentDateTextView.setText(dateTextString);
+
         return convertView;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(getItem(position).getCommenter().getNusId().equalsIgnoreCase(currentNustId))
+        {
+            return 0;
+        }
+        return 1;
     }
 
     //    // Easy access to the context object in Recycler View
