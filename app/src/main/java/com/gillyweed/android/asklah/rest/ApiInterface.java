@@ -6,10 +6,10 @@ import com.gillyweed.android.asklah.data.model.Comment;
 import com.gillyweed.android.asklah.data.model.EditComment;
 import com.gillyweed.android.asklah.data.model.EditPost;
 import com.gillyweed.android.asklah.data.model.GetPost;
+import com.gillyweed.android.asklah.data.model.SubscriptionPosts;
 import com.gillyweed.android.asklah.data.model.SubscriptionTag;
 import com.gillyweed.android.asklah.data.model.SubscriptionTags;
 import com.gillyweed.android.asklah.data.model.Tag;
-import com.gillyweed.android.asklah.data.model.PostTagArray;
 import com.gillyweed.android.asklah.data.model.TagArray;
 import com.gillyweed.android.asklah.data.model.TagPostList;
 import com.gillyweed.android.asklah.data.model.User;
@@ -102,6 +102,12 @@ public interface ApiInterface {
     @Headers({
             "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
             "Content-Type: application/json"})
+    @GET("user/post")
+    Call<SubscriptionPosts> getSubscribedPost(@Header("Auth_Key") String accessToken);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
     @GET("post")
     Call<GetPost> getPostThread(@Header("Auth_Key") String accessToken, @Query("post_id") int postId);
 
@@ -134,4 +140,10 @@ public interface ApiInterface {
             "Content-Type: application/json"})
     @DELETE("reply")
     Call<ResponseBody> deleteComment(@Header("Auth_Key") String accessToken, @Query("comment_id") int commentId);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @PUT("post/upvote")
+    Call<ResponseBody> upvoteDownvotePost(@Header("Auth_Key") String accessToken, @Query("post_id") int postId);
 }

@@ -42,6 +42,10 @@ public class Comment implements Parcelable {
     @SerializedName("commentTo")
     private CommentUser commentTo;
 
+    @SerializedName("voted")
+    private int voted;
+
+
     protected Comment(Parcel in) {
         commentId = in.readInt();
         description = in.readString();
@@ -53,6 +57,7 @@ public class Comment implements Parcelable {
         createdDate = in.readParcelable(DateObj.class.getClassLoader());
         commenter = in.readParcelable(CommentUser.class.getClassLoader());
         commentTo = in.readParcelable(CommentUser.class.getClassLoader());
+        voted = in.readInt();
     }
 
     public static final Creator<Comment> CREATOR = new Creator<Comment>() {
@@ -66,25 +71,6 @@ public class Comment implements Parcelable {
             return new Comment[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(commentId);
-        dest.writeString(description);
-        dest.writeParcelable(updatedDate, flags);
-        dest.writeInt(vote);
-        dest.writeInt(bestAnswer);
-        dest.writeInt(postId);
-        dest.writeString(imageLink);
-        dest.writeParcelable(createdDate, flags);
-        dest.writeParcelable(commenter, flags);
-        dest.writeParcelable(commentTo, flags);
-    }
 
     public int getCommentId()
     {
@@ -134,5 +120,30 @@ public class Comment implements Parcelable {
     public CommentUser getCommentTo()
     {
         return commentTo;
+    }
+
+    public int getVoted()
+    {
+        return voted;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(commentId);
+        dest.writeString(description);
+        dest.writeParcelable(updatedDate, flags);
+        dest.writeInt(vote);
+        dest.writeInt(bestAnswer);
+        dest.writeInt(postId);
+        dest.writeString(imageLink);
+        dest.writeParcelable(createdDate, flags);
+        dest.writeParcelable(commenter, flags);
+        dest.writeParcelable(commentTo, flags);
+        dest.writeInt(voted);
     }
 }

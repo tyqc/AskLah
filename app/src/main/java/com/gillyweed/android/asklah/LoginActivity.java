@@ -130,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(MyPref, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("access_token", userData.getAccessToken().getToken());
+        editor.putString("user_role", userData.getRole());
         editor.commit();
 
         if(userData.getUsername() == null || userData.getUsername() == "" || userData.getUsername().isEmpty())

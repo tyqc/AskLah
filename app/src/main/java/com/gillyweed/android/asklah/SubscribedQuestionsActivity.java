@@ -2,9 +2,9 @@ package com.gillyweed.android.asklah;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +17,7 @@ import android.widget.Toast;
 
 import com.gillyweed.android.asklah.data.model.AccessToken;
 import com.gillyweed.android.asklah.data.model.PostList;
-import com.gillyweed.android.asklah.data.model.PostOverview;
-import com.gillyweed.android.asklah.data.model.TagPostList;
+import com.gillyweed.android.asklah.data.model.SubscriptionPosts;
 import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
@@ -30,9 +29,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+/**
+ * Created by Envy 15 on 22/7/2017.
+ */
+
 public class SubscribedQuestionsActivity extends AppCompatActivity {
 
-    private String TAG = "question list";
+    private String TAG = "subscribed question list";
 
     User currentUser = null;
 
@@ -53,6 +56,7 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_subscribed_questions);
 
         currentUser = getIntent().getParcelableExtra("user");
@@ -97,74 +101,73 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         filterBySpinner.setAdapter(filterByAdapter);
 
-        Call<TagPostList> call = apiService.getPostList(currentUserToken.getToken(), tagId);
+        Call<SubscriptionPosts> call = apiService.getSubscribedPost(currentUserToken.getToken());
 
-        call.enqueue(new Callback<TagPostList>() {
-            @Override
-            public void onResponse(Call<TagPostList> call, Response<TagPostList> response) {
-                int responseCode = response.code();
+            call.enqueue(new Callback<SubscriptionPosts>() {
+                @Override
+                public void onResponse(Call<SubscriptionPosts> call, Response<SubscriptionPosts> response) {
+                    int responseCode = response.code();
 
-                if(response.isSuccessful())
-                {
-
-                    postLists = response.body().getPostList();
-
-                    // Create the adapter to convert the arraylist into views
-                    SubscribedQnAdapter subscribedQnAdapter = new SubscribedQnAdapter(SubscribedQuestionsActivity.this, postLists);
-
-                    // Attach the adapter to a listview
-                    ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
-
-                    subscribedQnsListView.setAdapter(subscribedQnAdapter);
-
-                    subscribedQnsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            // Create a new intent to open Modules List Activity
-                            Intent qnThreadActivityIntent = new Intent(SubscribedQuestionsActivity.this, QuestionThreadActivity.class);
-                            qnThreadActivityIntent.putExtra("user", currentUser);
-                            qnThreadActivityIntent.putExtra("accessToken", currentUserToken);
-                            qnThreadActivityIntent.putExtra("postId", postLists.get(position).getPost().getPostId());
-                            qnThreadActivityIntent.putExtra("postOwnerNusId",  postLists.get(position).getPost().getNusId());
-//                            startActivity(qnThreadActivityIntent);
-                            startActivityForResult(qnThreadActivityIntent, 1000);
-                        }
-                    });
-                }
-                else
-                {
-                    switch (responseCode)
+                    if(response.isSuccessful())
                     {
-                        case 400:
-                            Toast.makeText(SubscribedQuestionsActivity.this, "Please provide tag id", Toast.LENGTH_LONG).show();
-                            break;
-                        case 404:
-                            Toast.makeText(SubscribedQuestionsActivity.this, "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
-                            break;
-                        default:
-                            Toast.makeText(SubscribedQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
-                            break;
+
+                        postLists = response.body().getSubscriptionPosts();
+
+                        // Create the adapter to convert the arraylist into views
+                        SubscribedQnAdapter subscribedQnAdapter = new SubscribedQnAdapter(SubscribedQuestionsActivity.this, postLists);
+
+                        // Attach the adapter to a listview
+                        ListView subscribedQnsListView = (ListView) findViewById(R.id.subscibed_qns_list_view);
+
+                        subscribedQnsListView.setAdapter(subscribedQnAdapter);
+
+                        subscribedQnsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                // Create a new intent to open Modules List Activity
+                                Intent qnThreadActivityIntent = new Intent(SubscribedQuestionsActivity.this, QuestionThreadActivity.class);
+                                qnThreadActivityIntent.putExtra("user", currentUser);
+                                qnThreadActivityIntent.putExtra("accessToken", currentUserToken);
+                                qnThreadActivityIntent.putExtra("postId", postLists.get(position).getPost().getPostId());
+                                qnThreadActivityIntent.putExtra("postOwnerNusId",  postLists.get(position).getPost().getNusId());
+//                            startActivity(qnThreadActivityIntent);
+                                startActivityForResult(qnThreadActivityIntent, 1000);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        switch (responseCode)
+                        {
+                            case 400:
+                                Toast.makeText(SubscribedQuestionsActivity.this, "Please provide tag id", Toast.LENGTH_LONG).show();
+                                break;
+                            case 404:
+                                Toast.makeText(SubscribedQuestionsActivity.this, "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
+                                break;
+                            default:
+                                Toast.makeText(SubscribedQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                break;
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<TagPostList> call, Throwable t) {
-                if(call.isCanceled())
-                {
-                    Log.e(TAG, "request was aborted");
+                @Override
+                public void onFailure(Call<SubscriptionPosts> call, Throwable t) {
+                    if(call.isCanceled())
+                    {
+                        Log.e(TAG, "request was aborted");
+                    }
+                    else
+                    {
+                        Log.e(TAG, t.getMessage());
+                    }
                 }
-                else
-                {
-                    Log.e(TAG, t.getMessage());
-                }
-            }
-        });
+            });
 
         // Add back button onto action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override

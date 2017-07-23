@@ -43,7 +43,9 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.mytabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        currentUser = getIntent().getParcelableExtra("user");
 
+        currentToken = getIntent().getParcelableExtra("accessToken");
     }
 
     @Override
@@ -93,6 +95,7 @@ public class HomeActivity extends AppCompatActivity {
 //        if(currentUser == null && currentToken == null)
 //        {
 //            Log.i("before add post", "object is null!!!");
+
             adapter.addFragment(new HomeFragment(), "Home");
 //        }
 //        else

@@ -28,6 +28,9 @@ public class PostOverview {
     @SerializedName("tags")
     private PostTagArray tags;
 
+    @SerializedName("voted")
+    private int voted;
+
     public int getPostId()
     {
         return postId;
@@ -56,5 +59,10 @@ public class PostOverview {
     public String getNusId()
     {
         return nusId;
+    }
+
+    public int getVoted()
+    {
+        return voted;
     }
 }

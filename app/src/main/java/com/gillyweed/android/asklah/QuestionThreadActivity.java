@@ -18,6 +18,7 @@ import android.view.animation.BounceInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,12 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
     TextView postUpdateDateText;
 
+    ImageView voteBtn;
+
+    TextView voteText;
+
+    LinearLayout postSegment;
+
     String postOwnerNusId;
 
     public static final String MyPref = "MyPrefs";
@@ -118,6 +125,12 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
         sendBtn = (ImageView) findViewById(R.id.reply_post_btn);
 
+        voteBtn = (ImageView)findViewById(R.id.upvoteBtn);
+
+        voteText = (TextView) findViewById(R.id.post_vote_text);
+
+        postSegment = (LinearLayout) findViewById(R.id.post_segment);
+
         currentUser = getIntent().getParcelableExtra("user");
 
         currentUserToken = getIntent().getParcelableExtra("accessToken");
@@ -158,6 +171,13 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                     postDescriptionText.setText(questionThread.getPostDescription());
 
+                    if(questionThread.getVoted() == 1)
+                    {
+                        voteBtn.setBackgroundResource(R.drawable.ic_star_black_16dp);
+                    }
+
+                    voteText.setText(questionThread.getVote() + "");
+
                     getTagText(questionThread);
 
                     String postOwnerText = "";
@@ -178,7 +198,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                         }
                     }
-                    
+
                     postDateText.setText(postOwnerText);
 
                     postUpdateDateText.setText("Updated on " + ConvertDateTime.convertTime(questionThread.getDateUpdated().getDate()));
@@ -445,6 +465,66 @@ public class QuestionThreadActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        voteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Call<ResponseBody> call = apiService.upvoteDownvotePost(currentUserToken.getToken(), questionThread.getPostId());
+
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        int responseCode = response.code();
+
+                        if(response.isSuccessful())
+                        {
+                            if(questionThread.getVoted() == 0)
+                            {
+                                questionThread.setVote(questionThread.getVote() + 1);
+                                questionThread.setVoted(1);
+                                voteBtn.setBackgroundResource(R.drawable.ic_star_black_16dp);
+                            }
+                            else
+                            {
+                                questionThread.setVote(questionThread.getVote() - 1);
+                                questionThread.setVoted(0);
+                                voteBtn.setBackgroundResource(R.drawable.ic_star_white);
+                            }
+
+                            voteText.setText(questionThread.getVote() + "");
+                        }
+                        else
+                        {
+                            switch (responseCode)
+                            {
+                                case 404:
+                                    Toast.makeText(QuestionThreadActivity.this, "post cannot be found from the database", Toast.LENGTH_LONG).show();
+                                    break;
+                                default:
+                                    Toast.makeText(QuestionThreadActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        if(call.isCanceled())
+                        {
+                            Log.e(TAG, "request was aborted");
+                        }
+                        else
+                        {
+                            Log.e(TAG, t.getMessage());
+                        }
+                    }
+                });
+
             }
         });
 

@@ -51,6 +51,12 @@
             android:name=".ModulesListActivity"
             android:label="@string/modules_list" />
         <activity
+            android:name=".TagQuestionsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+        <activity
             android:name=".SubscribedQuestionsActivity"
             android:label="@string/subscribed_questions" >
             <meta-data
@@ -59,7 +65,7 @@
         </activity>
         <activity
             android:name=".QuestionThreadActivity"
-            android:parentActivityName=".SubscribedQuestionsActivity" />
+            android:parentActivityName=".TagQuestionsActivity" />
         <activity
             android:name=".EditPostActivity"
             android:parentActivityName=".QuestionThreadActivity" />

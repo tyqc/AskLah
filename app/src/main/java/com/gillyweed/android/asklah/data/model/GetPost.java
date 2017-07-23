@@ -46,6 +46,9 @@ public class GetPost implements Parcelable{
     @SerializedName("comments")
     private CommentArr commentArr;
 
+    @SerializedName("voted")
+    private int voted;
+
     protected GetPost(Parcel in) {
         postId = in.readInt();
         postTitle = in.readString();
@@ -56,6 +59,7 @@ public class GetPost implements Parcelable{
         subscribed = in.readByte() != 0;
         owner = in.readParcelable(TagPostOwner.class.getClassLoader());
         commentArr = in.readParcelable(CommentArr.class.getClassLoader());
+        voted = in.readInt();
     }
 
     public static final Creator<GetPost> CREATOR = new Creator<GetPost>() {
@@ -150,6 +154,21 @@ public class GetPost implements Parcelable{
         return commentArr;
     }
 
+    public int getVoted()
+    {
+        return voted;
+    }
+
+    public void setVoted(int voted)
+    {
+        this.voted = voted;
+    }
+
+    public void setVote(int vote)
+    {
+        this.vote = vote;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -166,5 +185,6 @@ public class GetPost implements Parcelable{
         dest.writeByte((byte) (subscribed ? 1 : 0));
         dest.writeParcelable(owner, flags);
         dest.writeParcelable(commentArr, flags);
+        dest.writeInt(voted);
     }
 }

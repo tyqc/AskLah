@@ -65,6 +65,9 @@ public class HomeFragment extends Fragment {
     EditText tagNameText;
     EditText tagDescriptionText;
     ToggleButton statusToggle;
+
+    String userRole;
+
     private FloatingActionButton addPostBtn;
 
     public HomeFragment() {
@@ -98,6 +101,8 @@ public class HomeFragment extends Fragment {
 
         subscribedTagList = getActivity().getIntent().getParcelableArrayListExtra("subscribedTagList");
 
+        userRole = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE).getString("user_role", "");
+
 //        if(subscribedTagList == null || moduleNameList == null)
 //        {
 
@@ -118,9 +123,15 @@ public class HomeFragment extends Fragment {
 //                            Log.i(TAG, "check if null: " + subscribedTagList);
                             moduleNameList = new ArrayList<String>();
                             getSubscribedTagName();
-                            moduleNameList.add("+ Add New Module Tag");
-                            getActivity().getIntent().putStringArrayListExtra("moduleListName", moduleNameList);
-                            getActivity().getIntent().putParcelableArrayListExtra("subscribedTagList", subscribedTagList);
+
+                            moduleNameList.add("Subscribed Posts");
+//
+                            if(!userRole.equalsIgnoreCase("student"))
+                            {
+                                moduleNameList.add("+ Add New Module Tag");
+                                getActivity().getIntent().putStringArrayListExtra("moduleListName", moduleNameList);
+                                getActivity().getIntent().putParcelableArrayListExtra("subscribedTagList", subscribedTagList);
+                            }
 
                             modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, moduleNameList);
                             homeGridView.setAdapter(modulesOrMajorsAdapter);
@@ -130,9 +141,14 @@ public class HomeFragment extends Fragment {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     // Create a new intent to open Modules List Activity
-                                    if(position == moduleNameList.size() - 1)
+                                    if(moduleNameList.get(position).equalsIgnoreCase("+ Add New Module Tag"))
                                     {
                                         showAddTagDialog();
+
+                                    }
+                                    else if(moduleNameList.get(position).equalsIgnoreCase("Subscribed Posts"))
+                                    {
+                                        directToSubscribedPostList();
                                     }
                                     else
                                     {
@@ -141,12 +157,12 @@ public class HomeFragment extends Fragment {
                                         editor.putInt("tagId", subscribedTagList.get(position).getTagId());
                                         editor.commit();
 
-                                        Intent modulesListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
+                                        Intent postListIntent = new Intent(getActivity(), TagQuestionsActivity.class);
 
-                                        modulesListIntent.putExtra("user", currentUser);
-                                        modulesListIntent.putExtra("accessToken", currentUserToken);
+                                        postListIntent.putExtra("user", currentUser);
+                                        postListIntent.putExtra("accessToken", currentUserToken);
 
-                                        startActivity(modulesListIntent);
+                                        startActivity(postListIntent);
                                     }
 
                                 }
@@ -199,7 +215,7 @@ public class HomeFragment extends Fragment {
 //                    }
 //                    else
 //                    {
-//                        Intent modulesListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
+//                        Intent modulesListIntent = new Intent(getActivity(), TagQuestionsActivity.class);
 //                        modulesListIntent.putExtra("accessToken", getActivity().getIntent().getParcelableExtra("accessToken"));
 //                        modulesListIntent.putExtra("user", getActivity().getIntent().getParcelableExtra("user"));
 //
@@ -613,4 +629,13 @@ public class HomeFragment extends Fragment {
         modulesOrMajorsAdapter.notifyDataSetChanged();
     }
 
+    public void directToSubscribedPostList()
+    {
+        Intent postListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
+
+        postListIntent.putExtra("user", currentUser);
+        postListIntent.putExtra("accessToken", currentUserToken);
+
+        startActivity(postListIntent);
+    }
 }
