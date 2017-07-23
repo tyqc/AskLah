@@ -146,4 +146,16 @@ public interface ApiInterface {
             "Content-Type: application/json"})
     @PUT("post/upvote")
     Call<ResponseBody> upvoteDownvotePost(@Header("Auth_Key") String accessToken, @Query("post_id") int postId);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @PUT("comment/upvote")
+    Call<ResponseBody> upvoteDownvoteComment(@Header("Auth_Key") String accessToken, @Query("comment_id") int commentId);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @PUT("comment/pin")
+    Call<ResponseBody> pinUnpinAnswer(@Header("Auth_Key") String accessToken, @Query("comment_id") int commentId);
 }

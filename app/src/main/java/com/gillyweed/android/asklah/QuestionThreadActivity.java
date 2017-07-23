@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -257,6 +258,16 @@ public class QuestionThreadActivity extends AppCompatActivity {
                                     replyBtn.setTitleColor(Color.WHITE);
 
                                     menu.addMenuItem(replyBtn);
+
+                                    SwipeMenuItem pinBtn = new SwipeMenuItem(getApplicationContext());
+                                    pinBtn.setBackground(new ColorDrawable(Color.DKGRAY));
+
+                                    pinBtn.setWidth(200);
+                                    pinBtn.setTitle("Pin");
+                                    pinBtn.setTitleSize(18);
+                                    pinBtn.setTitleColor(Color.WHITE);
+
+                                    menu.addMenuItem(pinBtn);
                             }
 
                         }
@@ -293,7 +304,13 @@ public class QuestionThreadActivity extends AppCompatActivity {
                                     break;
 
                                 case 1:
-                                    deleteComment(position);
+                                    if(sampleCommentsList.get(position).getCommenter().getNusId().equalsIgnoreCase(currentUser.getNusId())) {
+                                        deleteComment(position);
+                                    }
+                                    else
+                                    {
+                                        pinUnpinComment(position);
+                                    }
                                     break;
                             }
                             return false;
@@ -328,6 +345,66 @@ public class QuestionThreadActivity extends AppCompatActivity {
                 {
                     Log.e(TAG, t.getMessage());
                 }
+            }
+        });
+
+        commentListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final Comment currentComment = sampleCommentsList.get(position);
+
+                Call<ResponseBody> call = apiService.upvoteDownvoteComment(currentUserToken.getToken(), currentComment.getCommentId());
+//
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        int responseCode = response.code();
+
+                        if(response.isSuccessful())
+                        {
+                            if(currentComment.getVoted() == 0)
+                            {
+                                currentComment.setVote(currentComment.getVote() + 1);
+                                currentComment.setVoted(1);
+                            }
+                            else
+                            {
+                                currentComment.setVote(currentComment.getVote() - 1);
+                                currentComment.setVoted(0);
+                            }
+
+                            commentAdapter.notifyDataSetChanged();
+                        }
+                        else
+                        {
+                            switch (responseCode)
+                            {
+                                case 404:
+                                    Toast.makeText(QuestionThreadActivity.this, "Comment cannot be found from the database", Toast.LENGTH_LONG).show();
+                                    break;
+                                default:
+                                    Toast.makeText(QuestionThreadActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        if(call.isCanceled())
+                        {
+                            Log.e(TAG, "request was aborted");
+                        }
+                        else
+                        {
+                            Log.e(TAG, t.getMessage());
+                        }
+                        Log.i(TAG, "response code 3: " + t.getMessage());
+                    }
+                });
+                return true;
             }
         });
 
@@ -735,4 +812,62 @@ public class QuestionThreadActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null).show();
 
     }
+
+    public void pinUnpinComment(final int position)
+    {
+        final Comment currentComment = sampleCommentsList.get(position);
+        Call<ResponseBody> call = apiService.pinUnpinAnswer(currentUserToken.getToken(), currentComment.getCommentId());
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                int responseCode = response.code();
+
+                if(response.isSuccessful())
+                {
+                    if(currentComment.getBestAnswer() == 0)
+                    {
+                        currentComment.setBestAnswer(1);
+
+                        sampleCommentsList.add(0, currentComment);
+
+                        sampleCommentsList.remove(position + 1);
+
+                    }
+                    else
+                    {
+                        currentComment.setBestAnswer(0);
+
+                    }
+
+                    commentAdapter.notifyDataSetChanged();
+                }
+                else
+                {
+                    switch (responseCode)
+                    {
+                        case 404:
+                            Toast.makeText(QuestionThreadActivity.this, "Comment cannot be found from the database", Toast.LENGTH_LONG).show();
+                            break;
+                        default:
+                            Toast.makeText(QuestionThreadActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                if(call.isCanceled())
+                {
+                    Log.e(TAG, "request was aborted");
+                }
+                else
+                {
+                    Log.e(TAG, t.getMessage());
+                }
+            }
+        });
+    }
+
 }

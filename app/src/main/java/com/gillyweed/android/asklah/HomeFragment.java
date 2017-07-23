@@ -155,6 +155,7 @@ public class HomeFragment extends Fragment {
                                         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putInt("tagId", subscribedTagList.get(position).getTagId());
+                                        editor.putString("access_token", currentUserToken.getToken());
                                         editor.commit();
 
                                         Intent postListIntent = new Intent(getActivity(), TagQuestionsActivity.class);
@@ -635,6 +636,11 @@ public class HomeFragment extends Fragment {
 
         postListIntent.putExtra("user", currentUser);
         postListIntent.putExtra("accessToken", currentUserToken);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("access_token", currentUserToken.getToken());
+        editor.commit();
 
         startActivity(postListIntent);
     }

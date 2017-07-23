@@ -127,6 +127,21 @@ public class Comment implements Parcelable {
         return voted;
     }
 
+    public void setVote(int vote)
+    {
+        this.vote = vote;
+    }
+
+    public void setVoted(int voted)
+    {
+        this.voted = voted;
+    }
+
+    public void setBestAnswer(int bestAnswer)
+    {
+        this.bestAnswer = bestAnswer;
+    }
+
     @Override
     public int describeContents() {
         return 0;

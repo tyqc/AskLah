@@ -14,7 +14,8 @@
             android:src="@drawable/ic_star_white"
             android:maxHeight="18dp"
             android:maxWidth="18dp"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:id="@+id/comment_vote"/>
 
         <TextView
             android:id="@+id/vote_text_view"

@@ -11,9 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eec2291e-cc65-4ce3-908b-2574181fef05" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/TagQuestionsActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/SubscriptionPosts.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/SubscribedQuestion.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_green_pin.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
@@ -22,18 +20,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/CommentAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/CommentAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/LoginActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/QuestionThreadActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/QuestionThreadActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/SubscribedQuestionsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/SubscribedQuestionsActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/Comment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/Comment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/GetPost.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/GetPost.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/PostOverview.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/PostOverview.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/rest/ApiInterface.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/rest/ApiInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_question_thread.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_question_thread.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_subscribed_questions.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_subscribed_questions.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_comment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_comment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="AskLah.iws" />
@@ -96,8 +88,8 @@
       <file leaf-file-name="ApiInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/rest/ApiInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="147" column="41" selection-start-line="147" selection-start-column="23" selection-end-line="147" selection-end-column="41" />
+            <state relative-caret-position="302">
+              <caret line="159" column="37" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -106,49 +98,60 @@
       <file leaf-file-name="QuestionThreadActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/QuestionThreadActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="486" column="46" selection-start-line="486" selection-start-column="46" selection-end-line="486" selection-end-column="46" />
+            <state relative-caret-position="140">
+              <caret line="839" column="0" selection-start-line="839" selection-start-column="0" selection-end-line="839" selection-end-column="0" />
               <folding>
-                <element signature="e#18027#20541#0" expanded="true" />
-                <element signature="e#20540#20541#0" expanded="true" />
+                <element signature="e#4242#4490#0" expanded="true" />
+                <element signature="e#4489#4490#0" expanded="true" />
+                <element signature="e#7506#9993#0" expanded="true" />
+                <element signature="e#9992#9993#0" expanded="true" />
+                <element signature="e#10494#11926#0" expanded="true" />
+                <element signature="e#11925#11926#0" expanded="true" />
+                <element signature="e#13078#15668#0" expanded="true" />
+                <element signature="e#15667#15668#0" expanded="true" />
+                <element signature="e#15707#21545#0" expanded="true" />
+                <element signature="e#21544#21545#0" expanded="true" />
+                <element signature="e#21584#24098#0" expanded="true" />
+                <element signature="e#24097#24098#0" expanded="true" />
+                <element signature="e#25577#28178#0" expanded="true" />
+                <element signature="e#28177#28178#0" expanded="true" />
+                <element signature="e#30680#32923#0" expanded="true" />
+                <element signature="e#32922#32923#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GetPost.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/GetPost.java">
+      <file leaf-file-name="CommentAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/CommentAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="168" column="25" selection-start-line="168" selection-start-column="25" selection-end-line="168" selection-end-column="25" />
-              <folding>
-                <element signature="e#3258#3259#0" expanded="true" />
-                <element signature="e#3292#3293#0" expanded="true" />
-                <element signature="e#3333#3334#0" expanded="true" />
-                <element signature="e#3365#3366#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_question_thread.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_question_thread.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="32" column="47" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="47" />
+            <state relative-caret-position="227">
+              <caret line="149" column="9" selection-start-line="149" selection-start-column="9" selection-end-line="149" selection-end-column="9" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="Comment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/Comment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="277">
+              <caret line="141" column="37" selection-start-line="141" selection-start-column="37" selection-end-line="141" selection-end-column="37" />
+              <folding>
+                <element signature="e#2750#2751#0" expanded="true" />
+                <element signature="e#2784#2785#0" expanded="true" />
+                <element signature="e#2837#2838#0" expanded="true" />
+                <element signature="e#2881#2882#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="list_item_comment.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_comment.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="16" selection-end-column="43" />
+            <state relative-caret-position="425">
+              <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -160,19 +163,9 @@
       <file leaf-file-name="HomeFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14675">
-              <caret line="633" column="85" selection-start-line="633" selection-start-column="85" selection-end-line="633" selection-end-column="85" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2308#2309#0" expanded="false" />
-                <element signature="e#2358#2359#0" expanded="false" />
-                <element signature="e#13759#13760#0" expanded="false" />
-                <element signature="e#13822#13823#0" expanded="false" />
-                <element signature="e#15266#15267#0" expanded="false" />
-                <element signature="e#15329#15330#0" expanded="false" />
-                <element signature="e#22074#22075#0" expanded="false" />
-                <element signature="e#22137#22138#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="13375">
+              <caret line="581" column="32" selection-start-line="581" selection-start-column="32" selection-end-line="603" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2095,25 +2088,25 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/CommentArr.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/CommentUser.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/ConvertDateTime.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_comment.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/AddComment.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/EditComment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/CommentAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/SubscriptionPost.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/SubscriptionPosts.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/SubscribedQuestionsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/TagQuestionsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/Comment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/PostOverview.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/rest/ApiInterface.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_question_thread.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/GetPost.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_comment.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/rest/ApiInterface.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/Comment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/CommentAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/QuestionThreadActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -2148,6 +2141,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2202,7 +2200,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
+              <option name="myItemId" value="drawable" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2215,10 +2213,6 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2230,44 +2224,8 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="asklah" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AskLah" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="asklah" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AskLah" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2275,11 +2233,6 @@
       <pane id="PackagesPane">
         <subPane />
       </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane />
-      </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2638,14 +2591,13 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6753408" sideWeight="0.36324325" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21065675" sideWeight="0.6697297" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5712516" sideWeight="0.765946" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32961586" sideWeight="0.49135137" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32961586" sideWeight="0.49567568" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32961586" sideWeight="0.49567568" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24972972" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21065675" sideWeight="0.33027026" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5712516" sideWeight="0.23405406" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23135135" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24972972" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2659,6 +2611,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32961586" sideWeight="0.48702702" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -2720,7 +2673,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeFragment.java</url>
-          <line>239</line>
+          <line>240</line>
           <properties />
           <option name="timeStamp" value="28" />
         </line-breakpoint>
@@ -2735,16 +2688,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_question.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="55" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/AddTagDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -2957,19 +2900,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/CommentAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1625">
-          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/SubscribedQnAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="35" column="8" selection-start-line="35" selection-start-column="8" selection-end-line="37" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3010,19 +2944,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
-          <folding>
-            <element signature="e#2410#2440#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/SubscribedQuestionsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -3035,46 +2956,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14675">
-          <caret line="633" column="85" selection-start-line="633" selection-start-column="85" selection-end-line="633" selection-end-column="85" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2308#2309#0" expanded="false" />
-            <element signature="e#2358#2359#0" expanded="false" />
-            <element signature="e#13759#13760#0" expanded="false" />
-            <element signature="e#13822#13823#0" expanded="false" />
-            <element signature="e#15266#15267#0" expanded="false" />
-            <element signature="e#15329#15330#0" expanded="false" />
-            <element signature="e#22074#22075#0" expanded="false" />
-            <element signature="e#22137#22138#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/Comment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="146" column="27" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="27" />
-          <folding>
-            <element signature="e#1689#1690#0" expanded="false" />
-            <element signature="e#1735#1736#0" expanded="false" />
-            <element signature="e#1800#1801#0" expanded="false" />
-            <element signature="e#1848#1849#0" expanded="false" />
-            <element signature="e#2606#2607#0" expanded="false" />
-            <element signature="e#2634#2635#0" expanded="false" />
-            <element signature="e#2685#2686#0" expanded="false" />
-            <element signature="e#2709#2710#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/TagPostList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
           <caret line="13" column="22" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3082,7 +2967,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3090,10 +2974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="63" column="25" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
-          <folding>
-            <element signature="e#1067#1068#0" expanded="false" />
-            <element signature="e#1095#1096#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3101,7 +2981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3124,36 +3003,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_comment.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="16" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/rest/ApiInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="147" column="41" selection-start-line="147" selection-start-column="23" selection-end-line="147" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_question_thread.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="32" column="47" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/GetPost.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
@@ -3167,13 +3016,105 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_question_thread.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="32" column="47" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/ProfileFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1058">
+          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13375">
+          <caret line="581" column="32" selection-start-line="581" selection-start-column="32" selection-end-line="603" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_comment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/rest/ApiInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="159" column="37" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/data/model/Comment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="141" column="37" selection-start-line="141" selection-start-column="37" selection-end-line="141" selection-end-column="37" />
+          <folding>
+            <element signature="e#2750#2751#0" expanded="true" />
+            <element signature="e#2784#2785#0" expanded="true" />
+            <element signature="e#2837#2838#0" expanded="true" />
+            <element signature="e#2881#2882#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/CommentAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="149" column="9" selection-start-line="149" selection-start-column="9" selection-end-line="149" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gillyweed/android/asklah/QuestionThreadActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="486" column="46" selection-start-line="486" selection-start-column="46" selection-end-line="486" selection-end-column="46" />
+        <state relative-caret-position="140">
+          <caret line="839" column="0" selection-start-line="839" selection-start-column="0" selection-end-line="839" selection-end-column="0" />
           <folding>
-            <element signature="e#18027#20541#0" expanded="true" />
-            <element signature="e#20540#20541#0" expanded="true" />
+            <element signature="e#4242#4490#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#7506#9993#0" expanded="true" />
+            <element signature="e#9992#9993#0" expanded="true" />
+            <element signature="e#10494#11926#0" expanded="true" />
+            <element signature="e#11925#11926#0" expanded="true" />
+            <element signature="e#13078#15668#0" expanded="true" />
+            <element signature="e#15667#15668#0" expanded="true" />
+            <element signature="e#15707#21545#0" expanded="true" />
+            <element signature="e#21544#21545#0" expanded="true" />
+            <element signature="e#21584#24098#0" expanded="true" />
+            <element signature="e#24097#24098#0" expanded="true" />
+            <element signature="e#25577#28178#0" expanded="true" />
+            <element signature="e#28177#28178#0" expanded="true" />
+            <element signature="e#30680#32923#0" expanded="true" />
+            <element signature="e#32922#32923#0" expanded="true" />
           </folding>
         </state>
       </provider>
