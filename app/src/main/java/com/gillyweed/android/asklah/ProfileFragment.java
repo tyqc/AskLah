@@ -90,14 +90,14 @@ public class ProfileFragment extends Fragment {
 //                        newFragment.show(getFragmentManager(), "ChangeUsernameDialogFragment");
                         showChangeUsernameDialog();
                         break;
+//                    case 1:
+//                        //Create a new intent to open the {@link AchievementsAcitivty}
+//                        Intent achievementsIntent = new Intent(getActivity(), AchievementsActivity.class);
+//
+//                        // Start the new activity
+//                        startActivity(achievementsIntent);
+//                        break;
                     case 1:
-                        //Create a new intent to open the {@link AchievementsAcitivty}
-                        Intent achievementsIntent = new Intent(getActivity(), AchievementsActivity.class);
-
-                        // Start the new activity
-                        startActivity(achievementsIntent);
-                        break;
-                    case 2:
                         Call<ResponseBody> call = apiService.logout(currentUserToken.getToken());
                         call.enqueue(new Callback<ResponseBody>() {
                             @Override

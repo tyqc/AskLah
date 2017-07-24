@@ -2,7 +2,7 @@
 <resources>
     <string-array name="profileArray">
         <item>Change Username</item>
-        <item>Your achievements</item>
+        <!--<item>Your achievements</item>-->
         <item>Logout</item>
     </string-array>
 </resources>

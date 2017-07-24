@@ -143,12 +143,12 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         if(comment.getVoted() == 1)
         {
-            voteBtn.setBackgroundResource(R.drawable.ic_star_black_16dp);
+            voteBtn.setImageResource(R.drawable.ic_star_black_16dp);
         }
 
         if(comment.getBestAnswer() == 1)
         {
-            voteBtn.setBackgroundResource(R.drawable.ic_green_pin);
+            voteBtn.setImageResource(R.drawable.ic_green_pin);
         }
 
 //        voteBtn.setOnClickListener(voteClickListener);

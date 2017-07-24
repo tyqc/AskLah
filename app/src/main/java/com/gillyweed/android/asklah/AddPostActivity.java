@@ -3,8 +3,12 @@ package com.gillyweed.android.asklah;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
-import android.support.v4.content.res.TypedArrayUtils;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,19 +17,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gillyweed.android.asklah.data.model.AccessToken;
 import com.gillyweed.android.asklah.data.model.AddPost;
 import com.gillyweed.android.asklah.data.model.Tag;
-import com.gillyweed.android.asklah.data.model.PostTagArray;
 import com.gillyweed.android.asklah.data.model.TagArray;
 import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -36,6 +43,8 @@ import retrofit2.Retrofit;
 public class AddPostActivity extends AppCompatActivity {
 
     private String TAG = "add post";
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     EditText postTitleText;
 
@@ -63,6 +72,14 @@ public class AddPostActivity extends AppCompatActivity {
 
     boolean[] checked;
 
+    EditText takePhotoText;
+
+    Bitmap imageBitmap;
+
+    ImageView attachmentImageView;
+
+    String imageDir;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +102,10 @@ public class AddPostActivity extends AppCompatActivity {
         postDescripText = (EditText) findViewById(R.id.newPostDescriptText);
 
         postTagText = (EditText) findViewById(R.id.tagsText);
+
+        takePhotoText = (EditText) findViewById(R.id.addPhotoText);
+
+        attachmentImageView = (ImageView)findViewById(R.id.image_attach_image_view);
 
         getTagArray();
 
@@ -145,6 +166,13 @@ public class AddPostActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
 
                 dialog.show();
+            }
+        });
+
+        takePhotoText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
             }
         });
 
@@ -249,6 +277,11 @@ public class AddPostActivity extends AppCompatActivity {
 //
 //         selectedArr = convertToPrimArray(selectedArr);
 
+        if(!imageDir.isEmpty())
+        {
+            newPost.setImgLink(imageDir);
+        }
+
         newPost.setTagIds(selectedTags);
 
         Call<ResponseBody> call = apiService.addNewPost(currentUserToken.getToken(), currentUser.getNusId(), newPost);
@@ -288,8 +321,62 @@ public class AddPostActivity extends AppCompatActivity {
         });
     }
 
+    private void dispatchTakePictureIntent()
+    {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-//    public int[] convertToPrimArray(int[] selectedTagArr)
+        if(takePictureIntent.resolveActivity(getPackageManager()) != null)
+        {
+            File photoFile = null;
+
+            try {
+                photoFile = createImageFile();
+            }catch (IOException ex)
+            {
+                Log.e(TAG, "camera error: " + ex.getMessage());
+            }
+
+            if(photoFile != null)
+            {
+                Uri photoUri = FileProvider.getUriForFile(this, "com.gillyweed.android.fileprovider", photoFile);
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)
+        {
+//            Bundle extras = data.getExtras();
+
+
+//            imageBitmap = (Bitmap)extras.get("data");
+
+            attachmentImageView.setVisibility(View.VISIBLE);
+
+            takePhotoText.setText("Photo attached");
+        }
+    }
+
+    private File createImageFile() throws IOException
+    {
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        String imageFileName = "JPEG_" + timestamp + "_";
+
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        imageDir = image.getAbsolutePath();
+
+        return image;
+    }
+
+    //    public int[] convertToPrimArray(int[] selectedTagArr)
 //    {
 //        for(int i = 0; i < selectedTagArr.length; i++)
 //        {

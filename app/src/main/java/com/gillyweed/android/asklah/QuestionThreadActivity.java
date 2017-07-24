@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +41,7 @@ import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -102,6 +106,8 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
     int editCommentPosition;
 
+    ImageView questionPhoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +137,8 @@ public class QuestionThreadActivity extends AppCompatActivity {
         voteText = (TextView) findViewById(R.id.post_vote_text);
 
         postSegment = (LinearLayout) findViewById(R.id.post_segment);
+
+        questionPhoto = (ImageView) findViewById(R.id.question_photo_image_view);
 
         currentUser = getIntent().getParcelableExtra("user");
 
@@ -175,6 +183,20 @@ public class QuestionThreadActivity extends AppCompatActivity {
                     if(questionThread.getVoted() == 1)
                     {
                         voteBtn.setBackgroundResource(R.drawable.ic_star_black_16dp);
+                    }
+
+                    if(questionThread.getImgLink() != null)
+                    {
+                        File imgFile = new File(questionThread.getImgLink());
+
+                        if(imgFile.exists())
+                        {
+                            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+                            questionPhoto.setImageBitmap(bitmap);
+                        }
+
+                        questionPhoto.setVisibility(View.VISIBLE);
                     }
 
                     voteText.setText(questionThread.getVote() + "");
@@ -268,6 +290,15 @@ public class QuestionThreadActivity extends AppCompatActivity {
                                     pinBtn.setTitleColor(Color.WHITE);
 
                                     menu.addMenuItem(pinBtn);
+
+                                    SwipeMenuItem reportBtn = new SwipeMenuItem(getApplicationContext());
+                                    reportBtn.setBackground(new ColorDrawable(Color.RED));
+
+                                    reportBtn.setWidth(200);
+                                    reportBtn.setTitle("Report");
+                                    reportBtn.setTitleSize(18);
+                                    reportBtn.setTitleColor(Color.WHITE);
+                                    menu.addMenuItem(reportBtn);
                             }
 
                         }
@@ -311,6 +342,10 @@ public class QuestionThreadActivity extends AppCompatActivity {
                                     {
                                         pinUnpinComment(position);
                                     }
+                                    break;
+
+                                case 2:
+                                    reportComment();
                                     break;
                             }
                             return false;
@@ -698,6 +733,19 @@ public class QuestionThreadActivity extends AppCompatActivity {
                 editPostIntent.putExtra("post", questionThread);
                 startActivityForResult(editPostIntent, 2000);
                 return true;
+
+            case R.id.report:
+                new AlertDialog.Builder(QuestionThreadActivity.this)
+                        .setTitle("Report Post")
+                        .setMessage("Are you sure you want to report this post?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(QuestionThreadActivity.this, "Your feedback has been sent", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -870,4 +918,17 @@ public class QuestionThreadActivity extends AppCompatActivity {
         });
     }
 
+    public void reportComment()
+    {
+        new AlertDialog.Builder(QuestionThreadActivity.this)
+                .setTitle("Report Comment")
+                .setMessage("Are you sure you want to report this comment?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(QuestionThreadActivity.this, "Your feedback has been sent", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
 }

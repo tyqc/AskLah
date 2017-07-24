@@ -20,6 +20,35 @@
         android:cursorVisible="false"
         android:focusable="false"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="18dp"
+            android:maxWidth="18dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/image_attach_image_view"
+            android:src="@drawable/ic_attachment_black"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"/>
+
+        <EditText
+            android:id="@+id/addPhotoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="+ add photo"
+            android:focusableInTouchMode="false"
+            android:cursorVisible="false"
+            android:focusable="false"/>
+
+    </LinearLayout>
+    
+
     <EditText
         android:id="@+id/newPostDescriptText"
         android:layout_width="match_parent"

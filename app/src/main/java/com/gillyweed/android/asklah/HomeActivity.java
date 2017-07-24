@@ -64,6 +64,14 @@ public class HomeActivity extends AppCompatActivity {
                 currentToken = intent.getParcelableExtra("accessToken");
             }
         }
+        else if(requestCode == 1002)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 
     @Override
@@ -77,9 +85,9 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handles actions on action bar items
         switch (item.getItemId()) {
-            case R.id.action_announcement:
-                startActivity(new Intent(this, AnnouncementsActivity.class));
-                return true;
+//            case R.id.action_announcement:
+//                startActivity(new Intent(this, AnnouncementsActivity.class));
+//                return true;
 
             case R.id.action_setting:
                 startActivity(new Intent(this, SettingsActivity.class));

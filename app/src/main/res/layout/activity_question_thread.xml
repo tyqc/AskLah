@@ -45,6 +45,13 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginBottom="5dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/question_photo_image_view"/>
+
             <TextView
                 android:id="@+id/question_description"
                 android:layout_width="match_parent"

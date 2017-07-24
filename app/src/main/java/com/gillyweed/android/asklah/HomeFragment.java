@@ -133,6 +133,8 @@ public class HomeFragment extends Fragment {
                                 getActivity().getIntent().putParcelableArrayListExtra("subscribedTagList", subscribedTagList);
                             }
 
+                            moduleNameList.add("All Tags");
+
                             modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, moduleNameList);
                             homeGridView.setAdapter(modulesOrMajorsAdapter);
 //
@@ -149,6 +151,10 @@ public class HomeFragment extends Fragment {
                                     else if(moduleNameList.get(position).equalsIgnoreCase("Subscribed Posts"))
                                     {
                                         directToSubscribedPostList();
+                                    }
+                                    else if(moduleNameList.get(position).equalsIgnoreCase("All Tags"))
+                                    {
+                                        directToTagList();
                                     }
                                     else
                                     {
@@ -643,5 +649,15 @@ public class HomeFragment extends Fragment {
         editor.commit();
 
         startActivity(postListIntent);
+    }
+
+    public void directToTagList()
+    {
+        Intent tagListIntent = new Intent(getActivity(), TagListActivity.class);
+
+        tagListIntent.putExtra("user", currentUser);
+        tagListIntent.putExtra("accessToken", currentUserToken);
+
+        getActivity().startActivityForResult(tagListIntent, 1002);
     }
 }
