@@ -3,17 +3,21 @@ package com.gillyweed.android.asklah;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
+
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+
+        // setting the font of the title of the login page
+        TextView loginTitle = (TextView)findViewById(R.id.login_title);
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/shorelines_script_bold.otf");
+        loginTitle.setTypeface(customFont);
 
         loginButton = (Button) findViewById(R.id.login_button);
         nus_idText = (EditText) findViewById(R.id.nus_idText);

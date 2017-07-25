@@ -1,17 +1,21 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_screen"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_ryan_holloway"
     android:orientation="vertical"
     android:paddingTop="56dp">
 
-    <ImageView
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/logo_here"
-        android:src="@drawable/logo" />
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:text="asklah!"
+        android:textColor="#ccffffff"
+        android:textSize="72sp" />
 
     <EditText
         android:id="@+id/nus_idText"
@@ -19,9 +23,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="16dp"
+        android:backgroundTint="#ccffffff"
         android:hint="@string/nus_id"
         android:inputType="text"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textColor="#ccffffff"
+        android:textColorHighlight="#ccbebebe"
+        android:textColorHint="#ccffffff"
+        android:textCursorDrawable="@null" />
 
     <EditText
         android:id="@+id/passwordText"
@@ -30,15 +39,24 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:backgroundTint="#ccffffff"
+        android:fontFamily="sans-serif"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="#ccffffff"
+        android:textColorHighlight="#ccbebebe"
+        android:textColorHint="#ccffffff"
+        android:textCursorDrawable="@null" />
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:background="#8ceeeeee"
         android:text="@string/login" />
-
 
 </LinearLayout>
