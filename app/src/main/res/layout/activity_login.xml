@@ -19,34 +19,18 @@
 
     <EditText
         android:id="@+id/nus_idText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"
-        android:backgroundTint="#ccffffff"
+        style="@style/loginEditText"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/nus_id"
         android:inputType="text"
-        android:maxLines="1"
-        android:textColor="#ccffffff"
-        android:textColorHighlight="#ccbebebe"
-        android:textColorHint="#ccffffff"
-        android:textCursorDrawable="@null" />
+        android:maxLines="1" />
 
     <EditText
         android:id="@+id/passwordText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:backgroundTint="#ccffffff"
-        android:fontFamily="sans-serif"
+        style="@style/loginEditText"
         android:hint="@string/password"
-        android:inputType="textPassword"
-        android:textColor="#ccffffff"
-        android:textColorHighlight="#ccbebebe"
-        android:textColorHint="#ccffffff"
-        android:textCursorDrawable="@null" />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/login_button"

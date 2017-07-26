@@ -38,4 +38,19 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <!-- Style for EditText in Login Activity -->
+    <style name="loginEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:backgroundTint">#ccffffff</item>
+        <item name="android:textColor">#ccffffff</item>
+        <item name="android:textColorHighlight">#ccbebebe</item>
+        <item name="android:textColorHint">#ccffffff</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
 </resources>
