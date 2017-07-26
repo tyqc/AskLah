@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment {
 
                             moduleNameList.add("All Tags");
 
-                            modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, moduleNameList);
+                            modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_module, moduleNameList);
                             homeGridView.setAdapter(modulesOrMajorsAdapter);
 //
 //
