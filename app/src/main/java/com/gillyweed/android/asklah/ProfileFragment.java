@@ -107,7 +107,7 @@ public class ProfileFragment extends Fragment {
 
                                 if(response.isSuccessful())
                                 {
-                                    Toast.makeText(getActivity(), "See you again!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "See you soon!", Toast.LENGTH_LONG).show();
 
                                     Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
 
@@ -119,7 +119,7 @@ public class ProfileFragment extends Fragment {
                                 }
                                 else
                                 {
-                                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "An error has occurred. Please try again later.", Toast.LENGTH_LONG).show();
                                 }
                             }
 
@@ -176,7 +176,7 @@ public class ProfileFragment extends Fragment {
                         }
                         else
                         {
-                            Toast.makeText(getActivity(), "Please type a new username :)", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Please type a new username", Toast.LENGTH_LONG).show();
                         }
                     }
                 })
@@ -206,7 +206,7 @@ public class ProfileFragment extends Fragment {
                 {
                     if(responseCode == 200)
                     {
-                        Toast.makeText(getActivity(), "Username is updated!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Username has been updated!", Toast.LENGTH_LONG).show();
 
                         User updatedUser = response.body();
 
@@ -221,16 +221,16 @@ public class ProfileFragment extends Fragment {
                     switch (responseCode)
                     {
                         case 400:
-                            Toast.makeText(getActivity(), "Username field cannot be empty :(", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Username field cannot be empty.", Toast.LENGTH_LONG).show();
                             break;
                         case 404:
-                            Toast.makeText(getActivity(), "Your data cannot be found in database", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Your data cannot be found.", Toast.LENGTH_LONG).show();
                             break;
                         case 409:
-                            Toast.makeText(getActivity(), "Your new unsername has been taken by others :(", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "This username is unavailable.", Toast.LENGTH_LONG).show();
                             break;
                         default:
-                            Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "An error has occurred. Please try again later.", Toast.LENGTH_LONG).show();
                             break;
                     }
                 }

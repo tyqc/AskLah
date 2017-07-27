@@ -4,5 +4,4 @@
     android:layout_height="wrap_content"
     android:background="#B3FFFFFF"
     android:gravity="center"
-    android:padding="8dp"
-    android:textColor="@color/primary_text" />
+    android:padding="8dp" />
