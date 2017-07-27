@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,11 +61,11 @@ public class ProfileFragment extends Fragment {
         usernameTextView = (TextView) rootView.findViewById(R.id.username_text_view);
         sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
 
-        ListView profileList = (ListView) rootView.findViewById(R.id.profile_list_view);
+        GridView profileList = (GridView) rootView.findViewById(R.id.profile_grid_view);
 
         String[] listItemArray = getResources().getStringArray(R.array.profileArray);
 
-        ArrayAdapter<String> listItemAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItemArray);
+        ArrayAdapter<String> listItemAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_profile, listItemArray);
 
         profileList.setAdapter(listItemAdapter);
 

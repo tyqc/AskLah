@@ -12,6 +12,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\atlan\.android\build-cache\5cc0fae2630219366677e3d6793163da007cb524\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a2af9c72ccaa4c5c049b500ca6ea664a4ce1f7d4">
+        <dex dex="C:\Users\atlan\AndroidStudioProjects\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2abe841eb7aebf73ec4c1a017826f05672d4fc18\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\atlan\AndroidStudioProjects\AskLah\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
