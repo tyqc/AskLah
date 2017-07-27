@@ -118,8 +118,8 @@ public class AddPostActivity extends AppCompatActivity {
                         if(checkSelected)
                         {
                             String tagSelected = "";
-                            int i;
-                            for (i = 0; i < checked.length - 1; i++)
+
+                            for (int i = 0; i < checked.length; i++)
                             {
                                 if(checked[i])
                                 {
@@ -131,10 +131,6 @@ public class AddPostActivity extends AppCompatActivity {
 
                                 }
                             }
-
-                            // adding the last module code
-                            tagSelected += tagArray.get(i).getTagName();
-                            selectedTags.add(tagArray.get(i).getTagId());
 
                             // Setting the string for question tag edit text
                             postTagText.setText(tagSelected);
