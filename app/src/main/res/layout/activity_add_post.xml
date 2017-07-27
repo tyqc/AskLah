@@ -7,53 +7,56 @@
 
     <EditText
         android:id="@+id/newPostTitleText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/postEditText"
+        android:layout_marginTop="16dp"
         android:hint="Question Title" />
 
     <EditText
         android:id="@+id/tagsText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="+ add question tag"
-        android:focusableInTouchMode="false"
+        style="@style/postEditText"
         android:cursorVisible="false"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="Add tags" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxHeight="18dp"
-            android:maxWidth="18dp"
-            android:adjustViewBounds="true"
-            android:id="@+id/image_attach_image_view"
-            android:src="@drawable/ic_attachment_black"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="5dp"/>
+        android:orientation="horizontal"> -->
 
-        <EditText
-            android:id="@+id/addPhotoText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="+ add photo"
-            android:focusableInTouchMode="false"
-            android:cursorVisible="false"
-            android:focusable="false"/>
+    <!--
+    <ImageView
+        android:id="@+id/image_attach_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:adjustViewBounds="true"
+        android:maxHeight="18dp"
+        android:maxWidth="18dp"
+        android:src="@drawable/ic_attachment_black"
+        android:visibility="gone" /> -->
 
-    </LinearLayout>
-    
+    <Button
+        android:id="@+id/addPhotoText"
+        style="@style/postEditText"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="Add a photo"
+        android:textAllCaps="true" />
+
+    <!--</LinearLayout>-->
 
     <EditText
         android:id="@+id/newPostDescriptText"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:gravity="start"
         android:hint="Question description"
-        android:inputType="textLongMessage"/>
+        android:inputType="textLongMessage|textMultiLine" />
 
 </LinearLayout>

@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -42,49 +43,31 @@ import retrofit2.Retrofit;
 
 public class AddPostActivity extends AppCompatActivity {
 
-    private String TAG = "add post";
-
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
     EditText postTitleText;
-
     EditText postTagText;
-
     EditText postDescripText;
-
     ApiClient apiClient = null;
-
     Retrofit retrofit = null;
-
     ApiInterface apiService = null;
-
     User currentUser = null;
-
     AccessToken currentUserToken = null;
-
     CharSequence[] tagNameArray;
-
     ArrayList<Tag> tagArray;
-
     ArrayList<Integer> selectedTags;
-
     boolean checkSelected = false;
-
     boolean[] checked;
-
-    EditText takePhotoText;
-
+    Button takePhotoText;
     Bitmap imageBitmap;
-
     ImageView attachmentImageView;
-
     String imageDir;
+    private String TAG = "add post";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
-        getSupportActionBar().setTitle("Add New GetPost");
+        getSupportActionBar().setTitle("Add New Post");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         apiClient = new ApiClient();
@@ -103,9 +86,9 @@ public class AddPostActivity extends AppCompatActivity {
 
         postTagText = (EditText) findViewById(R.id.tagsText);
 
-        takePhotoText = (EditText) findViewById(R.id.addPhotoText);
+        takePhotoText = (Button) findViewById(R.id.addPhotoText);
 
-        attachmentImageView = (ImageView)findViewById(R.id.image_attach_image_view);
+        //  attachmentImageView = (ImageView)findViewById(R.id.image_attach_image_view);
 
         getTagArray();
 
@@ -135,8 +118,8 @@ public class AddPostActivity extends AppCompatActivity {
                         if(checkSelected)
                         {
                             String tagSelected = "";
-
-                            for (int i = 0; i < checked.length; i++)
+                            int i;
+                            for (i = 0; i < checked.length - 1; i++)
                             {
                                 if(checked[i])
                                 {
@@ -149,6 +132,11 @@ public class AddPostActivity extends AppCompatActivity {
                                 }
                             }
 
+                            // adding the last module code
+                            tagSelected += tagArray.get(i).getTagName();
+                            selectedTags.add(tagArray.get(i).getTagId());
+
+                            // Setting the string for question tag edit text
                             postTagText.setText(tagSelected);
 
                             checkSelected = false;
@@ -356,7 +344,7 @@ public class AddPostActivity extends AppCompatActivity {
 
 //            imageBitmap = (Bitmap)extras.get("data");
 
-            attachmentImageView.setVisibility(View.VISIBLE);
+            //    attachmentImageView.setVisibility(View.VISIBLE);
 
             takePhotoText.setText("Photo attached");
         }
