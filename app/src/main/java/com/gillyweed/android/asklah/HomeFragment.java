@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,8 +17,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -42,32 +46,20 @@ import static android.app.Activity.RESULT_OK;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<String> moduleNameList = new ArrayList<String>();
-
-    private ArrayList<SubscriptionTag> subscribedTagList = new ArrayList<SubscriptionTag>();
-
-    private String TAG = "subscription tag";
-
-    User currentUser = null;
-
-    AccessToken currentUserToken = null;
-
-    ApiClient apiClient = null;
-
-    Retrofit retrofit = null;
-
-    ApiInterface apiService = null;
-
-    ArrayAdapter<String> modulesOrMajorsAdapter = null;
-
     public static final String MyPref = "MyPrefs";
-
+    User currentUser = null;
+    AccessToken currentUserToken = null;
+    ApiClient apiClient = null;
+    Retrofit retrofit = null;
+    ApiInterface apiService = null;
+    ArrayAdapter<String> modulesOrMajorsAdapter = null;
     EditText tagNameText;
     EditText tagDescriptionText;
-    ToggleButton statusToggle;
-
+    Switch statusToggle;
     String userRole;
-
+    private ArrayList<String> moduleNameList = new ArrayList<String>();
+    private ArrayList<SubscriptionTag> subscribedTagList = new ArrayList<SubscriptionTag>();
+    private String TAG = "subscription tag";
     private FloatingActionButton addPostBtn;
 
     public HomeFragment() {
@@ -362,7 +354,7 @@ public class HomeFragment extends Fragment {
 
         builder.setView(view)
                 .setTitle(moduleNameList.get(tagPosition))
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -378,7 +370,7 @@ public class HomeFragment extends Fragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_edit_tag, null);
         tagNameText = (EditText) view.findViewById(R.id.tag_nameText);
         tagDescriptionText = (EditText) view.findViewById(R.id.tag_descriptionText);
-        statusToggle = (ToggleButton) view.findViewById(R.id.statusToggle);
+        statusToggle = (Switch) view.findViewById(R.id.statusToggle);
         statusToggle.setVisibility(View.INVISIBLE);
 
         builder.setView(view)
@@ -470,7 +462,7 @@ public class HomeFragment extends Fragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_edit_tag, null);
         tagNameText = (EditText) view.findViewById(R.id.tag_nameText);
         tagDescriptionText = (EditText) view.findViewById(R.id.tag_descriptionText);
-        statusToggle = (ToggleButton) view.findViewById(R.id.statusToggle);
+        statusToggle = (Switch) view.findViewById(R.id.statusToggle);
 
         final SubscriptionTag getTag = subscribedTagList.get(tagPosition);
 
