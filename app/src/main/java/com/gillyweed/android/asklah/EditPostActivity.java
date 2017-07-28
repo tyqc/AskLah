@@ -31,27 +31,17 @@ import retrofit2.Retrofit;
 
 public class EditPostActivity extends AppCompatActivity {
 
-    private String TAG = "add post";
-
     EditText postTitleText;
-
     EditText postTagText;
-
     EditText postDescripText;
-
     ApiClient apiClient = null;
-
     Retrofit retrofit = null;
-
     ApiInterface apiService = null;
-
     User currentUser = null;
-
     AccessToken currentUserToken = null;
-
     GetPost postThread = null;
-
     EditPost editPost = null;
+    private String TAG = "add post";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +68,7 @@ public class EditPostActivity extends AppCompatActivity {
 
         postTagText = (EditText) findViewById(R.id.tagsText);
 
-        postTagText.setVisibility(View.INVISIBLE);
+        postTagText.setVisibility(View.GONE);
 
         editPost = new EditPost();
 
