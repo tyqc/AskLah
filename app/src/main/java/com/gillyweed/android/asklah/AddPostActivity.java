@@ -261,7 +261,7 @@ public class AddPostActivity extends AppCompatActivity {
 //
 //         selectedArr = convertToPrimArray(selectedArr);
 
-        if(!imageDir.isEmpty())
+        if (imageDir != null)
         {
             newPost.setImgLink(imageDir);
         }

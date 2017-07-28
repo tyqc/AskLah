@@ -447,7 +447,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                     newComment.setPostId(postId);
 
-                    if(!replyToId.isEmpty())
+                    if (replyToId != null)
                     {
                         newComment.setReplyToId(replyToId);
                     }
