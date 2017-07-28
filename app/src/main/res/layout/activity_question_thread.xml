@@ -40,15 +40,16 @@
             android:textSize="15sp"
             tools:text="I was looking through the PYP and chanced upon this question. Lorem ipsum dolor sit amet, per bonorum voluptatibus an, scripta tamquam vel cu. Modo voluptua in nec, eu dolorem scripserit vix. Sanctus perpetua duo id, at eum volumus theophrastus. Nibh patrioque sea an." />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <!-- Linear layout for tags, date posted and date updated -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -83,19 +84,16 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="16dp"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/upvoteBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:adjustViewBounds="true"
                     android:gravity="center"
-                    android:maxHeight="18dp"
-                    android:maxWidth="18dp"
                     android:src="@drawable/ic_thumb_up_light_24dp" />
 
                 <TextView
@@ -104,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center" />
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -116,7 +114,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/reply_text_bar"
-        android:layout_below="@+id/post_segment" />
+        android:layout_below="@+id/post_segment"
+        android:divider="@color/bg_color"
+        android:dividerHeight="2.0sp" />
 
     <LinearLayout
         android:id="@+id/reply_text_bar"

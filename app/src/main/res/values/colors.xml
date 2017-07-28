@@ -17,4 +17,9 @@
     <!--background for list item modules -->
     <color name="bg_list_item_color">#B3FFFFFF</color>
 
+    <!-- pin button background colour for question thread activity -->
+    <color name="pin_bg_color">#F9E7D1</color>
+    <!-- report button background colour for question thread activity-->
+    <color name="report_bg_color">#F8D7D6</color>
+
 </resources>

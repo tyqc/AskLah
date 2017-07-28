@@ -93,17 +93,17 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         if(comment.getCommenter().getNusId().equalsIgnoreCase(currentNustId))
         {
-            commenterTextView.setText("Me :");
+            commenterTextView.setText("I say...");
         }
         else
         {
             if(currentUserRole.equalsIgnoreCase("student"))
             {
-                commenterTextView.setText(comment.getCommenter().getUsername() + " :");
+                commenterTextView.setText(comment.getCommenter().getUsername() + " says...");
             }
             else
             {
-                commenterTextView.setText(comment.getCommenter().getName() + " :");
+                commenterTextView.setText(comment.getCommenter().getName() + " says...");
             }
         }
 

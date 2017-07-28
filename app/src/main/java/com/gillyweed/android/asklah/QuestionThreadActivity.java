@@ -264,32 +264,28 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                                 case 1:
                                     SwipeMenuItem replyBtn = new SwipeMenuItem(getApplicationContext());
-                                    replyBtn.setBackground(new ColorDrawable(Color.DKGRAY));
+
+                                    replyBtn.setBackground(R.color.bg_color);
 
                                     replyBtn.setWidth(200);
-                                    replyBtn.setTitle("Reply");
-                                    replyBtn.setTitleSize(18);
-                                    replyBtn.setTitleColor(Color.WHITE);
+                                    replyBtn.setIcon(R.drawable.ic_reply_black_24dp);
 
                                     menu.addMenuItem(replyBtn);
 
                                     SwipeMenuItem pinBtn = new SwipeMenuItem(getApplicationContext());
-                                    pinBtn.setBackground(new ColorDrawable(Color.DKGRAY));
+                                    pinBtn.setBackground(R.color.pin_bg_color);
 
                                     pinBtn.setWidth(200);
-                                    pinBtn.setTitle("Pin");
-                                    pinBtn.setTitleSize(18);
-                                    pinBtn.setTitleColor(Color.WHITE);
+                                    pinBtn.setIcon(R.drawable.ic_check_circle_black_24dp);
 
                                     menu.addMenuItem(pinBtn);
 
                                     SwipeMenuItem reportBtn = new SwipeMenuItem(getApplicationContext());
-                                    reportBtn.setBackground(new ColorDrawable(Color.RED));
+
+                                    reportBtn.setBackground(R.color.report_bg_color);
 
                                     reportBtn.setWidth(200);
-                                    reportBtn.setTitle("Report");
-                                    reportBtn.setTitleSize(18);
-                                    reportBtn.setTitleColor(Color.WHITE);
+                                    reportBtn.setIcon(R.drawable.ic_report_black_24dp);
                                     menu.addMenuItem(reportBtn);
                             }
 
