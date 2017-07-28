@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -36,8 +37,7 @@ import retrofit2.Retrofit;
 
 public class TagListActivity extends AppCompatActivity {
 
-    private String TAG = "tag list";
-
+    public static final String MyPref = "MyPrefs";
     User currentUser = null;
 
     AccessToken currentUserToken = null;
@@ -47,14 +47,10 @@ public class TagListActivity extends AppCompatActivity {
     Retrofit retrofit = null;
 
     ApiInterface apiService = null;
-
-    public static final String MyPref = "MyPrefs";
-
     SwipeMenuListView tagListView = null;
-
     TagAdapter tagAdapter;
-
     ArrayList<Tag> tagArrayList;
+    private String TAG = "tag list";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,12 +91,12 @@ public class TagListActivity extends AppCompatActivity {
                         @Override
                         public void create(SwipeMenu menu) {
                             SwipeMenuItem subscribeBtn = new SwipeMenuItem(getApplicationContext());
-                            subscribeBtn.setBackground(new ColorDrawable(Color.DKGRAY));
+                            subscribeBtn.setBackground(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.bg_color)));
 
-                            subscribeBtn.setWidth(200);
+                            subscribeBtn.setWidth(400);
                             subscribeBtn.setTitle("Subscribe");
                             subscribeBtn.setTitleSize(18);
-                            subscribeBtn.setTitleColor(Color.WHITE);
+                            subscribeBtn.setTitleColor(ContextCompat.getColor(getApplicationContext(), R.color.secondary_text));
 
                             menu.addMenuItem(subscribeBtn);
 
