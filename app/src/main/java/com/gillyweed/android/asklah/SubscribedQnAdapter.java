@@ -56,7 +56,7 @@ public class SubscribedQnAdapter extends ArrayAdapter<PostList> {
         ArrayList<PostTags> questionTagsList = post.getPost().getTags().getTags();
 
         // Concatenate into a string
-        String questionTagsString = "";
+        String questionTagsString = "tags: ";
         for (int i = 0; i < questionTagsList.size(); i++) {
             questionTagsString += questionTagsList.get(i).getTagName() + " ";
         }
