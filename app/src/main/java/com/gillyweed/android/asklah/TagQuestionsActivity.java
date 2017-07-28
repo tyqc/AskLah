@@ -31,8 +31,7 @@ import retrofit2.Retrofit;
 
 public class TagQuestionsActivity extends AppCompatActivity {
 
-    private String TAG = "question list";
-
+    public static final String MyPref = "MyPrefs";
     User currentUser = null;
 
     AccessToken currentUserToken = null;
@@ -44,10 +43,8 @@ public class TagQuestionsActivity extends AppCompatActivity {
     ApiInterface apiService = null;
 
     int tagId;
-
-    public static final String MyPref = "MyPrefs";
-
     ArrayList<PostList> postLists;
+    private String TAG = "question list";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +73,7 @@ public class TagQuestionsActivity extends AppCompatActivity {
         sortByOptionsList.add("Module Code");
 
         // Creating array adapter
-        ArrayAdapter<String> sortByAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, sortByOptionsList);
+        ArrayAdapter<String> sortByAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, sortByOptionsList);
 
         // Apply the adapter to the spinner
         sortBySpinner.setAdapter(sortByAdapter);
@@ -91,7 +88,7 @@ public class TagQuestionsActivity extends AppCompatActivity {
         filterByOptionsList.add("Level 4000");
 
         // Creating Array Adapter
-        ArrayAdapter<String> filterByAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, filterByOptionsList);
+        ArrayAdapter<String> filterByAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, filterByOptionsList);
 
         // Apply the adapter to the spinner
         filterBySpinner.setAdapter(filterByAdapter);
