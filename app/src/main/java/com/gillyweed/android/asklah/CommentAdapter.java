@@ -4,6 +4,8 @@ import android.content.Context;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,9 +37,7 @@ import retrofit2.Retrofit;
 
 // Specify custom ViewHolder which gives access to our views
 public class CommentAdapter extends ArrayAdapter<Comment> {
-    private String TAG = "comment adapter";
-    private Context mContext;
-    private ArrayList<Comment> mCommentsList;
+    public static final String MyPref = "MyPrefs";
     TextView voteTextView = null;
     TextView commenterTextView = null;
     TextView commentDescriptionTextView = null;
@@ -45,16 +45,13 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     String currentUserRole = "";
     String currentNustId = "";
     ImageView voteBtn;
-
     ApiClient apiClient = null;
-
     Retrofit retrofit = null;
-
     ApiInterface apiService = null;
-
     Comment comment;
-
-    public static final String MyPref = "MyPrefs";
+    private String TAG = "comment adapter";
+    private Context mContext;
+    private ArrayList<Comment> mCommentsList;
 
     public CommentAdapter(Context context, ArrayList<Comment> commentsList) {
         super(context, 0, commentsList);
@@ -143,7 +140,9 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         if(comment.getVoted() == 1)
         {
-            voteBtn.setImageResource(R.drawable.ic_star_black_16dp);
+            //voteBtn.setImageResource(R.drawable.ic_thumb_up_primary_text_color_24dp);
+            DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getContext(), R.color.primary_text));
+
         }
 
         if(comment.getBestAnswer() == 1)

@@ -7,4 +7,14 @@
     <color name="primary_text">#505050</color>
     <color name="secondary_text">#636363</color>
     <color name="black_overlay">#66000000</color>
+
+    <!-- colour for tags in forum -->
+    <color name="tags_color">#989B99</color>
+
+    <!-- background colour -->
+    <color name="bg_color">#f9f0e5</color>
+
+    <!--background for list item modules -->
+    <color name="bg_list_item_color">#B3FFFFFF</color>
+
 </resources>

@@ -9,7 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,8 +53,7 @@ import retrofit2.Retrofit;
 
 public class QuestionThreadActivity extends AppCompatActivity {
 
-    private String TAG = "question thread";
-
+    public static final String MyPref = "MyPrefs";
     User currentUser = null;
 
     AccessToken currentUserToken = null;
@@ -85,28 +85,18 @@ public class QuestionThreadActivity extends AppCompatActivity {
     LinearLayout postSegment;
 
     String postOwnerNusId;
-
-    public static final String MyPref = "MyPrefs";
-
-//    RecyclerView commentsRV = null;
-
     SwipeMenuListView commentListView = null;
 
+    //    RecyclerView commentsRV = null;
     EditText commentEditText;
-
     ImageView sendBtn;
-
     String replyToId;
-
     ArrayList<Comment> sampleCommentsList;
-
     CommentAdapter commentAdapter;
-
     Boolean editCommentBool = false;
-
     int editCommentPosition;
-
     ImageView questionPhoto;
+    private String TAG = "question thread";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +172,9 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                     if(questionThread.getVoted() == 1)
                     {
-                        voteBtn.setBackgroundResource(R.drawable.ic_star_black_16dp);
+                        //voteBtn.setBackgroundResource(R.drawable.ic_thumb_up_primary_text_color_24dp);
+                        DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.primary_text));
+
                     }
 
                     if(questionThread.getImgLink() != null)
@@ -224,7 +216,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                     postDateText.setText(postOwnerText);
 
-                    postUpdateDateText.setText("Updated on " + ConvertDateTime.convertTime(questionThread.getDateUpdated().getDate()));
+                    postUpdateDateText.setText("Last updated: " + ConvertDateTime.convertTime(questionThread.getDateUpdated().getDate()));
 
                     SharedPreferences sharedPreferences = getSharedPreferences(MyPref, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -598,13 +590,17 @@ public class QuestionThreadActivity extends AppCompatActivity {
                             {
                                 questionThread.setVote(questionThread.getVote() + 1);
                                 questionThread.setVoted(1);
-                                voteBtn.setBackgroundResource(R.drawable.ic_star_black_16dp);
+                                //voteBtn.setBackgroundResource(R.drawable.ic_thumb_up_primary_text_color_24dp);
+                                DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.primary_text));
+
                             }
                             else
                             {
                                 questionThread.setVote(questionThread.getVote() - 1);
                                 questionThread.setVoted(0);
-                                voteBtn.setBackgroundResource(R.drawable.ic_star_white);
+                                //voteBtn.setBackgroundResource(R.drawable.ic_thumb_up_light_24dp);
+                                DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.tags_color));
+
                             }
 
                             voteText.setText(questionThread.getVote() + "");
@@ -765,7 +761,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
     public void getTagText(GetPost questionThread)
     {
-        String tagText = "Tag: ";
+        String tagText = "Tags: ";
 
         ArrayList<PostTags> tagList = questionThread.getPostTagArray().getTags();
 
