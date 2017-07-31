@@ -3,21 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\atlan\AndroidStudioProjects\AskLah\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a275a62d3cf4406beec54c8c0d81a3e91f7e142a">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_0f98d8f16cd30335bbacb754c45cbc09ff33b46a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\atlan\AndroidStudioProjects\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_d79f36f6b742d3aade43832ec34bfc65c7579956\classes.dex" />
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_ba180901856d2c619e0de03274c59388a2c4876e\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\atlan\AndroidStudioProjects\AskLah\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="C:\Users\Envy 15.TKYong\.android\build-cache\f96b971313142713594a01563769cd13c7ae0b66\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="ceea8cd618eebffac76df0b348759df52d450ed3">
-        <dex dex="C:\Users\atlan\AndroidStudioProjects\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_ba2985e03c1d9b9a308e6004fa731032348db29f\classes.dex" />
+        sha1="a2af9c72ccaa4c5c049b500ca6ea664a4ce1f7d4">
+        <dex dex="C:\Users\Envy 15.TKYong\Documents\orbital\android\AskLah\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bbc7ec227681bffa326c8bdb697eca00e963443a\classes.dex" />
     </item>
 
 </items>
