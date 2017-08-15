@@ -7,9 +7,12 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     EditText nus_idText;
     EditText passwordText;
+    ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.login_button);
         nus_idText = (EditText) findViewById(R.id.nus_idText);
         passwordText = (EditText) findViewById(R.id.passwordText);
+        spinner = (ProgressBar) findViewById(R.id.progressBarLogin);
+        spinner.setVisibility(View.GONE);
 
         //check api key
         if(API_KEY.isEmpty())
@@ -61,10 +67,13 @@ public class LoginActivity extends AppCompatActivity {
 
         final ApiInterface apiService = retrofit.create(ApiInterface.class);
 
-        // Set a clickListener on that view
+        // Set a clickListener on login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //make spinner visible
+                spinner.setVisibility(View.VISIBLE);
 
                 String nus_id = nus_idText.getText().toString();
                 String password = passwordText.getText().toString();
@@ -85,12 +94,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(response.isSuccessful())
                         {
-//                            Log.i(TAG, "response code 1: " + response.code());
 
                             if(responseCode == 200)
                             {
+                                //check if username exist
+                                //if yes, direct to create username view
+                                //if not, direct to home page
                                 checkUsernameExist(response);
-//                                Log.i(TAG, "why not work!!!");
                             }
                         }
                         else
@@ -118,13 +128,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void onFailure(Call<User> call, Throwable t) {
                         if(call.isCanceled())
                         {
-//                            Log.e(TAG, "request was aborted");
+                            Toast.makeText(LoginActivity.this, "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
                         }
                         else
                         {
-                            Log.e(TAG, t.getMessage());
+                            Toast.makeText(LoginActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                         }
-//                        Log.i(TAG, "response code 3: " + t.getMessage());
                     }
                 });
             }
@@ -144,11 +153,14 @@ public class LoginActivity extends AppCompatActivity {
 
         if(userData.getUsername() == null || userData.getUsername() == "" || userData.getUsername().isEmpty())
         {
+            spinner.setVisibility(View.GONE);
             Toast.makeText(LoginActivity.this, "Hi " + userData.getName() + " ! Let's create a username!", Toast.LENGTH_LONG).show();
 
             // Create a new intent to open the {@link CreateUsernameActivity}
+            //direct to create username view
             Intent usernameIntent = new Intent(LoginActivity.this, CreateUsernameActivity.class);
 
+            //pass current user's detail to next intent
             usernameIntent.putExtra("user", userData);
 
             usernameIntent.putExtra("accessToken", userData.getAccessToken());
@@ -158,13 +170,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
-            Log.i(TAG, userData.getAccessToken().getToken());
-
+            spinner.setVisibility(View.GONE);
             Toast.makeText(LoginActivity.this, "Welcome " + userData.getUsername(), Toast.LENGTH_LONG).show();
 
             // Create a new intent to open the {@link CreateUsernameActivity}
+            //direct to home page
             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
 
+            //pass current user's detail to next intent
             homeIntent.putExtra("user", userData);
 
             homeIntent.putExtra("accessToken", userData.getAccessToken());
@@ -172,5 +185,14 @@ public class LoginActivity extends AppCompatActivity {
             // Start the new activity
             startActivity(homeIntent);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+        return true;
     }
 }

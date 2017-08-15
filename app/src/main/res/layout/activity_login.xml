@@ -44,4 +44,12 @@
         android:text="@string/login"
         android:textColor="#FF414040" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarLogin"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"/>
+
 </LinearLayout>
