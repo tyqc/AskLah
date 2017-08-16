@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@drawable/bg_ryan_holloway"
     android:paddingTop="56dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:textColor="@color/primary_light"
         android:layout_margin="16dp"
         android:text="@string/create_username"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
@@ -21,15 +23,27 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:textColor="@color/primary_light"
         android:hint="@string/username"
         android:maxLength="15" />
 
     <Button
         android:id="@+id/create_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_gravity="center_horizontal"
+        android:background="#8ceeeeee"
+        android:textColor="#FF414040"
         android:text="@string/create" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarCreateUsername"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

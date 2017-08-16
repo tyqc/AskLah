@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            spinner.setVisibility(View.GONE);
                             switch (responseCode)
                             {
                                 case 400:
@@ -114,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Wrong NUS ID or password", Toast.LENGTH_LONG).show();
                                     break;
                                 case 404:
-                                    Toast.makeText(LoginActivity.this, "Wrong NUS ID or password", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, "NUS ID cannot be found in the database, please contact the administrator", Toast.LENGTH_LONG).show();
                                     break;
                                 default:
                                     Toast.makeText(LoginActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
@@ -126,6 +127,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
+                        spinner.setVisibility(View.GONE);
+
                         if(call.isCanceled())
                         {
                             Toast.makeText(LoginActivity.this, "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
@@ -142,7 +145,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void checkUsernameExist(Response<User> response)
     {
-
         User userData = response.body();
 
         SharedPreferences sharedPref = getSharedPreferences(MyPref, Context.MODE_PRIVATE);
@@ -187,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //hide keyboard when edit text is not focus
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
