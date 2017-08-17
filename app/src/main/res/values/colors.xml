@@ -24,4 +24,10 @@
 
     <color name="status_bar_color_login">#242328</color>
 
+    <color name="status_bar_color_home">#5F86A9</color>
+
+    <color name="action_bar_color_home">#90B0CE</color>
+
+    <color name="tab_color_home">#E6F0F9</color>
+
 </resources>

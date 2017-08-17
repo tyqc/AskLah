@@ -29,7 +29,7 @@
     <style name="MyTheme.Base" parent="AppTheme">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:statusBarColor">@color/black_overlay</item>
+        <item name="android:statusBarColor">@color/status_bar_color_home</item>
     </style>
 
 
