@@ -22,4 +22,6 @@
     <!-- report button background colour for question thread activity-->
     <color name="report_bg_color">#F8D7D6</color>
 
+    <color name="status_bar_color_login">#242328</color>
+
 </resources>
