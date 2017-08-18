@@ -30,4 +30,10 @@
 
     <color name="tab_color_home">#E6F0F9</color>
 
+    <color name="add_floating_button">#FFAC87</color>
+
+    <color name="add_floating_button_pressed">#DF8157</color>
+
+    <color name="add_floating_button_ripple">#FFC5AD</color>
+
 </resources>

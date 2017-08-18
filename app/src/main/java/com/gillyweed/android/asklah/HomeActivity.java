@@ -28,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private User currentUser;
     private AccessToken currentToken;
+    private com.github.clans.fab.FloatingActionButton addPostBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,28 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.mytabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        addPostBtn = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.add_new_post);
+
         currentUser = getIntent().getParcelableExtra("user");
 
         currentToken = getIntent().getParcelableExtra("accessToken");
+
+        addPostBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent addPostIntent = new Intent(HomeActivity.this, AddPostActivity.class);
+
+                addPostIntent.putExtra("user", HomeActivity.this.getIntent().getParcelableExtra("user"));
+
+                addPostIntent.putExtra("accessToken", HomeActivity.this.getIntent().getParcelableExtra("accessToken"));
+
+                startActivityForResult(addPostIntent, 1);
+
+//                startActivity(addPostIntent);
+            }
+        });
     }
 
     @Override
@@ -124,6 +144,36 @@ public class HomeActivity extends AppCompatActivity {
         adapter.addFragment(new NotifFragment(), "Notifications");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                switch (position)
+                {
+                    case 0:
+                        addPostBtn.show(true);
+                        break;
+                    case 1:
+                        addPostBtn.hide(true);
+                        break;
+                    case 2:
+                        addPostBtn.hide(true);
+                        break;
+                    default:
+                        addPostBtn.hide(true);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

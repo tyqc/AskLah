@@ -7,7 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.FloatingActionButton;
+import com.github.clans.fab.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -60,7 +61,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> moduleNameList = new ArrayList<String>();
     private ArrayList<SubscriptionTag> subscribedTagList = new ArrayList<SubscriptionTag>();
     private String TAG = "subscription tag";
-    private FloatingActionButton addPostBtn;
+//    private FloatingActionButton addPostBtn;
 
     public HomeFragment() {
 
@@ -229,24 +230,24 @@ public class HomeFragment extends Fragment {
 //            });
 //        }
 
-        addPostBtn = (FloatingActionButton) rootView.findViewById(R.id.add_new_post);
+//        addPostBtn = (FloatingActionButton) rootView.findViewById(R.id.add_new_post);
 
-        addPostBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent addPostIntent = new Intent(getActivity(), AddPostActivity.class);
-
-                addPostIntent.putExtra("user", getActivity().getIntent().getParcelableExtra("user"));
-
-                addPostIntent.putExtra("accessToken", getActivity().getIntent().getParcelableExtra("accessToken"));
-
-                startActivityForResult(addPostIntent, 1);
-
-//                startActivity(addPostIntent);
-            }
-        });
+//        addPostBtn.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view)
+//            {
+//                Intent addPostIntent = new Intent(getActivity(), AddPostActivity.class);
+//
+//                addPostIntent.putExtra("user", getActivity().getIntent().getParcelableExtra("user"));
+//
+//                addPostIntent.putExtra("accessToken", getActivity().getIntent().getParcelableExtra("accessToken"));
+//
+//                startActivityForResult(addPostIntent, 1);
+//
+////                startActivity(addPostIntent);
+//            }
+//        });
 
 
         return rootView;

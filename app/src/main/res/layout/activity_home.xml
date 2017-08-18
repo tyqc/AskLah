@@ -3,7 +3,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/coordinate_layout">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -29,6 +30,16 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/add_new_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:src="@drawable/ic_add_circle_24dp"
+        app:fab_colorNormal="@color/add_floating_button"
+        app:fab_colorPressed="@color/add_floating_button_pressed"
+        app:fab_colorRipple="@color/add_floating_button_ripple"/>
 
 </android.support.design.widget.CoordinatorLayout>
