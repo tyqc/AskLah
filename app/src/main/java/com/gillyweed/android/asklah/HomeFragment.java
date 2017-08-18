@@ -61,7 +61,6 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> moduleNameList = new ArrayList<String>();
     private ArrayList<SubscriptionTag> subscribedTagList = new ArrayList<SubscriptionTag>();
     private String TAG = "subscription tag";
-//    private FloatingActionButton addPostBtn;
 
     public HomeFragment() {
 
@@ -230,24 +229,7 @@ public class HomeFragment extends Fragment {
 //            });
 //        }
 
-//        addPostBtn = (FloatingActionButton) rootView.findViewById(R.id.add_new_post);
 
-//        addPostBtn.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//                Intent addPostIntent = new Intent(getActivity(), AddPostActivity.class);
-//
-//                addPostIntent.putExtra("user", getActivity().getIntent().getParcelableExtra("user"));
-//
-//                addPostIntent.putExtra("accessToken", getActivity().getIntent().getParcelableExtra("accessToken"));
-//
-//                startActivityForResult(addPostIntent, 1);
-//
-////                startActivity(addPostIntent);
-//            }
-//        });
 
 
         return rootView;

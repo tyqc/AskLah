@@ -1,6 +1,7 @@
 package com.gillyweed.android.asklah;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,6 +44,7 @@ public class TagAdapter extends ArrayAdapter<Tag> {
         tagNameText = (TextView) convertView.findViewById(R.id.tag_nameTextView);
 
         tagNameText.setText(tag.getTagName());
+
 
         return convertView;
     }

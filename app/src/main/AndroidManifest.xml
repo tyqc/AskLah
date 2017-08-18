@@ -45,9 +45,7 @@
             android:label="@string/achievement" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/MyTheme.Base"
-            android:noHistory="true"
-            />
+            android:theme="@style/MyTheme.Base"/>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings"
