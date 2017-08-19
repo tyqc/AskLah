@@ -1,25 +1,44 @@
 package com.gillyweed.android.asklah;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.gillyweed.android.asklah.data.model.AccessToken;
+import com.gillyweed.android.asklah.data.model.Tag;
+import com.gillyweed.android.asklah.data.model.TagArray;
 import com.gillyweed.android.asklah.data.model.User;
+import com.gillyweed.android.asklah.rest.ApiClient;
+import com.gillyweed.android.asklah.rest.ApiInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -29,6 +48,14 @@ public class HomeActivity extends AppCompatActivity {
     private User currentUser;
     private AccessToken currentToken;
     private com.github.clans.fab.FloatingActionButton addPostBtn;
+
+    ApiClient apiClient = null;
+    Retrofit retrofit = null;
+    ApiInterface apiService = null;
+    ArrayList<Tag> tagArrayList;
+    ArrayList<String> tagNameArrayList;
+    SimpleCursorAdapter tagAdapter;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +77,17 @@ public class HomeActivity extends AppCompatActivity {
 
         currentToken = getIntent().getParcelableExtra("accessToken");
 
+        apiClient = new ApiClient();
+
+        retrofit = apiClient.getClient();
+
+        apiService = retrofit.create(ApiInterface.class);
+
+        final String[] from = new String[] {"fishName"};
+        final int[] to = new int[] {android.R.id.text1};
+
+        tagAdapter = new SimpleCursorAdapter(HomeActivity.this, android.R.layout.simple_spinner_dropdown_item, null, from, to, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
         addPostBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -65,6 +103,8 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        getAllTags();
     }
 
     @Override
@@ -97,6 +137,55 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflates the menu. Adds items to actionbar if present
         getMenuInflater().inflate(R.menu.menu_home, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
+        ComponentName componentName = new ComponentName(HomeActivity.this, SearchResultsActivity.class);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
+        searchView.setIconifiedByDefault(false);
+        searchView.setSuggestionsAdapter(tagAdapter);
+
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
+
+                return true;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+
+                CursorAdapter cursorAdapter = searchView.getSuggestionsAdapter();
+                Cursor cursor = cursorAdapter.getCursor();
+                cursor.moveToPosition(position);
+                searchView.setQuery(cursor.getString(cursor.getColumnIndex("fishName")), false);
+                return true;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                final MatrixCursor matrixCursor = new MatrixCursor(new String[]{BaseColumns._ID, "fishName"});
+
+                for(int i = 0; i < tagNameArrayList.size(); i++)
+                {
+                    if(tagNameArrayList.get(i).toLowerCase().startsWith(newText.toLowerCase()))
+                    {
+                        matrixCursor.addRow(new Object[]{i, tagNameArrayList.get(i)});
+                    }
+                }
+
+                tagAdapter.changeCursor(matrixCursor);
+                return false;
+            }
+        });
+
         return true;
     }
 
@@ -104,10 +193,6 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handles actions on action bar items
         switch (item.getItemId()) {
-//            case R.id.action_announcement:
-//                startActivity(new Intent(this, AnnouncementsActivity.class));
-//                return true;
-
             case R.id.action_setting:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
@@ -183,6 +268,67 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        if(Intent.ACTION_SEARCH.equals(intent.getAction()))
+        {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            if(searchView != null)
+            {
+                searchView.clearFocus();
+            }
+        }
+    }
+
+    public void getAllTags()
+    {
+        Call< TagArray > call = apiService.getTags(currentToken.getToken());
+
+        call.enqueue(new Callback<TagArray>() {
+            @Override
+            public void onResponse(Call<TagArray> call, Response<TagArray> response) {
+                final int responseCode = response.code();
+
+                if(response.isSuccessful()) {
+                    tagArrayList = response.body().getTagArrayList();
+                    tagNameArrayList = new ArrayList<String>();
+                    convertToTagNameList();
+                }
+                else
+                {
+                    switch (responseCode)
+                    {
+                        default:
+                            Toast.makeText(HomeActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TagArray> call, Throwable t) {
+                if(call.isCanceled())
+                {
+                    Toast.makeText(HomeActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(HomeActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void convertToTagNameList()
+    {
+        for(int i = 0; i < tagArrayList.size(); i++)
+        {
+            tagNameArrayList.add(tagArrayList.get(i).getTagName());
         }
     }
 }

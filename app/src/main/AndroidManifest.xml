@@ -36,6 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".CreateUsernameActivity"
             android:label="CreateUsername"
@@ -45,7 +46,19 @@
             android:label="@string/achievement" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/MyTheme.Base"/>
+            android:theme="@style/MyTheme.Base">
+            <meta-data android:name="android.app.default_searchable"
+                android:value=".SearchResultsActivity"/>
+        </activity>
+        <activity android:name=".SearchResultsActivity"
+            android:parentActivityName=".HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings"
@@ -82,8 +95,8 @@
             android:name=".QuestionThreadActivity"
             android:parentActivityName=".TagQuestionsActivity" />
         <activity
-        android:name=".EditPostActivity"
-        android:parentActivityName=".QuestionThreadActivity" />
+            android:name=".EditPostActivity"
+            android:parentActivityName=".QuestionThreadActivity" />
 
         <activity
             android:name=".TagListActivity"
