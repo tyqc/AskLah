@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
-//import android.support.design.widget.FloatingActionButton;
 import com.github.clans.fab.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -61,6 +60,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> moduleNameList = new ArrayList<String>();
     private ArrayList<SubscriptionTag> subscribedTagList = new ArrayList<SubscriptionTag>();
     private String TAG = "subscription tag";
+    TextView noSubText;
+    GridView tagGridView;
 
     public HomeFragment() {
 
@@ -95,108 +96,117 @@ public class HomeFragment extends Fragment {
 
         userRole = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE).getString("user_role", "");
 
-//        if(subscribedTagList == null || moduleNameList == null)
-//        {
+        noSubText = (TextView) rootView.findViewById(R.id.no_subscription_text);
 
-            Call<SubscriptionTags> call = apiService.getAllSubscribedTag(currentUserToken.getToken(), currentUser.getNusId());
+        noSubText.setVisibility(View.GONE);
 
-            call.enqueue(new Callback<SubscriptionTags>() {
-                @Override
-                public void onResponse(Call<SubscriptionTags> call, Response<SubscriptionTags> response) {
-                    int responseCode = response.code();
+        tagGridView = (GridView) rootView.findViewById(R.id.home_grid_view);
 
-                    if(response.isSuccessful())
+        Call<SubscriptionTags> call = apiService.getAllSubscribedTag(currentUserToken.getToken(), currentUser.getNusId());
+
+        call.enqueue(new Callback<SubscriptionTags>() {
+            @Override
+            public void onResponse(Call<SubscriptionTags> call, Response<SubscriptionTags> response) {
+                int responseCode = response.code();
+
+                if(response.isSuccessful())
+                {
+                    if(responseCode == 200)
                     {
-                        if(responseCode == 200)
+                        SubscriptionTags subscriptionTags = response.body();
+                        subscribedTagList = subscriptionTags.getSubscriptionTags();
+
+                        if(subscribedTagList.size() > 0)
                         {
-//                        goHomeActivity(response);
-                            SubscriptionTags subscriptionTags = response.body();
-                            subscribedTagList = subscriptionTags.getSubscriptionTags();
-//                            Log.i(TAG, "check if null: " + subscribedTagList);
-                            moduleNameList = new ArrayList<String>();
-                            getSubscribedTagName();
+                            noSubText.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            noSubText.setVisibility(View.VISIBLE);
+                        }
 
-                            moduleNameList.add("Subscribed Posts");
-//
-                            if(!userRole.equalsIgnoreCase("student"))
-                            {
-                                moduleNameList.add("+ Add New Module Tag");
-                                getActivity().getIntent().putStringArrayListExtra("moduleListName", moduleNameList);
-                                getActivity().getIntent().putParcelableArrayListExtra("subscribedTagList", subscribedTagList);
-                            }
+                        moduleNameList = new ArrayList<String>();
+                        getSubscribedTagName();
 
-                            moduleNameList.add("All Tags");
+                        moduleNameList.add("Subscribed Posts");
 
-                            modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_module, moduleNameList);
-                            homeGridView.setAdapter(modulesOrMajorsAdapter);
-//
-//
-                            homeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    // Create a new intent to open Modules List Activity
-                                    if(moduleNameList.get(position).equalsIgnoreCase("+ Add New Module Tag"))
-                                    {
-                                        showAddTagDialog();
+                        if(!userRole.equalsIgnoreCase("student"))
+                        {
+                            moduleNameList.add("+ Add New Module Tag");
+                            getActivity().getIntent().putStringArrayListExtra("moduleListName", moduleNameList);
+                            getActivity().getIntent().putParcelableArrayListExtra("subscribedTagList", subscribedTagList);
+                        }
 
-                                    }
-                                    else if(moduleNameList.get(position).equalsIgnoreCase("Subscribed Posts"))
-                                    {
-                                        directToSubscribedPostList();
-                                    }
-                                    else if(moduleNameList.get(position).equalsIgnoreCase("All Tags"))
-                                    {
-                                        directToTagList();
-                                    }
-                                    else
-                                    {
-                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putInt("tagId", subscribedTagList.get(position).getTagId());
-                                        editor.putString("access_token", currentUserToken.getToken());
-                                        editor.commit();
+//                        moduleNameList.add("All Tags");
 
-                                        Intent postListIntent = new Intent(getActivity(), TagQuestionsActivity.class);
+                        modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_module, moduleNameList);
+                        homeGridView.setAdapter(modulesOrMajorsAdapter);
 
-                                        postListIntent.putExtra("user", currentUser);
-                                        postListIntent.putExtra("accessToken", currentUserToken);
-
-                                        startActivity(postListIntent);
-                                    }
+                        homeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                // Create a new intent to open Modules List Activity
+                                if(moduleNameList.get(position).equalsIgnoreCase("+ Add New Module Tag"))
+                                {
+                                    showAddTagDialog();
 
                                 }
-                            });
-//
+                                else if(moduleNameList.get(position).equalsIgnoreCase("Subscribed Posts"))
+                                {
+                                    directToSubscribedPostList();
+                                }
+//                                else if(moduleNameList.get(position).equalsIgnoreCase("All Tags"))
+//                                {
+//                                    directToTagList();
+//                                }
+                                else
+                                {
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("tagId", subscribedTagList.get(position).getTagId());
+                                    editor.putString("access_token", currentUserToken.getToken());
+                                    editor.commit();
 
-                        }
+                                    Intent postListIntent = new Intent(getActivity(), TagQuestionsActivity.class);
+
+                                    postListIntent.putExtra("user", currentUser);
+                                    postListIntent.putExtra("accessToken", currentUserToken);
+
+                                    startActivity(postListIntent);
+                                }
+
+                            }
+                        });
 
                     }
-                    else
+
+                }
+                else
+                {
+                    switch (responseCode)
                     {
-                        switch (responseCode)
-                        {
-                            case 404:
-                                Toast.makeText(getActivity(), "Your data cannot be found in database", Toast.LENGTH_LONG).show();
-                                break;
-                            default:
-                                Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
-                                break;
-                        }
+                        case 404:
+                            Toast.makeText(getActivity(), "Your data cannot be found in database", Toast.LENGTH_LONG).show();
+                            break;
+                        default:
+                            Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                            break;
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(Call<SubscriptionTags> call, Throwable t) {
-                    if(call.isCanceled())
-                    {
-                        Log.e(TAG, "request was aborted");
-                    }
-                    else
-                    {
-                        Log.e(TAG, t.getMessage());
-                    }
+            @Override
+            public void onFailure(Call<SubscriptionTags> call, Throwable t) {
+                if(call.isCanceled())
+                {
+                    Log.e(TAG, "request was aborted");
                 }
-            });
+                else
+                {
+                    Log.e(TAG, t.getMessage());
+                }
+            }
+        });
 //        }
 //        else
 //        {
@@ -261,13 +271,16 @@ public class HomeFragment extends Fragment {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
-        if(!subscribedTagList.get(info.position).getTag().getTagPostOwner().getNusId().equalsIgnoreCase(currentUser.getNusId()))
+        if(info.position < subscribedTagList.size())
         {
-            getActivity().getMenuInflater().inflate(R.menu.module_tag_actions, menu);
-        }
-        else
-        {
-            getActivity().getMenuInflater().inflate(R.menu.module_tag_actions_owner, menu);
+            if(!subscribedTagList.get(info.position).getTag().getTagPostOwner().getNusId().equalsIgnoreCase(currentUser.getNusId()))
+            {
+                getActivity().getMenuInflater().inflate(R.menu.module_tag_actions, menu);
+            }
+            else
+            {
+                getActivity().getMenuInflater().inflate(R.menu.module_tag_actions_owner, menu);
+            }
         }
 
     }
@@ -354,7 +367,7 @@ public class HomeFragment extends Fragment {
         tagNameText = (EditText) view.findViewById(R.id.tag_nameText);
         tagDescriptionText = (EditText) view.findViewById(R.id.tag_descriptionText);
         statusToggle = (Switch) view.findViewById(R.id.statusToggle);
-        statusToggle.setVisibility(View.INVISIBLE);
+        statusToggle.setVisibility(View.GONE);
 
         builder.setView(view)
                 .setTitle("Add New Tag")
@@ -431,10 +444,21 @@ public class HomeFragment extends Fragment {
     {
         subscribedTagList.add(newTag);
 
-        String lastContent = moduleNameList.get(moduleNameList.size() - 1);
         moduleNameList.remove(moduleNameList.size() - 1);
+
+        if(!userRole.equalsIgnoreCase("student"))
+        {
+            moduleNameList.remove(moduleNameList.size() - 1);
+        }
+
         moduleNameList.add(newTag.getTag().getTagName());
-        moduleNameList.add(lastContent);
+
+        moduleNameList.add("Subscribed Posts");
+
+        if(!userRole.equalsIgnoreCase("student"))
+        {
+            moduleNameList.add("+ Add New Module Tag");
+        }
 
         modulesOrMajorsAdapter.notifyDataSetChanged();
     }
@@ -626,13 +650,13 @@ public class HomeFragment extends Fragment {
         startActivity(postListIntent);
     }
 
-    public void directToTagList()
-    {
-        Intent tagListIntent = new Intent(getActivity(), TagListActivity.class);
-
-        tagListIntent.putExtra("user", currentUser);
-        tagListIntent.putExtra("accessToken", currentUserToken);
-
-        getActivity().startActivityForResult(tagListIntent, 1002);
-    }
+//    public void directToTagList()
+//    {
+//        Intent tagListIntent = new Intent(getActivity(), TagListActivity.class);
+//
+//        tagListIntent.putExtra("user", currentUser);
+//        tagListIntent.putExtra("accessToken", currentUserToken);
+//
+//        getActivity().startActivityForResult(tagListIntent, 1002);
+//    }
 }
