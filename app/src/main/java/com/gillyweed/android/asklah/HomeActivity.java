@@ -63,7 +63,6 @@ public class HomeActivity extends AppCompatActivity {
 
                 startActivityForResult(addPostIntent, 1);
 
-//                startActivity(addPostIntent);
             }
         });
     }
@@ -120,27 +119,9 @@ public class HomeActivity extends AppCompatActivity {
     private void setViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-//        if(currentUser == null && currentToken == null)
-//        {
-//            Log.i("before add post", "object is null!!!");
 
-            adapter.addFragment(new HomeFragment(), "Home");
-//        }
-//        else
-//        {
-//            Log.i("after add post", "object is " + getIntent().getParcelableExtra("user"));
-//
-//            HomeFragment homeFragment = new HomeFragment();
-//
-//            Bundle bundle = new Bundle();
-//
-//            bundle.putParcelable("user", getIntent().getParcelableExtra("user"));
-//            bundle.putParcelable("accessToken", getIntent().getParcelableExtra("accessToken"));
-//            homeFragment.setArguments(bundle);
-//            adapter.addFragment(homeFragment, "Home");
-//        }
+        adapter.addFragment(new HomeFragment(), "Home");
 
-//        adapter.addFragment(new HomeFragmentNewUser(), "Home");
         adapter.addFragment(new NotifFragment(), "Notifications");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);

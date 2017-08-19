@@ -36,6 +36,8 @@
 
     <color name="add_floating_button_ripple">#FFC5AD</color>
 
-    <color name="grid_color_home">#FFF4D3</color>
+    <color name="grid_color_home">#FFF0E1</color>
+
+    <color name="dialog_color_home">#C0C0EC</color>
 
 </resources>

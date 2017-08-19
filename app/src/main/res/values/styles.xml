@@ -70,4 +70,10 @@
         <item name="android:layout_marginRight">16dp</item>
     </style>
 
+    <style name="MyAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/tab_color_home</item>
+        <item name="android:colorAccent">#A48668</item>
+        <item name="android:windowTitleSize">20sp</item>
+    </style>
+
 </resources>

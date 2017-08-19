@@ -5,10 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import com.github.clans.fab.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.AlertDialogLayout;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -199,48 +203,14 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<SubscriptionTags> call, Throwable t) {
                 if(call.isCanceled())
                 {
-                    Log.e(TAG, "request was aborted");
+                    Toast.makeText(getActivity(), "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    Log.e(TAG, t.getMessage());
+                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                 }
             }
         });
-//        }
-//        else
-//        {
-//            modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, moduleNameList);
-//            homeGridView.setAdapter(modulesOrMajorsAdapter);
-//
-//
-//            homeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    // Create a new intent to open Modules List Activity
-//                    if(position == moduleNameList.size() - 1)
-//                    {
-//                        showAddTagDialog();
-//                    }
-//                    else
-//                    {
-//                        Intent modulesListIntent = new Intent(getActivity(), TagQuestionsActivity.class);
-//                        modulesListIntent.putExtra("accessToken", getActivity().getIntent().getParcelableExtra("accessToken"));
-//                        modulesListIntent.putExtra("user", getActivity().getIntent().getParcelableExtra("user"));
-//
-//
-//
-//                        modulesListIntent.putExtra("tagId", subscribedTagList.get(position).getTagId());
-//
-//                        startActivity(modulesListIntent);
-//                    }
-//
-//                }
-//            });
-//        }
-
-
-
 
         return rootView;
     }
@@ -248,7 +218,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent)
     {
-        Log.i("addpost", "back button clicked 1");
         super.onActivityResult(requestCode, resultCode, intent);
 
         if(requestCode == 1)
@@ -319,7 +288,7 @@ public class HomeFragment extends Fragment {
 
     public void showTagInfoDialog(int tagPosition)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.MyAlertDialog));
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_tag_info, null);
         TextView descriptionText = (TextView) view.findViewById(R.id.tag_descriptionTextView);
         TextView tagOwnerText = (TextView) view.findViewById(R.id.created_byText);
@@ -429,13 +398,12 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<SubscriptionTag> call, Throwable t) {
                 if(call.isCanceled())
                 {
-                    Log.e(TAG, "request was aborted");
+                    Toast.makeText(getActivity(), "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    Log.e(TAG, t.getMessage());
+                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                 }
-                Log.i(TAG, "response code 3: " + t.getMessage());
             }
         });
     }
@@ -465,7 +433,7 @@ public class HomeFragment extends Fragment {
 
     public void showEditTagDialog(final int tagPosition)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.MyAlertDialog));
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_edit_tag, null);
         tagNameText = (EditText) view.findViewById(R.id.tag_nameText);
         tagDescriptionText = (EditText) view.findViewById(R.id.tag_descriptionText);
