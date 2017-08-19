@@ -141,7 +141,6 @@ public class HomeFragment extends Fragment {
                             getActivity().getIntent().putParcelableArrayListExtra("subscribedTagList", subscribedTagList);
                         }
 
-//                        moduleNameList.add("All Tags");
 
                         modulesOrMajorsAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_module, moduleNameList);
                         homeGridView.setAdapter(modulesOrMajorsAdapter);
@@ -159,10 +158,6 @@ public class HomeFragment extends Fragment {
                                 {
                                     directToSubscribedPostList();
                                 }
-//                                else if(moduleNameList.get(position).equalsIgnoreCase("All Tags"))
-//                                {
-//                                    directToTagList();
-//                                }
                                 else
                                 {
                                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
@@ -203,7 +198,7 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<SubscriptionTags> call, Throwable t) {
                 if(call.isCanceled())
                 {
-                    Toast.makeText(getActivity(), "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Request has been canceled", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -271,7 +266,7 @@ public class HomeFragment extends Fragment {
                 deleteTag(info.position);
                 break;
             case R.id.unsubscribeBtn:
-                Toast.makeText(getActivity(), "unsubscribe " + info.position, Toast.LENGTH_LONG).show();
+                unsubscribeTag(info.position);
                 break;
         }
 
@@ -331,7 +326,7 @@ public class HomeFragment extends Fragment {
 
     public void showAddTagDialog()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.MyAlertDialog));
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_edit_tag, null);
         tagNameText = (EditText) view.findViewById(R.id.tag_nameText);
         tagDescriptionText = (EditText) view.findViewById(R.id.tag_descriptionText);
@@ -398,7 +393,7 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<SubscriptionTag> call, Throwable t) {
                 if(call.isCanceled())
                 {
-                    Toast.makeText(getActivity(), "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Request has been canceled", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -494,11 +489,14 @@ public class HomeFragment extends Fragment {
                                         case 400:
                                             Toast.makeText(getActivity(), "Tag name field cannot be empty :(", Toast.LENGTH_LONG).show();
                                             break;
+                                        case 401:
+                                            Toast.makeText(getActivity(), "Only tag owner can edit the tag", Toast.LENGTH_LONG).show();
+                                            break;
                                         case 404:
                                             Toast.makeText(getActivity(), "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
                                             break;
                                         case 409:
-                                            Toast.makeText(getActivity(), "Tag name must be unique", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getActivity(), "Update failed! Tag name must be unique", Toast.LENGTH_LONG).show();
                                             break;
                                         default:
                                             Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
@@ -511,13 +509,12 @@ public class HomeFragment extends Fragment {
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 if(call.isCanceled())
                                 {
-                                    Log.e(TAG, "request was aborted");
+                                    Toast.makeText(getActivity(), "Request has been canceled", Toast.LENGTH_LONG).show();
                                 }
                                 else
                                 {
-                                    Log.e(TAG, t.getMessage());
+                                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                                 }
-                                Log.i(TAG, "response code 3: " + t.getMessage());
                             }
                         });
 
@@ -542,7 +539,7 @@ public class HomeFragment extends Fragment {
 
     public void deleteTag(final int tagPosition)
     {
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.MyAlertDialog))
                 .setTitle("Delete Tag")
                 .setMessage("Are you sure you want to delete this tag?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -556,7 +553,92 @@ public class HomeFragment extends Fragment {
 
                                 if(response.isSuccessful())
                                 {
-                                    Toast.makeText(getActivity(), "The tag deleted!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "The tag is deleted!", Toast.LENGTH_LONG).show();
+
+                                    removeTagFromList(tagPosition);
+                                }
+                                else
+                                {
+                                    switch (responseCode)
+                                    {
+                                        case 400:
+                                            Toast.makeText(getActivity(), "Please provide tag id", Toast.LENGTH_LONG).show();
+                                            break;
+                                        case 403:
+                                            Toast.makeText(getActivity(), "This tag cannot be deleted, subscriptions for this exist", Toast.LENGTH_LONG).show();
+                                            break;
+                                        case 404:
+                                            Toast.makeText(getActivity(), "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                            break;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                if(call.isCanceled())
+                                {
+                                    Toast.makeText(getActivity(), "Request has been canceled", Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    }})
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    public void removeTagFromList(int tagPosition)
+    {
+        moduleNameList.remove(tagPosition);
+
+        subscribedTagList.remove(tagPosition);
+
+        modulesOrMajorsAdapter.notifyDataSetChanged();
+
+        if(subscribedTagList.size() <= 0)
+        {
+            noSubText.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void directToSubscribedPostList()
+    {
+        Intent postListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
+
+        postListIntent.putExtra("user", currentUser);
+        postListIntent.putExtra("accessToken", currentUserToken);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("access_token", currentUserToken.getToken());
+        editor.commit();
+
+        startActivity(postListIntent);
+    }
+
+    public void unsubscribeTag(final int tagPosition)
+    {
+        new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.MyAlertDialog))
+                .setTitle("Unsubscribe Tag")
+                .setMessage("Are you sure you want to unsubscribe this tag?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Call<ResponseBody> call = apiService.unsubscribeTag(currentUserToken.getToken(), subscribedTagList.get(tagPosition).getTagId());
+
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                int responseCode = response.code();
+
+                                if(response.isSuccessful())
+                                {
+                                    Toast.makeText(getActivity(), "The tag is deleted!", Toast.LENGTH_LONG).show();
 
                                     removeTagFromList(tagPosition);
                                 }
@@ -581,50 +663,16 @@ public class HomeFragment extends Fragment {
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 if(call.isCanceled())
                                 {
-                                    Log.e(TAG, "request was aborted");
+                                    Toast.makeText(getActivity(), "Request has been canceled", Toast.LENGTH_LONG).show();
                                 }
                                 else
                                 {
-                                    Log.e(TAG, t.getMessage());
+                                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                                 }
-                                Log.i(TAG, "response code 3: " + t.getMessage());
                             }
                         });
                     }})
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    public void removeTagFromList(int tagPosition)
-    {
-        moduleNameList.remove(tagPosition);
-
-        subscribedTagList.remove(tagPosition);
-
-        modulesOrMajorsAdapter.notifyDataSetChanged();
-    }
-
-    public void directToSubscribedPostList()
-    {
-        Intent postListIntent = new Intent(getActivity(), SubscribedQuestionsActivity.class);
-
-        postListIntent.putExtra("user", currentUser);
-        postListIntent.putExtra("accessToken", currentUserToken);
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("access_token", currentUserToken.getToken());
-        editor.commit();
-
-        startActivity(postListIntent);
-    }
-
-//    public void directToTagList()
-//    {
-//        Intent tagListIntent = new Intent(getActivity(), TagListActivity.class);
-//
-//        tagListIntent.putExtra("user", currentUser);
-//        tagListIntent.putExtra("accessToken", currentUserToken);
-//
-//        getActivity().startActivityForResult(tagListIntent, 1002);
-//    }
 }

@@ -15,8 +15,4 @@
         android:title="Delete"
         />
 
-    <item
-        android:id="@+id/unsubscribeBtn"
-        android:title="Unsubscribe"
-        />
 </menu>

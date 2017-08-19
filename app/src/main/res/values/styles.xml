@@ -71,7 +71,7 @@
     </style>
 
     <style name="MyAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/tab_color_home</item>
+        <item name="android:background">@color/dialog_color_home</item>
         <item name="android:colorAccent">#A48668</item>
         <item name="android:windowTitleSize">20sp</item>
     </style>

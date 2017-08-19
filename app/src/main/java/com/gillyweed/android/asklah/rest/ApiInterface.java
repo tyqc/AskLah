@@ -78,6 +78,12 @@ public interface ApiInterface {
     @Headers({
             "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
             "Content-Type: application/json"})
+    @DELETE("user/tags")
+    Call<ResponseBody> unsubscribeTag(@Header("Auth_Key") String accessToken, @Query("tag_id") int tagId);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
     @DELETE("tags")
     Call<ResponseBody> deleteTag(@Header("Auth_Key") String accessToken, @Query("tag_id") int tagId);
 
