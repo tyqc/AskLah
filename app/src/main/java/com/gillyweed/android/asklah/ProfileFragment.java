@@ -116,6 +116,8 @@ public class ProfileFragment extends Fragment {
                                     loginIntent.removeExtra("accessToken");
 
                                     startActivity(loginIntent);
+
+                                    getActivity().finish();
                                 }
                                 else
                                 {
