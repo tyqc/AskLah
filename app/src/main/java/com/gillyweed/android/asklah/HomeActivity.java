@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<String> tagNameArrayList;
     SimpleCursorAdapter tagAdapter;
     SearchView searchView;
+    public static final String MyPref = "MyPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +118,6 @@ public class HomeActivity extends AppCompatActivity {
         {
             if(resultCode == RESULT_OK)
             {
-                Log.i("addpost", "back button clicked");
-
                 currentUser = intent.getParcelableExtra("user");
 
                 currentToken = intent.getParcelableExtra("accessToken");
@@ -140,8 +140,9 @@ public class HomeActivity extends AppCompatActivity {
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
-        ComponentName componentName = new ComponentName(HomeActivity.this, SearchResultsActivity.class);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
+        ComponentName componentName = new ComponentName(HomeActivity.this, TagQuestionsActivity.class);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
         searchView.setIconifiedByDefault(false);
         searchView.setSuggestionsAdapter(tagAdapter);
 
@@ -154,11 +155,25 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public boolean onSuggestionClick(int position) {
-
                 CursorAdapter cursorAdapter = searchView.getSuggestionsAdapter();
                 Cursor cursor = cursorAdapter.getCursor();
                 cursor.moveToPosition(position);
                 searchView.setQuery(cursor.getString(cursor.getColumnIndex("fishName")), false);
+                SharedPreferences sharedPreferences = getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("tagId", tagArrayList.get(position).getTagId());
+                editor.putString("access_token", currentToken.getToken());
+                editor.commit();
+
+                Intent postListIntent = new Intent(HomeActivity.this, TagQuestionsActivity.class);
+
+                postListIntent.putExtra("user", currentUser);
+                postListIntent.putExtra("accessToken", currentToken);
+
+                searchView.clearFocus();
+
+
+                startActivity(postListIntent);
                 return true;
             }
         });
@@ -193,6 +208,11 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handles actions on action bar items
         switch (item.getItemId()) {
+
+            case R.id.action_search:
+                getAllTags();
+                return true;
+
             case R.id.action_setting:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;

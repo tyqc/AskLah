@@ -219,8 +219,6 @@ public class HomeFragment extends Fragment {
         {
             if(resultCode == RESULT_OK)
             {
-                Log.i("addpost", "back button clicked 2");
-
                 currentUser = intent.getParcelableExtra("user");
 
                 currentUserToken = intent.getParcelableExtra("accessToken");
@@ -424,6 +422,11 @@ public class HomeFragment extends Fragment {
         }
 
         modulesOrMajorsAdapter.notifyDataSetChanged();
+
+        if(subscribedTagList.size() > 0)
+        {
+            noSubText.setVisibility(View.GONE);
+        }
     }
 
     public void showEditTagDialog(final int tagPosition)
