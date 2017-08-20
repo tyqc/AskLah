@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.gillyweed.android.asklah.data.model.AccessToken;
 import com.gillyweed.android.asklah.data.model.Tag;
 import com.gillyweed.android.asklah.data.model.TagArray;
+import com.gillyweed.android.asklah.data.model.TagDescrip;
 import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
@@ -53,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     ApiClient apiClient = null;
     Retrofit retrofit = null;
     ApiInterface apiService = null;
-    ArrayList<Tag> tagArrayList;
+    ArrayList<TagDescrip> tagArrayList;
     ArrayList<String> tagNameArrayList;
     SimpleCursorAdapter tagAdapter;
     SearchView searchView;
@@ -131,6 +132,14 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         }
+        else if(requestCode == 1003)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 
     @Override
@@ -163,6 +172,8 @@ public class HomeActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("tagId", tagArrayList.get(position).getTagId());
                 editor.putString("access_token", currentToken.getToken());
+                editor.putString("module_tag", tagArrayList.get(position).getTagName());
+                editor.putBoolean("tag_subscribed", tagArrayList.get(position).getSubscribed());
                 editor.commit();
 
                 Intent postListIntent = new Intent(HomeActivity.this, TagQuestionsActivity.class);
@@ -173,7 +184,7 @@ public class HomeActivity extends AppCompatActivity {
                 searchView.clearFocus();
 
 
-                startActivity(postListIntent);
+                startActivityForResult(postListIntent, 1003);
                 return true;
             }
         });

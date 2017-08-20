@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class TagArray {
     @SerializedName("tag")
-    private ArrayList<Tag> tagArrayList;
+    private ArrayList<TagDescrip> tagArrayList;
 
-    public ArrayList<Tag> getTagArrayList()
+    public ArrayList<TagDescrip> getTagArrayList()
     {
         return tagArrayList;
     }

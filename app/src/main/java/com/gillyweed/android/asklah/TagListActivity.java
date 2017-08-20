@@ -19,6 +19,7 @@ import com.gillyweed.android.asklah.data.model.AccessToken;
 import com.gillyweed.android.asklah.data.model.GetPost;
 import com.gillyweed.android.asklah.data.model.Tag;
 import com.gillyweed.android.asklah.data.model.TagArray;
+import com.gillyweed.android.asklah.data.model.TagDescrip;
 import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
@@ -49,7 +50,7 @@ public class TagListActivity extends AppCompatActivity {
     ApiInterface apiService = null;
     SwipeMenuListView tagListView = null;
     TagAdapter tagAdapter;
-    ArrayList<Tag> tagArrayList;
+    ArrayList<TagDescrip> tagArrayList;
     private String TAG = "tag list";
 
     @Override

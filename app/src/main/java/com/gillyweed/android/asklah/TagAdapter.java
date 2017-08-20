@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.gillyweed.android.asklah.data.model.Tag;
+import com.gillyweed.android.asklah.data.model.TagDescrip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +21,20 @@ import java.util.List;
  * Created by Envy 15 on 24/7/2017.
  */
 
-public class TagAdapter extends ArrayAdapter<Tag> {
+public class TagAdapter extends ArrayAdapter<TagDescrip> {
 
     private String TAG = "tag adapter";
 
     TextView tagNameText;
 
-    public TagAdapter(Context context, ArrayList<Tag> tagArrayList) {
+    public TagAdapter(Context context, ArrayList<TagDescrip> tagArrayList) {
         super(context, 0, tagArrayList);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Tag tag = getItem(position);
+        TagDescrip tag = getItem(position);
 
 
         if (convertView == null) {

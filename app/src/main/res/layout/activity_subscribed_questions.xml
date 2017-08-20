@@ -11,20 +11,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4sp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/tab_color_home"
+        android:layout_marginBottom="5dp">
 
         <Spinner
             android:id="@+id/sort_by_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginLeft="1dp"/>
 
         <Spinner
             android:id="@+id/filter_by_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginRight="1dp"/>
 
     </LinearLayout>
 
@@ -33,6 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/bg_color"
-        android:dividerHeight="2.0sp" />
+        android:dividerHeight="5dp" />
 
 </LinearLayout>

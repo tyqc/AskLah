@@ -339,7 +339,7 @@ public class HomeFragment extends Fragment {
                     {
                         Tag newTag = new Tag();
 
-                        newTag.setTagName(tagNameText.getText().toString());
+                        newTag.setTagName(tagNameText.getText().toString().toUpperCase());
                         newTag.setDescription(tagDescriptionText.getText().toString());
                         addNewTagApi(newTag);
                         modulesOrMajorsAdapter.notifyDataSetChanged();

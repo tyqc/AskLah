@@ -3,6 +3,7 @@ package com.gillyweed.android.asklah.data.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Envy 15 on 13/7/2017.
@@ -30,6 +31,9 @@ public class PostOverview {
 
     @SerializedName("voted")
     private int voted;
+
+    @SerializedName("date_added")
+    private DateObj dateAdded;
 
     public int getPostId()
     {
@@ -64,5 +68,10 @@ public class PostOverview {
     public int getVoted()
     {
         return voted;
+    }
+
+    public DateObj getDateAdded()
+    {
+        return dateAdded;
     }
 }

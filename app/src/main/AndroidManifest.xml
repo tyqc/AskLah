@@ -79,10 +79,11 @@
             android:name=".ModulesListActivity"
             android:label="@string/modules_list" />
         <activity
-            android:name=".TagQuestionsActivity" >
+            android:name=".TagQuestionsActivity"
+            android:theme="@style/MyTheme.Base.ActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value=".HomeActivity"/>
         </activity>
         <activity
             android:name=".SubscribedQuestionsActivity"

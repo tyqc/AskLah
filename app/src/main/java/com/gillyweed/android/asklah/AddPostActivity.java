@@ -25,6 +25,7 @@ import com.gillyweed.android.asklah.data.model.AccessToken;
 import com.gillyweed.android.asklah.data.model.AddPost;
 import com.gillyweed.android.asklah.data.model.Tag;
 import com.gillyweed.android.asklah.data.model.TagArray;
+import com.gillyweed.android.asklah.data.model.TagDescrip;
 import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
@@ -53,7 +54,7 @@ public class AddPostActivity extends AppCompatActivity {
     User currentUser = null;
     AccessToken currentUserToken = null;
     CharSequence[] tagNameArray;
-    ArrayList<Tag> tagArray;
+    ArrayList<TagDescrip> tagArray;
     ArrayList<Integer> selectedTags;
     boolean checkSelected = false;
     boolean[] checked;
@@ -237,7 +238,7 @@ public class AddPostActivity extends AppCompatActivity {
         });
     }
 
-    public void copyToTagNameArray(ArrayList<Tag> tagArr)
+    public void copyToTagNameArray(ArrayList<TagDescrip> tagArr)
     {
         tagNameArray = new CharSequence[tagArr.size()];
 

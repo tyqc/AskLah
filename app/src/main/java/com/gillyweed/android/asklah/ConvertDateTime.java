@@ -37,4 +37,24 @@ public class ConvertDateTime {
 
         return date;
     }
+
+    public static int compareDate(String date1, String date2)
+    {
+        Date dateObj1 = null;
+
+        Date dateObj2 = null;
+
+        try
+        {
+            dateObj1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").parse(date1);
+
+            dateObj2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").parse(date2);
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+
+        return dateObj1.compareTo(dateObj2);
+    }
 }

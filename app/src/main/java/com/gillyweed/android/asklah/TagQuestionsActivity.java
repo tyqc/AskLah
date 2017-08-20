@@ -17,13 +17,19 @@ import android.widget.Toast;
 
 import com.gillyweed.android.asklah.data.model.AccessToken;
 import com.gillyweed.android.asklah.data.model.PostList;
+import com.gillyweed.android.asklah.data.model.Tag;
+import com.gillyweed.android.asklah.data.model.TagDescrip;
 import com.gillyweed.android.asklah.data.model.TagPostList;
 import com.gillyweed.android.asklah.data.model.User;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +51,9 @@ public class TagQuestionsActivity extends AppCompatActivity {
     int tagId;
     ArrayList<PostList> postLists;
     private String TAG = "question list";
+    String tagName;
+    Boolean tagSub;
+    private Menu getMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +66,30 @@ public class TagQuestionsActivity extends AppCompatActivity {
 
         tagId = getSharedPreferences(MyPref, Context.MODE_PRIVATE).getInt("tagId", -1);
 
+        tagName = getSharedPreferences(MyPref, Context.MODE_PRIVATE).getString("module_tag","");
+
+        tagSub = getSharedPreferences(MyPref, Context.MODE_PRIVATE).getBoolean("tag_subscribed", false);
+
+        // Add back button onto action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(tagName);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         apiClient = new ApiClient();
 
         retrofit = apiClient.getClient();
 
         apiService = retrofit.create(ApiInterface.class);
 
-//        getPostOverview();
-
-        Spinner sortBySpinner = (Spinner) findViewById(R.id.sort_by_spinner);
+        final Spinner sortBySpinner = (Spinner) findViewById(R.id.sort_by_spinner);
 
         // List of Sort By options
         ArrayList<String> sortByOptionsList = new ArrayList<>();
-        sortByOptionsList.add("Alphabetical");
-        sortByOptionsList.add("Module Code");
+        sortByOptionsList.add("Default");
+        sortByOptionsList.add("Most Updated");
 
         // Creating array adapter
-        ArrayAdapter<String> sortByAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, sortByOptionsList);
+        final ArrayAdapter<String> sortByAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, sortByOptionsList);
 
         // Apply the adapter to the spinner
         sortBySpinner.setAdapter(sortByAdapter);
@@ -82,10 +98,9 @@ public class TagQuestionsActivity extends AppCompatActivity {
 
         // List of Filter By Options
         ArrayList<String> filterByOptionsList = new ArrayList<>();
-        filterByOptionsList.add("Level 1000");
-        filterByOptionsList.add("Level 2000");
-        filterByOptionsList.add("Level 3000");
-        filterByOptionsList.add("Level 4000");
+        filterByOptionsList.add("Default");
+        filterByOptionsList.add("Solved");
+        filterByOptionsList.add("Pending");
 
         // Creating Array Adapter
         ArrayAdapter<String> filterByAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, filterByOptionsList);
@@ -102,7 +117,6 @@ public class TagQuestionsActivity extends AppCompatActivity {
 
                 if(response.isSuccessful())
                 {
-
                     postLists = response.body().getPostList();
 
                     // Create the adapter to convert the arraylist into views
@@ -122,10 +136,31 @@ public class TagQuestionsActivity extends AppCompatActivity {
                             qnThreadActivityIntent.putExtra("accessToken", currentUserToken);
                             qnThreadActivityIntent.putExtra("postId", postLists.get(position).getPost().getPostId());
                             qnThreadActivityIntent.putExtra("postOwnerNusId",  postLists.get(position).getPost().getNusId());
-//                            startActivity(qnThreadActivityIntent);
                             startActivityForResult(qnThreadActivityIntent, 1000);
                         }
                     });
+
+//                    sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                        @Override
+//                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                            switch (position)
+//                            {
+//                                case 0:
+//                                    Collections.sort(postLists, new SortPostDefaultComparator());
+//                                    break;
+//                                case 1:
+//                                    Collections.sort(postLists, new SortPostUpdatedComparator());
+//                                    break;
+//                            }
+//
+//                            sortByAdapter.notifyDataSetChanged();
+//                        }
+//
+//                        @Override
+//                        public void onNothingSelected(AdapterView<?> parent) {
+//
+//                        }
+//                    });
                 }
                 else
                 {
@@ -148,19 +183,15 @@ public class TagQuestionsActivity extends AppCompatActivity {
             public void onFailure(Call<TagPostList> call, Throwable t) {
                 if(call.isCanceled())
                 {
-                    Log.e(TAG, "request was aborted");
+                    Toast.makeText(TagQuestionsActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    Log.e(TAG, t.getMessage());
+                    Toast.makeText(TagQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-
-        // Add back button onto action bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -182,6 +213,20 @@ public class TagQuestionsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflates the menu. Adds items to action bar if present
         getMenuInflater().inflate(R.menu.menu_modules_list, menu);
+
+        getMenu = menu;
+
+        MenuItem menuItem = menu.findItem(R.id.action_bookmark);
+
+        if(tagSub)
+        {
+            menuItem.setIcon(R.drawable.ic_bookmark_black_24dp);
+        }
+        else
+        {
+            menuItem.setIcon(R.drawable.ic_bookmark_white_24dp);
+        }
+
         return true;
     }
 
@@ -190,10 +235,137 @@ public class TagQuestionsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_bookmark:
+                addDeleteTagSubscription(tagSub);
+                return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void addDeleteTagSubscription(Boolean tagSub)
+    {
+        if(tagSub)
+        {
+            Call<ResponseBody> call = apiService.unsubscribeTag(currentUserToken.getToken(), tagId);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    int responseCode = response.code();
+
+                    if(response.isSuccessful())
+                    {
+                        MenuItem menuItem = getMenu.findItem(R.id.action_bookmark);
+
+                        menuItem.setIcon(R.drawable.ic_bookmark_white_24dp);
+
+                        Toast.makeText(TagQuestionsActivity.this, "You have unsubscribed this module tag", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        switch (responseCode)
+                        {
+                            case 400:
+                                Toast.makeText(TagQuestionsActivity.this, "Please provide tag id", Toast.LENGTH_LONG).show();
+                                break;
+                            case 404:
+                                Toast.makeText(TagQuestionsActivity.this, "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
+                                break;
+                            default:
+                                Toast.makeText(TagQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if(call.isCanceled())
+                    {
+                        Toast.makeText(TagQuestionsActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(TagQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+        else
+        {
+            Call<Tag> call = apiService.subscribeTag(currentUserToken.getToken(), tagId);
+
+            call.enqueue(new Callback<Tag>() {
+                @Override
+                public void onResponse(Call<Tag> call, Response<Tag> response) {
+                    int responseCode = response.code();
+
+                    if(response.isSuccessful())
+                    {
+                        MenuItem menuItem = getMenu.findItem(R.id.action_bookmark);
+
+                        menuItem.setIcon(R.drawable.ic_bookmark_black_24dp);
+
+                        Toast.makeText(TagQuestionsActivity.this, "You have subscribed this module tag", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        switch (responseCode)
+                        {
+                            case 400:
+                                Toast.makeText(TagQuestionsActivity.this, "Please provide tag id", Toast.LENGTH_LONG).show();
+                                break;
+                            case 404:
+                                Toast.makeText(TagQuestionsActivity.this, "Tag cannot be found from the database", Toast.LENGTH_LONG).show();
+                                break;
+                            default:
+                                Toast.makeText(TagQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                                break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Tag> call, Throwable t) {
+                    if(call.isCanceled())
+                    {
+                        Toast.makeText(TagQuestionsActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(TagQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK, null);
+        finish();
+    }
 }
+
+//class SortPostDefaultComparator implements Comparator<PostList>
+//{
+//    @Override
+//    public int compare(PostList o1, PostList o2) {
+//
+//        return ConvertDateTime.compareDate(o1.getPost().getDateAdded().getDate(), o2.getPost().getDateAdded().getDate());
+//    }
+//
+//}
+//
+//class SortPostUpdatedComparator implements Comparator<PostList>
+//{
+//    @Override
+//    public int compare(PostList o1, PostList o2) {
+//
+//        return ConvertDateTime.compareDate(o2.getPost().getDateAdded().getDate(), o1.getPost().getDateAdded().getDate());
+//    }
+//
+//}
