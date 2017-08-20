@@ -109,6 +109,11 @@ public class ProfileFragment extends Fragment {
                                 {
                                     Toast.makeText(getActivity(), "See you soon!", Toast.LENGTH_LONG).show();
 
+                                    SharedPreferences preferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.clear();
+                                    editor.commit();
+
                                     Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
 
                                     loginIntent.removeExtra("user");

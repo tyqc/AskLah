@@ -74,8 +74,9 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
 
         // List of Sort By options
         ArrayList<String> sortByOptionsList = new ArrayList<>();
-        sortByOptionsList.add("Alphabetical");
-        sortByOptionsList.add("Module Code");
+        sortByOptionsList.add("Default");
+        sortByOptionsList.add("Most Updated");
+
 
         // Creating array adapter
         ArrayAdapter<String> sortByAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, sortByOptionsList);
@@ -87,10 +88,9 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
 
         // List of Filter By Options
         ArrayList<String> filterByOptionsList = new ArrayList<>();
-        filterByOptionsList.add("Level 1000");
-        filterByOptionsList.add("Level 2000");
-        filterByOptionsList.add("Level 3000");
-        filterByOptionsList.add("Level 4000");
+        filterByOptionsList.add("Default");
+        filterByOptionsList.add("Solved");
+        filterByOptionsList.add("Pending");
 
         // Creating Array Adapter
         ArrayAdapter<String> filterByAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, filterByOptionsList);
@@ -107,7 +107,6 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
 
                     if(response.isSuccessful())
                     {
-
                         postLists = response.body().getSubscriptionPosts();
 
                         // Create the adapter to convert the arraylist into views
@@ -153,11 +152,11 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
                 public void onFailure(Call<SubscriptionPosts> call, Throwable t) {
                     if(call.isCanceled())
                     {
-                        Log.e(TAG, "request was aborted");
+                        Toast.makeText(SubscribedQuestionsActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
-                        Log.e(TAG, t.getMessage());
+                        Toast.makeText(SubscribedQuestionsActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                     }
                 }
             });

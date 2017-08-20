@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment {
                 {
                     if(responseCode == 200)
                     {
-                        SubscriptionTags subscriptionTags = response.body();
+                        final SubscriptionTags subscriptionTags = response.body();
                         subscribedTagList = subscriptionTags.getSubscriptionTags();
 
                         if(subscribedTagList.size() > 0)
@@ -164,6 +164,12 @@ public class HomeFragment extends Fragment {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putInt("tagId", subscribedTagList.get(position).getTagId());
                                     editor.putString("access_token", currentUserToken.getToken());
+                                    editor.putBoolean("tag_subscribed", subscribedTagList.get(position).getTag().getSubscribed());
+                                    editor.putString("module_tag", subscribedTagList.get(position).getTag().getTagName());
+                                    if(currentUser.getNusId().equals(subscribedTagList.get(position).getTag().getTagPostOwner().getNusId()))
+                                    {
+                                        editor.putBoolean("owner", true);
+                                    }
                                     editor.commit();
 
                                     Intent postListIntent = new Intent(getActivity(), TagQuestionsActivity.class);
@@ -171,7 +177,7 @@ public class HomeFragment extends Fragment {
                                     postListIntent.putExtra("user", currentUser);
                                     postListIntent.putExtra("accessToken", currentUserToken);
 
-                                    startActivity(postListIntent);
+                                    startActivityForResult(postListIntent, 2);
                                 }
 
                             }
@@ -222,6 +228,14 @@ public class HomeFragment extends Fragment {
                 currentUser = intent.getParcelableExtra("user");
 
                 currentUserToken = intent.getParcelableExtra("accessToken");
+            }
+        }
+        else if(requestCode == 2)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                getActivity().finish();
+                startActivity(getActivity().getIntent());
             }
         }
     }
@@ -621,7 +635,6 @@ public class HomeFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("access_token", currentUserToken.getToken());
         editor.commit();
-
         startActivity(postListIntent);
     }
 

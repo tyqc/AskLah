@@ -54,6 +54,7 @@ public class TagQuestionsActivity extends AppCompatActivity {
     String tagName;
     Boolean tagSub;
     private Menu getMenu;
+    Boolean tagOwner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,8 @@ public class TagQuestionsActivity extends AppCompatActivity {
         tagName = getSharedPreferences(MyPref, Context.MODE_PRIVATE).getString("module_tag","");
 
         tagSub = getSharedPreferences(MyPref, Context.MODE_PRIVATE).getBoolean("tag_subscribed", false);
+
+        tagOwner = getSharedPreferences(MyPref, Context.MODE_PRIVATE).getBoolean("owner", false);
 
         // Add back button onto action bar
         ActionBar actionBar = getSupportActionBar();
@@ -212,19 +215,27 @@ public class TagQuestionsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflates the menu. Adds items to action bar if present
-        getMenuInflater().inflate(R.menu.menu_modules_list, menu);
 
-        getMenu = menu;
-
-        MenuItem menuItem = menu.findItem(R.id.action_bookmark);
-
-        if(tagSub)
+        if(tagOwner)
         {
-            menuItem.setIcon(R.drawable.ic_bookmark_black_24dp);
+            getMenuInflater().inflate(R.menu.menu_modules_list_owner, menu);
         }
         else
         {
-            menuItem.setIcon(R.drawable.ic_bookmark_white_24dp);
+            getMenuInflater().inflate(R.menu.menu_modules_list, menu);
+
+            getMenu = menu;
+
+            MenuItem menuItem = menu.findItem(R.id.action_bookmark);
+
+            if(tagSub)
+            {
+                menuItem.setIcon(R.drawable.ic_bookmark_black_24dp);
+            }
+            else
+            {
+                menuItem.setIcon(R.drawable.ic_bookmark_white_24dp);
+            }
         }
 
         return true;

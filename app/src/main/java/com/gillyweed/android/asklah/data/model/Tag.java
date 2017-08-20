@@ -32,6 +32,9 @@ public class Tag implements Parcelable {
     @SerializedName("tag_id")
     private int tagId;
 
+    @SerializedName("subscribed")
+    private Boolean subscribed;
+
     public Tag()
     {
 
@@ -121,5 +124,10 @@ public class Tag implements Parcelable {
     public int getTagId()
     {
         return tagId;
+    }
+
+    public Boolean getSubscribed()
+    {
+        return subscribed;
     }
 }
