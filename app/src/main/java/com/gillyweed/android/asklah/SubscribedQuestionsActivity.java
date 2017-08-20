@@ -183,7 +183,7 @@ public class SubscribedQuestionsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflates the menu. Adds items to action bar if present
-        getMenuInflater().inflate(R.menu.menu_modules_list, menu);
+        getMenuInflater().inflate(R.menu.menu_modules_list_owner, menu);
         return true;
     }
 
