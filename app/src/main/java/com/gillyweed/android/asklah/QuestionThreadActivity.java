@@ -375,7 +375,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
                 final Comment currentComment = sampleCommentsList.get(position);
 
                 Call<ResponseBody> call = apiService.upvoteDownvoteComment(currentUserToken.getToken(), currentComment.getCommentId());
-//
+
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

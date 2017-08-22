@@ -52,7 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/comment_vote"
-            android:text="@string/like_button"/>
+            android:text="@string/unliked_button"
+            android:textColor="@color/tags_color"/>
 
         <TextView
             android:id="@+id/vote_text_view"

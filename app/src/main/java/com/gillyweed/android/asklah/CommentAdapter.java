@@ -138,16 +138,23 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         }
 
         commentDateTextView.setText(dateTextString);
-
-        if(comment.getVoted() == 1)
-        {
-            voteTextBtn.setTextColor(Color.GREEN);
-        }
-
         if(comment.getBestAnswer() == 1)
         {
             voteTextBtn.setText(R.string.pin_button);
+            voteTextBtn.setTextColor(Color.GREEN);
         }
+        else
+        {
+            if(comment.getVoted() == 1)
+            {
+                voteTextBtn.setText(R.string.liked_button);
+            }
+            else
+            {
+                voteTextBtn.setText(R.string.unliked_button);
+            }
+        }
+
 
 //        voteBtn.setOnClickListener(voteClickListener);
 //        voteBtn.setOnClickListener(new View.OnClickListener() {
