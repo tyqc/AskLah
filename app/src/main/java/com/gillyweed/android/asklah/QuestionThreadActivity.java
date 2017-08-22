@@ -44,6 +44,7 @@ import com.gillyweed.android.asklah.rest.ApiInterface;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -700,11 +701,11 @@ public class QuestionThreadActivity extends AppCompatActivity {
                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                                         if(call.isCanceled())
                                         {
-                                            Log.e(TAG, "request was aborted");
+                                            Toast.makeText(QuestionThreadActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
                                         }
                                         else
                                         {
-                                            Log.e(TAG, t.getMessage());
+                                            Toast.makeText(QuestionThreadActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
@@ -836,11 +837,11 @@ public class QuestionThreadActivity extends AppCompatActivity {
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 if(call.isCanceled())
                                 {
-                                    Log.e(TAG, "request was aborted");
+                                    Toast.makeText(QuestionThreadActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
                                 }
                                 else
                                 {
-                                    Log.e(TAG, t.getMessage());
+                                    Toast.makeText(QuestionThreadActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -852,13 +853,17 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
     public void pinUnpinComment(final int position)
     {
-        if(questionThread.getBest_answer_exist())
+        final Comment currentComment = sampleCommentsList.get(position);
+
+        if(currentComment.getBestAnswer() != 1)
         {
-            Toast.makeText(QuestionThreadActivity.this, "You can only pin 1 comment as the best answer", Toast.LENGTH_LONG).show();
-            return;
+            if(questionThread.getBest_answer_exist())
+            {
+                Toast.makeText(QuestionThreadActivity.this, "You can only pin 1 comment as the best answer", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
 
-        final Comment currentComment = sampleCommentsList.get(position);
         Call<ResponseBody> call = apiService.pinUnpinAnswer(currentUserToken.getToken(), currentComment.getCommentId());
 
         call.enqueue(new Callback<ResponseBody>() {
@@ -883,6 +888,13 @@ public class QuestionThreadActivity extends AppCompatActivity {
                     {
                         currentComment.setBestAnswer(0);
                         questionThread.setBest_answer_exist(false);
+
+                        sampleCommentsList.sort(new Comparator<Comment>() {
+                            @Override
+                            public int compare(Comment o1, Comment o2) {
+                                return o1.getCommentId() - o2.getCommentId();
+                            }
+                        });
                     }
 
                     commentAdapter.notifyDataSetChanged();
@@ -905,11 +917,11 @@ public class QuestionThreadActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 if(call.isCanceled())
                 {
-                    Log.e(TAG, "request was aborted");
+                    Toast.makeText(QuestionThreadActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    Log.e(TAG, t.getMessage());
+                    Toast.makeText(QuestionThreadActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -927,5 +939,11 @@ public class QuestionThreadActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK, null);
+        finish();
     }
 }
