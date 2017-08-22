@@ -49,6 +49,9 @@ public class GetPost implements Parcelable{
     @SerializedName("voted")
     private int voted;
 
+    @SerializedName("best_answer_exist")
+    private boolean best_answer_exist;
+
     protected GetPost(Parcel in) {
         postId = in.readInt();
         postTitle = in.readString();
@@ -60,6 +63,7 @@ public class GetPost implements Parcelable{
         owner = in.readParcelable(TagPostOwner.class.getClassLoader());
         commentArr = in.readParcelable(CommentArr.class.getClassLoader());
         voted = in.readInt();
+        best_answer_exist = in.readByte() != 0;
     }
 
     public static final Creator<GetPost> CREATOR = new Creator<GetPost>() {
@@ -169,6 +173,16 @@ public class GetPost implements Parcelable{
         this.vote = vote;
     }
 
+    public void setBest_answer_exist(boolean best_answer_exist)
+    {
+        this.best_answer_exist = best_answer_exist;
+    }
+
+    public boolean getBest_answer_exist()
+    {
+        return best_answer_exist;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -186,5 +200,6 @@ public class GetPost implements Parcelable{
         dest.writeParcelable(owner, flags);
         dest.writeParcelable(commentArr, flags);
         dest.writeInt(voted);
+        dest.writeByte((byte) (best_answer_exist ? 1 : 0));
     }
 }

@@ -1,6 +1,7 @@
 package com.gillyweed.android.asklah;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,7 +45,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     TextView commentDateTextView = null;
     String currentUserRole = "";
     String currentNustId = "";
-    ImageView voteBtn;
+    TextView voteTextBtn;
     ApiClient apiClient = null;
     Retrofit retrofit = null;
     ApiInterface apiService = null;
@@ -83,7 +84,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         commentDateTextView = (TextView) convertView.findViewById(R.id.comment_date_text_view);
 
-        voteBtn = (ImageView) convertView.findViewById(R.id.comment_vote);
+        voteTextBtn = (TextView)convertView.findViewById(R.id.comment_vote);
 
         voteTextView.setText(Integer.toString(comment.getVote()));
 
@@ -140,14 +141,12 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         if(comment.getVoted() == 1)
         {
-            //voteBtn.setImageResource(R.drawable.ic_thumb_up_primary_text_color_24dp);
-            DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getContext(), R.color.primary_text));
-
+            voteTextBtn.setTextColor(Color.GREEN);
         }
 
         if(comment.getBestAnswer() == 1)
         {
-            voteBtn.setImageResource(R.drawable.ic_green_pin);
+            voteTextBtn.setText(R.string.pin_button);
         }
 
 //        voteBtn.setOnClickListener(voteClickListener);

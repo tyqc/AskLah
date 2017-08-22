@@ -70,7 +70,8 @@
         <activity
             android:name=".AddPostActivity"
             android:label="Add New Post"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/MyTheme.Base.ActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
@@ -87,17 +88,20 @@
         </activity>
         <activity
             android:name=".SubscribedQuestionsActivity"
-            android:label="@string/subscribed_questions" >
+            android:label="@string/subscribed_questions"
+            android:theme="@style/MyTheme.Base.ActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
         </activity>
         <activity
             android:name=".QuestionThreadActivity"
-            android:parentActivityName=".TagQuestionsActivity" />
+            android:parentActivityName=".TagQuestionsActivity"
+            android:theme="@style/MyTheme.Base.ActionBar"/>
         <activity
             android:name=".EditPostActivity"
-            android:parentActivityName=".QuestionThreadActivity" />
+            android:parentActivityName=".QuestionThreadActivity"
+            android:theme="@style/MyTheme.Base.ActionBar"/>
 
         <activity
             android:name=".TagListActivity"

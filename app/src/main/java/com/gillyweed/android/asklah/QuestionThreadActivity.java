@@ -87,7 +87,6 @@ public class QuestionThreadActivity extends AppCompatActivity {
     String postOwnerNusId;
     SwipeMenuListView commentListView = null;
 
-    //    RecyclerView commentsRV = null;
     EditText commentEditText;
     ImageView sendBtn;
     String replyToId;
@@ -112,9 +111,6 @@ public class QuestionThreadActivity extends AppCompatActivity {
         postDateText = (TextView) findViewById(R.id.question_owner);
 
         postUpdateDateText = (TextView) findViewById(R.id.question_update);
-
-        // Lookup the recycler view in activity layout
-//        commentsRV = (RecyclerView) findViewById(R.id.thread_recycler_view);
 
         commentListView = (SwipeMenuListView) findViewById(R.id.comment_list_view);
 
@@ -172,9 +168,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                     if(questionThread.getVoted() == 1)
                     {
-                        //voteBtn.setBackgroundResource(R.drawable.ic_thumb_up_primary_text_color_24dp);
                         DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.primary_text));
-
                     }
 
                     if(questionThread.getImgLink() != null)
@@ -272,13 +266,16 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                                     menu.addMenuItem(replyBtn);
 
-                                    SwipeMenuItem pinBtn = new SwipeMenuItem(getApplicationContext());
-                                    pinBtn.setBackground(R.color.pin_bg_color);
+                                    if(questionThread.getOwner().getNusId().equalsIgnoreCase(currentUser.getNusId()))
+                                    {
+                                        SwipeMenuItem pinBtn = new SwipeMenuItem(getApplicationContext());
+                                        pinBtn.setBackground(R.color.pin_bg_color);
 
-                                    pinBtn.setWidth(200);
-                                    pinBtn.setIcon(R.drawable.ic_check_circle_black_24dp);
+                                        pinBtn.setWidth(200);
+                                        pinBtn.setIcon(R.drawable.ic_check_circle_black_24dp);
 
-                                    menu.addMenuItem(pinBtn);
+                                        menu.addMenuItem(pinBtn);
+                                    }
 
                                     SwipeMenuItem reportBtn = new SwipeMenuItem(getApplicationContext());
 
@@ -855,6 +852,12 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
     public void pinUnpinComment(final int position)
     {
+        if(questionThread.getBest_answer_exist())
+        {
+            Toast.makeText(QuestionThreadActivity.this, "You can only pin 1 comment as the best answer", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         final Comment currentComment = sampleCommentsList.get(position);
         Call<ResponseBody> call = apiService.pinUnpinAnswer(currentUserToken.getToken(), currentComment.getCommentId());
 
@@ -873,11 +876,13 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                         sampleCommentsList.remove(position + 1);
 
+                        questionThread.setBest_answer_exist(true);
+
                     }
                     else
                     {
                         currentComment.setBestAnswer(0);
-
+                        questionThread.setBest_answer_exist(false);
                     }
 
                     commentAdapter.notifyDataSetChanged();
