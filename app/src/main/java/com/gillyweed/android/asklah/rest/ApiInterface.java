@@ -1,5 +1,6 @@
 package com.gillyweed.android.asklah.rest;
 
+import com.gillyweed.android.asklah.data.model.Achievement;
 import com.gillyweed.android.asklah.data.model.AddComment;
 import com.gillyweed.android.asklah.data.model.AddPost;
 import com.gillyweed.android.asklah.data.model.Comment;
@@ -171,5 +172,9 @@ public interface ApiInterface {
     @POST("user/tags")
     Call<Tag> subscribeTag(@Header("Auth_Key") String accessToken, @Query("tag_id") int tagId);
 
-
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @GET("user/achievement")
+    Call<Achievement> getAchievement(@Header("Auth_Key") String accessToken);
 }

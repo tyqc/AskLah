@@ -21,8 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gillyweed.android.asklah.data.model.AccessToken;
-import com.gillyweed.android.asklah.data.model.User;
+import com.gillyweed.android.asklah.data.model.*;
+import com.gillyweed.android.asklah.data.model.Achievement;
 import com.gillyweed.android.asklah.rest.ApiClient;
 import com.gillyweed.android.asklah.rest.ApiInterface;
 
@@ -41,6 +41,10 @@ public class ProfileFragment extends Fragment {
     SharedPreferences sharedPreferences;
     TextView usernameTextView;
     EditText newUsernameText;
+    TextView questionNoText;
+    TextView commentNoText;
+    TextView bestAnswerNoText;
+    TextView pointText;
     AccessToken currentUserToken;
     User currentUser;
     ApiInterface apiService;
@@ -61,6 +65,14 @@ public class ProfileFragment extends Fragment {
         usernameTextView = (TextView) rootView.findViewById(R.id.username_text_view);
         sharedPreferences = getActivity().getSharedPreferences(MyPref, Context.MODE_PRIVATE);
 
+        questionNoText = (TextView)rootView.findViewById(R.id.question_no_text);
+
+        commentNoText = (TextView)rootView.findViewById(R.id.comment_no_text);
+
+        bestAnswerNoText = (TextView)rootView.findViewById(R.id.best_answer_no_text);
+
+        pointText = (TextView)rootView.findViewById(R.id.point_text);
+
         GridView profileList = (GridView) rootView.findViewById(R.id.profile_grid_view);
 
         String[] listItemArray = getResources().getStringArray(R.array.profileArray);
@@ -79,6 +91,8 @@ public class ProfileFragment extends Fragment {
 
         currentUser = getActivity().getIntent().getParcelableExtra("user");
 
+        getAchievement();
+
         usernameTextView.setText(currentUser.getUsername());
 
         profileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -87,17 +101,10 @@ public class ProfileFragment extends Fragment {
                 switch(position)
                 {
                     case 0:
-//                        DialogFragment newFragment = new ChangeUsernameDialogFragment();
-//                        newFragment.show(getFragmentManager(), "ChangeUsernameDialogFragment");
+
                         showChangeUsernameDialog();
                         break;
-//                    case 1:
-//                        //Create a new intent to open the {@link AchievementsAcitivty}
-//                        Intent achievementsIntent = new Intent(getActivity(), AchievementsActivity.class);
-//
-//                        // Start the new activity
-//                        startActivity(achievementsIntent);
-//                        break;
+
                     case 1:
                         Call<ResponseBody> call = apiService.logout(currentUserToken.getToken());
                         call.enqueue(new Callback<ResponseBody>() {
@@ -134,13 +141,12 @@ public class ProfileFragment extends Fragment {
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 if(call.isCanceled())
                                 {
-                                    Log.e(TAG, "request was aborted");
+                                    Toast.makeText(getActivity(), "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
                                 }
                                 else
                                 {
-                                    Log.e(TAG, t.getMessage());
+                                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                                 }
-                                Log.i(TAG, "response code 3: " + t.getMessage());
                             }
                         });
                         break;
@@ -153,17 +159,6 @@ public class ProfileFragment extends Fragment {
         return rootView;
     }
 
-
-
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState)
-//    {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.profileArray, android.R.layout.simple_list_item_1);
-//
-//        setListAdapter(adapter);
-//    }
 
     public void showChangeUsernameDialog()
     {
@@ -223,8 +218,6 @@ public class ProfileFragment extends Fragment {
                 }
                 else
                 {
-                    Log.i(TAG, "error code: " + response.errorBody().toString());
-                    Log.i(TAG, "error code: " + response.code());
                     switch (responseCode)
                     {
                         case 400:
@@ -247,13 +240,12 @@ public class ProfileFragment extends Fragment {
             public void onFailure(Call<User> call, Throwable t) {
                 if(call.isCanceled())
                 {
-                    Log.e(TAG, "request was aborted");
+                    Toast.makeText(getActivity(), "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    Log.e(TAG, t.getMessage());
+                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                 }
-                Log.i(TAG, "response code 3: " + t.getMessage());
             }
         });
 
@@ -262,5 +254,70 @@ public class ProfileFragment extends Fragment {
     public void updateUsername(String newUsername)
     {
         usernameTextView.setText(newUsername);
+    }
+
+    public void getAchievement()
+    {
+        Call<com.gillyweed.android.asklah.data.model.Achievement> call = apiService.getAchievement(currentUserToken.getToken());
+
+        call.enqueue(new Callback<Achievement>() {
+            @Override
+            public void onResponse(Call<Achievement> call, Response<Achievement> response) {
+                int responseCode = response.code();
+
+                if(response.isSuccessful())
+                {
+                    if(responseCode == 200)
+                    {
+                        int question = response.body().getQuestionNo();
+
+                        int comment = response.body().getCommentNo();
+
+                        int answer = response.body().getAnswerNo();
+
+                        int point = response.body().getPoints();
+
+                        questionNoText.setText(String.valueOf(question));
+
+                        commentNoText.setText(String.valueOf(comment));
+
+                        bestAnswerNoText.setText(String.valueOf(answer));
+
+                        pointText.setText(String.valueOf(point));
+                    }
+
+                }
+                else
+                {
+                    switch (responseCode)
+                    {
+                        case 400:
+                            Toast.makeText(getActivity(), "Username field cannot be empty.", Toast.LENGTH_LONG).show();
+                            break;
+                        case 404:
+                            Toast.makeText(getActivity(), "Your data cannot be found.", Toast.LENGTH_LONG).show();
+                            break;
+                        case 409:
+                            Toast.makeText(getActivity(), "This username is unavailable.", Toast.LENGTH_LONG).show();
+                            break;
+                        default:
+                            Toast.makeText(getActivity(), "An error has occurred. Please try again later.", Toast.LENGTH_LONG).show();
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Achievement> call, Throwable t) {
+                if(call.isCanceled())
+                {
+                    Toast.makeText(getActivity(), "Login failed, request has been canceled", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

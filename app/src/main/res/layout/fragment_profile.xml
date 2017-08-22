@@ -54,7 +54,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10" />
+                    android:text="10"
+                    android:id="@+id/question_no_text"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -75,7 +76,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10" />
+                    android:text="10"
+                    android:id="@+id/comment_no_text"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,6 +96,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/best_answer_no_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10" />
@@ -101,7 +104,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Subscriptions" />
+                    android:text="Best Answers" />
 
             </LinearLayout>
 
@@ -119,7 +122,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="10" />
+                android:text="10"
+                android:id="@+id/point_text"/>
 
             <TextView
                 android:layout_width="match_parent"
