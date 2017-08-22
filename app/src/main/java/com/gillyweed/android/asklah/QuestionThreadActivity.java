@@ -168,7 +168,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                     if(questionThread.getVoted() == 1)
                     {
-                        DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.primary_text));
+                        DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.liked_color));
                     }
 
                     if(questionThread.getImgLink() != null)
@@ -584,8 +584,8 @@ public class QuestionThreadActivity extends AppCompatActivity {
                                 questionThread.setVote(questionThread.getVote() + 1);
                                 questionThread.setVoted(1);
                                 //voteBtn.setBackgroundResource(R.drawable.ic_thumb_up_primary_text_color_24dp);
-                                DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.primary_text));
-
+                                DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.liked_color));
+                                Toast.makeText(QuestionThreadActivity.this, "You have voted this post", Toast.LENGTH_LONG).show();
                             }
                             else
                             {
@@ -593,7 +593,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
                                 questionThread.setVoted(0);
                                 //voteBtn.setBackgroundResource(R.drawable.ic_thumb_up_light_24dp);
                                 DrawableCompat.setTint(voteBtn.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.tags_color));
-
+                                Toast.makeText(QuestionThreadActivity.this, "You have unvoted this post", Toast.LENGTH_LONG).show();
                             }
 
                             voteText.setText(questionThread.getVote() + "");
@@ -617,11 +617,11 @@ public class QuestionThreadActivity extends AppCompatActivity {
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         if(call.isCanceled())
                         {
-                            Log.e(TAG, "request was aborted");
+                            Toast.makeText(QuestionThreadActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
                         }
                         else
                         {
-                            Log.e(TAG, t.getMessage());
+                            Toast.makeText(QuestionThreadActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

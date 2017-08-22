@@ -40,4 +40,6 @@
 
     <color name="dialog_color_home">#E3EFF9</color>
 
+    <color name="liked_color">#ff0000</color>
+
 </resources>

@@ -94,7 +94,7 @@
                     android:layout_height="18dp"
                     android:adjustViewBounds="true"
                     android:gravity="center"
-                    android:src="@drawable/ic_thumb_up_light_24dp" />
+                    android:src="@drawable/ic_like_button_black" />
 
                 <TextView
                     android:id="@+id/post_vote_text"
