@@ -375,7 +375,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
 
                 final Comment currentComment = sampleCommentsList.get(position);
 
-                Call<ResponseBody> call = apiService.upvoteDownvoteComment(currentUserToken.getToken(), currentComment.getCommentId());
+                Call<ResponseBody> call = apiService.upvoteDownvoteComment(currentUserToken.getToken(), currentComment.getCommentId(), currentComment.getCommenter().getNusId());
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -570,7 +570,7 @@ public class QuestionThreadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Call<ResponseBody> call = apiService.upvoteDownvotePost(currentUserToken.getToken(), questionThread.getPostId());
+                Call<ResponseBody> call = apiService.upvoteDownvotePost(currentUserToken.getToken(), questionThread.getPostId(), questionThread.getOwner().getNusId());
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override

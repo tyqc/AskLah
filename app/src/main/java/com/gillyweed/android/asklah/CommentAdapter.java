@@ -152,6 +152,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
             else
             {
                 voteTextBtn.setText(R.string.unliked_button);
+                voteTextBtn.setTextColor(Color.parseColor("#989B99"));
             }
         }
 
