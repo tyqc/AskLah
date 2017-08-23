@@ -7,6 +7,8 @@ import com.gillyweed.android.asklah.data.model.Comment;
 import com.gillyweed.android.asklah.data.model.EditComment;
 import com.gillyweed.android.asklah.data.model.EditPost;
 import com.gillyweed.android.asklah.data.model.GetPost;
+import com.gillyweed.android.asklah.data.model.NotificationArr;
+import com.gillyweed.android.asklah.data.model.NotificationUpdate;
 import com.gillyweed.android.asklah.data.model.SubscriptionPosts;
 import com.gillyweed.android.asklah.data.model.SubscriptionTag;
 import com.gillyweed.android.asklah.data.model.SubscriptionTags;
@@ -177,4 +179,22 @@ public interface ApiInterface {
             "Content-Type: application/json"})
     @GET("user/achievement")
     Call<Achievement> getAchievement(@Header("Auth_Key") String accessToken);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @GET("notification/update")
+    Call<NotificationUpdate> getNotificationUpdate(@Header("Auth_Key") String accessToken);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @GET("notification")
+    Call<NotificationArr> getNotification(@Header("Auth_Key") String accessToken);
+
+    @Headers({
+            "Api_Key: 08006c47-d0b9-4990-adb1-7d76610a4536",
+            "Content-Type: application/json"})
+    @PUT("notification/read")
+    Call<ResponseBody> updateNotificationStatus(@Header("Auth_Key") String accessToken, @Query("notification_id") int notificationId);
 }

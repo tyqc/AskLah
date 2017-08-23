@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.BaseColumns;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gillyweed.android.asklah.data.model.AccessToken;
+import com.gillyweed.android.asklah.data.model.NotificationUpdate;
 import com.gillyweed.android.asklah.data.model.Tag;
 import com.gillyweed.android.asklah.data.model.TagArray;
 import com.gillyweed.android.asklah.data.model.TagDescrip;
@@ -108,6 +110,16 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         getAllTags();
+
+        getNotificationUpdate();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getNotificationUpdate();
+            }
+        }, 30000);
     }
 
     @Override
@@ -361,5 +373,46 @@ public class HomeActivity extends AppCompatActivity {
         {
             tagNameArrayList.add(tagArrayList.get(i).getTagName());
         }
+    }
+
+    public void getNotificationUpdate()
+    {
+        Call<NotificationUpdate> call = apiService.getNotificationUpdate(currentToken.getToken());
+
+        call.enqueue(new Callback<NotificationUpdate>() {
+            @Override
+            public void onResponse(Call<NotificationUpdate> call, Response<NotificationUpdate> response) {
+                final int responseCode = response.code();
+
+                if(response.isSuccessful()) {
+                    if(response.body().getNotificationNo() > 0)
+                    {
+                        int notificationNo = response.body().getNotificationNo();
+                        Toast.makeText(HomeActivity.this, "You have " + notificationNo + " new notifications", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else
+                {
+                    switch (responseCode)
+                    {
+                        default:
+                            Toast.makeText(HomeActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationUpdate> call, Throwable t) {
+                if(call.isCanceled())
+                {
+                    Toast.makeText(HomeActivity.this, "Request has been canceled", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(HomeActivity.this, "Some errors occur, please try again later", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

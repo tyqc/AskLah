@@ -42,4 +42,6 @@
 
     <color name="liked_color">#ff0000</color>
 
+    <color name="unread_color">#FFE7C7</color>
+
 </resources>

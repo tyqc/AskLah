@@ -30,6 +30,9 @@ public class User implements Parcelable{
     @SerializedName("access_token")
     private AccessToken accessToken;
 
+    @SerializedName("notification_last_seen")
+    private String notificationLastSeen;
+
 //    @SerializedName("subscription_tag")
 //    private ArrayList<SubscriptionTag> subscriptionTag;
 
@@ -44,6 +47,7 @@ public class User implements Parcelable{
         username = in.readString();
         password = in.readString();
         role = in.readString();
+        notificationLastSeen = in.readString();
 //        accessToken = in.readParcelable(AccessToken.class.getClassLoader());
     }
 
@@ -99,6 +103,11 @@ public class User implements Parcelable{
         return accessToken;
     }
 
+    public String getNotificationLastSeen()
+    {
+        return notificationLastSeen;
+    }
+
 //    public ArrayList<SubscriptionTag> getSubscriptionTag()
 //    {
 //        return subscriptionTag;
@@ -115,7 +124,7 @@ public class User implements Parcelable{
         dest.writeString(name);
         dest.writeString(username);
         dest.writeString(role);
-
+        dest.writeString(notificationLastSeen);
 //        accessToken.writeToParcel(dest, flags);
     }
 }

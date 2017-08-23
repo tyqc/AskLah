@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="4dp"
+    android:id="@+id/list_layout">
+
+    <TextView
+        android:id="@+id/notification_desrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/tags_color"
+        android:textSize="18sp"
+        android:text="someone commented your post"/>
+
+
+    <TextView
+        android:id="@+id/notification_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/tags_color"
+        android:textSize="12sp"
+        android:text="comment date"/>
+</LinearLayout>
